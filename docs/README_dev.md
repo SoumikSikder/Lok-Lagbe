@@ -170,12 +170,9 @@ This installs every package in one shot. The packages and their versions are:
 
 ## Step 6: Create the .env File
 
-Stay in the `backend` folder. Copy the example env file and fill in your values:
+Stay in the `backend` folder.
 
-```bash
-cd C:\Users\YourName\Documents\lok-lagbe\backend
-copy .env.example .env
-```
+Create a file called .env in the `backend` folder.
 
 Open `.env` and fill in:
 
