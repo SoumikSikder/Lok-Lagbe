@@ -61,10 +61,6 @@ git config --global user.email "your.email@northsouth.edu"
 then,
 
 ```bash
-gh auth login
-```
-
-```bash
 cd C:\Users\YourName\Documents // Replace with the path of your project directory
 git clone https://github.com/Soumik-Sikder/lok-lagbe.git
 cd lok-lagbe
