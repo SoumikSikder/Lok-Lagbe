@@ -12,20 +12,25 @@ Download and install all of the following before doing anything else. Version ma
 | Git | Latest | https://git-scm.com/downloads |
 | XAMPP | 3.3.0 or later | https://www.apachefriends.org |
 | VS Code | Latest | https://code.visualstudio.com |
+| GitHub CLI | Latest | https://cli.github.com |
 
 ### Python Installation: Important
 During installation check **"Add Python to PATH"** before clicking install. Otherwise Python will not be recognized in the terminal.
 
 On Windows Python runs as `py` not `python`. Verify with:
 
+```bash
 py --version
 py -m pip --version
+```
 
 ### Node.js Installation
 Install with default settings. Verify with:
 
+```bash
 node --version
 npm --version
+```
 
 ### XAMPP Installation
 Install with default settings. Only **MySQL** and **Apache** component from XAMPP is needed.
@@ -44,13 +49,26 @@ Open VS Code, press `Ctrl + Shift + X` and install all of the following:
 
 ---
 
-## Step 1: Clone the Repository
+## Step 1: GitHub Setup + Authorization and Clone the Repository
 
 Open a terminal anywhere and run:
 
+```bash
+git config --global user.name "Your Full Name"
+git config --global user.email "your.email@northsouth.edu"
+```
+
+then,
+
+```bash
+gh auth login
+```
+
+```bash
 cd C:\Users\YourName\Documents // Replace with the path of your project directory
 git clone https://github.com/Soumik-Sikder/lok-lagbe.git
 cd lok-lagbe
+```
 
 Replace `YourName` with your actual Windows username and the GitHub URL with the actual repo link.
 
@@ -58,7 +76,9 @@ Replace `YourName` with your actual Windows username and the GitHub URL with the
 
 ## Step 2: Open the Project in VS Code
 
+```bash
 code .
+```
 
 This opens the entire `lok-lagbe` folder in VS Code. Always open VS Code from the root project folder, never from inside `backend` or `frontend` individually.
 
@@ -83,12 +103,16 @@ You must start MySQL and Apache in XAMPP every single time before running the ba
 
 Open a terminal in VS Code (`Ctrl + backtick`) and run:
 
+```bash
 cd C:\Users\YourName\Documents\lok-lagbe\backend
 py -m venv venv
+```
 
 ### Activate the virtual environment
 
+```bash
 venv\Scripts\activate.bat
+```
 
 You must see `(venv)` at the start of your terminal line before running any further backend commands. If you do not see it the venv is not active.
 
@@ -112,7 +136,9 @@ Replace `YourName` with your actual Windows username. After this VS Code will au
 
 If you get an error about the module not being loaded run this in PowerShell as administrator:
 
+```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
 
 Then try `venv\Scripts\activate.bat` again.
 
@@ -122,8 +148,10 @@ Then try `venv\Scripts\activate.bat` again.
 
 Make sure you are in the `backend` folder with `(venv)` active, then run:
 
+```bash
 cd C:\Users\YourName\Documents\lok-lagbe\backend
 py -m pip install -r requirements.txt
+```
 
 This installs every package in one shot. The packages and their versions are:
 
@@ -144,8 +172,10 @@ This installs every package in one shot. The packages and their versions are:
 
 Stay in the `backend` folder. Copy the example env file and fill in your values:
 
+```bash
 cd C:\Users\YourName\Documents\lok-lagbe\backend
 copy .env.example .env
+```
 
 Open `.env` and fill in:
 
@@ -161,8 +191,9 @@ DB_PORT=3306
 
 To generate your own secret key run this with venv active:
 
+```bash
 py -c "import secrets; print(secrets.token_urlsafe(50))"
-
+```
 
 Copy the output and paste it as your `SECRET_KEY`. Every developer has their own unique secret key. Do not share it and do not commit the `.env` file to GitHub.
 
@@ -172,12 +203,16 @@ Copy the output and paste it as your `SECRET_KEY`. Every developer has their own
 
 Make sure you are in the `backend` folder with `(venv)` active:
 
+```bash
 cd C:\Users\YourName\Documents\lok-lagbe\backend
 py manage.py migrate
+```
 
 You should see a list of migrations being applied. Then create a superuser for the Django admin panel:
 
+```bash
 py manage.py createsuperuser
+```
 
 Enter a username, email and password when prompted. This is your admin login.
 
@@ -187,8 +222,10 @@ Enter a username, email and password when prompted. This is your admin login.
 
 Still in the `backend` folder with `(venv)` active:
 
+```bash
 cd C:\Users\YourName\Documents\lok-lagbe\backend
 py manage.py runserver
+```
 
 Open your browser and go to `http://localhost:8000` — you should see the Django welcome page.
 Go to `http://localhost:8000/admin` — you should see the Django admin login.
@@ -218,20 +255,24 @@ This installs all frontend packages from `package.json` automatically including:
 
 Still in the `frontend` folder:
 
+```bash
 cd C:\Users\YourName\Documents\lok-lagbe\frontend
 npm run dev
+```
 
 Open your browser and go to `http://localhost:5173` — you should see the Vite + React welcome page.
 
 ---
 
-## Step 11 — Update CORS in settings.py
+## Step 11: Update CORS in settings.py
 
 Open `backend/loklagbe/settings.py` and make sure this is set:
 
+```python
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
+```
 
 Vite runs on port 5173 not 3000. If this is wrong the React frontend cannot talk to the Django backend.
 
@@ -245,15 +286,36 @@ Every time you sit down to work do this in order:
 
 **2. Terminal 1: Start Django backend:**
 
+```bash
 cd C:\Users\YourName\Documents\lok-lagbe\backend
 venv\Scripts\activate.bat
 py manage.py runserver
-
+```
 
 **3. Terminal 2: Start React frontend:**
 
+```bash
 cd C:\Users\YourName\Documents\lok-lagbe\frontend
 npm run dev
+```
+
+**4. GitHub commands: Pulling and Pushing:**
+
+Pulling:
+
+```bash
+cd C:\Users\YourName\Documents\lok-lagbe
+git checkout develop
+git pull origin develop
+```
+
+Pushing:
+
+```bash
+git add .
+git commit -m "Add: brief description of what you did"
+git push origin develop
+```
 
 ---
 
