@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/RegisterPage.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/RegisterPage.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState } from "react";
+import { _registerUser } from "../services/authService";
+
+/**
+ * Array of avatar options available for the user to select.
+ * @constant {number[]}
+ */
+const AVATAR_OPTIONS = [1, 2, 3, 4, 5];
+
+/**
+ * Avatar color styles for each avatar option.
+ * @constant {object}
+ */
+const AVATAR_COLORS = {
+    1: "bg-blue-500",
+    2: "bg-green-500",
+    3: "bg-yellow-500",
+    4: "bg-pink-500",
+    5: "bg-teal-500",
+};
+
+/**
+ * Registration page component that allows a new user to create an account.
+ * Collects username, email, password, phone number, address and avatar.
+ * Submits the data to the Django backend via the authService.
+ * @component
+ * @returns {JSX.Element} The registration form page.
+ */
+function RegisterPage() {
+
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [phone_number, setPhoneNumber] = useState("");
+    const [address, setAddress] = useState("");
+    const [avatar, setAvatar] = useState(1);
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    /**
+     * Handles the form submission.
+     * Validates required fields then calls the register API.
+     * Shows success or error message based on the result.
+     * @param {React.FormEvent} e - The form submission event.
+     * @returns {void}
+     */
+    const _handleSubmit = async (e) => {
+        e.preventDefault();
+        setError("");
+        setSuccess("");
+        setLoading(true);
+
+        if (!username || !email || !password) {
+            setError("Username, email and password are required.");
+            setLoading(false);
+            return;
+        }
+
+        try {
+            await _registerUser(
+                username,
+                email,
+                password,
+                phone_number,
+                address,
+                avatar
+            );
+            setSuccess("Account created successfully! You can now log in.");
+        } catch (err) {
+            const message =
+                err.response?.data?.username?.[0] ||
+                err.response?.data?.email?.[0] ||
+                err.response?.data?.password?.[0] ||
+                "Registration failed. Please try again.";
+            setError(message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    /**
+     * Handles avatar selection when user clicks an avatar option.
+     * @param {number} avatarNumber - The avatar number selected by the user.
+     * @returns {void}
+     */
+    const _handleAvatarSelect = (avatarNumber) => {
+        setAvatar(avatarNumber);
+    };
+
+    return (
+        &lt;div className="min-h-screen bg-bg flex items-center justify-center px-4 py-12">
+            &lt;div className="w-full max-w-md">
+
+                {/* Logo */}
+                &lt;div className="text-center mb-8">
+                    &lt;h1 className="text-2xl font-medium text-text-primary">
+                        Lok &lt;span className="text-accent">Lagbe&lt;/span>
+                    &lt;/h1>
+                    &lt;p className="text-text-secondary text-sm mt-2">
+                        Create your account to get started.
+                    &lt;/p>
+                &lt;/div>
+
+                {/* Card */}
+                &lt;div className="card border border-border">
+
+                    {/* Avatar picker */}
+                    &lt;div className="mb-6">
+                        &lt;label className="field-label">
+                            Choose a profile avatar
+                        &lt;/label>
+                        &lt;div className="flex gap-3 mt-2">
+                            {AVATAR_OPTIONS.map((option) => (
+                                &lt;button
+                                    key={option}
+                                    type="button"
+                                    onClick={() => _handleAvatarSelect(option)}
+                                    className={`w-11 h-11 rounded-full flex items-center justify-center text-white font-medium text-sm transition-all duration-150 ${AVATAR_COLORS[option]} ${
+                                        avatar === option
+                                            ? "ring-2 ring-accent ring-offset-2 ring-offset-surface scale-110"
+                                            : "opacity-50 hover:opacity-100"
+                                    }`}
+                                >
+                                    {option}
+                                &lt;/button>
+                            ))}
+                        &lt;/div>
+                    &lt;/div>
+
+                    {/* Form */}
+                    &lt;form onSubmit={_handleSubmit}>
+
+                        {/* Username */}
+                        &lt;div className="mb-4">
+                            &lt;label className="field-label">Username&lt;/label>
+                            &lt;input
+                                className="field-input"
+                                type="text"
+                                placeholder="yourname123"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        &lt;/div>
+
+                        {/* Email */}
+                        &lt;div className="mb-4">
+                            &lt;label className="field-label">Email address&lt;/label>
+                            &lt;input
+                                className="field-input"
+                                type="email"
+                                placeholder="you@example.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        &lt;/div>
+
+                        {/* Password */}
+                        &lt;div className="mb-4">
+                            &lt;label className="field-label">Password&lt;/label>
+                            &lt;input
+                                className="field-input"
+                                type="password"
+                                placeholder="Minimum 8 characters"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        &lt;/div>
+
+                        {/* Phone number */}
+                        &lt;div className="mb-4">
+                            &lt;label className="field-label">
+                                Phone number{" "}
+                                &lt;span className="text-text-muted">(optional)&lt;/span>
+                            &lt;/label>
+                            &lt;input
+                                className="field-input"
+                                type="tel"
+                                placeholder="+880 1XXX XXXXXX"
+                                value={phone_number}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
+                        &lt;/div>
+
+                        {/* Address */}
+                        &lt;div className="mb-6">
+                            &lt;label className="field-label">
+                                Address{" "}
+                                &lt;span className="text-text-muted">(optional)&lt;/span>
+                            &lt;/label>
+                            &lt;input
+                                className="field-input"
+                                type="text"
+                                placeholder="Dhaka, Bangladesh"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                            />
+                        &lt;/div>
+
+                        {/* Error message */}
+                        {error &amp;&amp; (
+                            &lt;div className="mb-4 text-danger text-sm">
+                                {error}
+                            &lt;/div>
+                        )}
+
+                        {/* Success message */}
+                        {success &amp;&amp; (
+                            &lt;div className="mb-4 text-accent text-sm">
+                                {success}
+                            &lt;/div>
+                        )}
+
+                        {/* Submit button */}
+                        &lt;button
+                            type="submit"
+                            className="btn-primary w-full"
+                            disabled={loading}
+                        >
+                            {loading ? "Creating account..." : "Create account"}
+                        &lt;/button>
+
+                    &lt;/form>
+
+                    {/* Login link */}
+                    &lt;p className="text-center text-text-secondary text-sm mt-6">
+                        Already have an account?{" "}
+                        &lt;a
+                            href="/login"
+                            className="text-accent hover:underline"
+                        >
+                            Log in
+                        &lt;/a>
+                    &lt;/p>
+
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    );
+}
+
+export default RegisterPage;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#API_URL">API_URL</a></li><li><a href="global.html#AVATAR_COLORS">AVATAR_COLORS</a></li><li><a href="global.html#AVATAR_OPTIONS">AVATAR_OPTIONS</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#JOB_CATEGORIES">JOB_CATEGORIES</a></li><li><a href="global.html#PLATFORM_STATS">PLATFORM_STATS</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#_registerUser">_registerUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Sun Aug 16 2026 13:57:36 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

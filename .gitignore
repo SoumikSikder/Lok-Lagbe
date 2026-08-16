@@ -14,6 +14,10 @@ frontend/node_modules/
 frontend/dist/
 frontend/.env
 
+# pytest cache
+backend/.pytest_cache/
+backend/**/.pytest_cache/
+
 # OS
 .DS_Store
 Thumbs.db
