@@ -1,0 +1,4 @@
+# Optional dependencies used only to build and validate project documentation.
+reportlab>=4.0,<5.0
+pypdf>=6.0,<7.0
+sphinx>=8.2,<9.0

@@ -1,0 +1,618 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "!tSICCyVs1TIg3P5S4duwyKi1A5KxsUxOfSPM33vu",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "demo_amina",
+    "first_name": "Amina",
+    "last_name": "Rahman",
+    "email": "amina@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-08-06T18:45:22.358Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "!lMXN0wNjAnetttHVYgsNjB9GOXyZorqWhn8T05eu",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "demo_tanvir",
+    "first_name": "Tanvir",
+    "last_name": "Ahmed",
+    "email": "tanvir@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-08-06T18:45:22.360Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "!xhZqUGRdx5kTqYa7G6zcIFqKanxU6z5dSEK0ospH",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "demo_sadia",
+    "first_name": "Sadia",
+    "last_name": "Islam",
+    "email": "sadia@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-08-06T18:45:22.363Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "!1rgpVsx31nC1ZA5asByclzRAzQIf2ixce05YbDAp",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "demo_nabil",
+    "first_name": "Nabil",
+    "last_name": "Hasan",
+    "email": "nabil@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-08-06T18:45:22.364Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 1,
+  "fields": {
+    "name": "Rahim Uddin",
+    "photo": "labor_photos/rahim-uddin.jpg",
+    "profession": "Residential Electrician",
+    "category": "Electrician",
+    "location": "Dhanmondi, Dhaka",
+    "hourly_wage": "450.00",
+    "rating": "4.5",
+    "review_count": 2,
+    "description": "Experienced in household wiring, switchboards, and electrical fault diagnosis.",
+    "phone": "01710000001",
+    "email": "rahim.electrician@example.com",
+    "available": true,
+    "experience": 8,
+    "skills": [
+      "House wiring",
+      "Circuit repair",
+      "Safety inspection"
+    ],
+    "created_at": "2026-08-06T18:45:22.369Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 2,
+  "fields": {
+    "name": "Karim Mia",
+    "photo": "labor_photos/karim-mia.jpg",
+    "profession": "Plumber",
+    "category": "Plumber",
+    "location": "Mirpur, Dhaka",
+    "hourly_wage": "380.00",
+    "rating": "4.5",
+    "review_count": 2,
+    "description": "Handles pipe installation, leak repair, and bathroom fitting work.",
+    "phone": "01710000002",
+    "email": "karim.plumber@example.com",
+    "available": true,
+    "experience": 6,
+    "skills": [
+      "Leak repair",
+      "Pipe fitting",
+      "Bathroom fixtures"
+    ],
+    "created_at": "2026-08-06T18:45:22.373Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 3,
+  "fields": {
+    "name": "Selim Ahmed",
+    "photo": "labor_photos/selim-ahmed.jpg",
+    "profession": "Furniture Carpenter",
+    "category": "Carpenter",
+    "location": "Uttara, Dhaka",
+    "hourly_wage": "520.00",
+    "rating": "5.0",
+    "review_count": 1,
+    "description": "Builds and repairs custom wooden furniture for homes and small offices.",
+    "phone": "01710000003",
+    "email": "selim.carpenter@example.com",
+    "available": false,
+    "experience": 12,
+    "skills": [
+      "Furniture making",
+      "Wood polishing",
+      "Cabinet repair"
+    ],
+    "created_at": "2026-08-06T18:45:22.375Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 4,
+  "fields": {
+    "name": "Nasima Akter",
+    "photo": "labor_photos/nasima-akter.jpg",
+    "profession": "House Painter",
+    "category": "Painter",
+    "location": "Mohammadpur, Dhaka",
+    "hourly_wage": "350.00",
+    "rating": "4.0",
+    "review_count": 1,
+    "description": "Provides clean interior and exterior painting with careful surface preparation.",
+    "phone": "01710000004",
+    "email": "nasima.painter@example.com",
+    "available": true,
+    "experience": 5,
+    "skills": [
+      "Interior painting",
+      "Wall preparation",
+      "Color mixing"
+    ],
+    "created_at": "2026-08-06T18:45:22.378Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 5,
+  "fields": {
+    "name": "Jamal Hossain",
+    "photo": "labor_photos/jamal-hossain.jpg",
+    "profession": "Construction Mason",
+    "category": "Mason",
+    "location": "Savar, Dhaka",
+    "hourly_wage": "480.00",
+    "rating": "5.0",
+    "review_count": 1,
+    "description": "Works on brick walls, plastering, floor repair, and small construction projects.",
+    "phone": "01710000005",
+    "email": "jamal.mason@example.com",
+    "available": true,
+    "experience": 10,
+    "skills": [
+      "Brickwork",
+      "Plastering",
+      "Floor repair"
+    ],
+    "created_at": "2026-08-06T18:45:22.380Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 6,
+  "fields": {
+    "name": "Shahana Begum",
+    "photo": "labor_photos/shahana-begum.jpg",
+    "profession": "Home Cleaner",
+    "category": "Cleaner",
+    "location": "Banani, Dhaka",
+    "hourly_wage": "280.00",
+    "rating": "5.0",
+    "review_count": 1,
+    "description": "Offers dependable home, kitchen, and post-renovation cleaning services.",
+    "phone": "01710000006",
+    "email": "shahana.cleaner@example.com",
+    "available": true,
+    "experience": 4,
+    "skills": [
+      "Deep cleaning",
+      "Kitchen cleaning",
+      "Window cleaning"
+    ],
+    "created_at": "2026-08-06T18:45:22.383Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 7,
+  "fields": {
+    "name": "Babul Chandra",
+    "photo": "labor_photos/babul-chandra.jpg",
+    "profession": "Garden Care Worker",
+    "category": "Gardener",
+    "location": "Gazipur",
+    "hourly_wage": "300.00",
+    "rating": "4.0",
+    "review_count": 1,
+    "description": "Maintains gardens through planting, pruning, lawn care, and pest control.",
+    "phone": "01710000007",
+    "email": "babul.gardener@example.com",
+    "available": false,
+    "experience": 7,
+    "skills": [
+      "Planting",
+      "Pruning",
+      "Lawn care"
+    ],
+    "created_at": "2026-08-06T18:45:22.384Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 8,
+  "fields": {
+    "name": "Faruk Hasan",
+    "photo": "labor_photos/faruk-hasan.jpg",
+    "profession": "AC Service Technician",
+    "category": "AC Technician",
+    "location": "Bashundhara, Dhaka",
+    "hourly_wage": "650.00",
+    "rating": "5.0",
+    "review_count": 1,
+    "description": "Diagnoses, cleans, and repairs residential air-conditioning systems.",
+    "phone": "01710000008",
+    "email": "faruk.ac@example.com",
+    "available": true,
+    "experience": 9,
+    "skills": [
+      "AC servicing",
+      "Gas refill",
+      "Compressor diagnosis"
+    ],
+    "created_at": "2026-08-06T18:45:22.387Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 9,
+  "fields": {
+    "name": "Rina Khatun",
+    "photo": "labor_photos/rina-khatun.jpg",
+    "profession": "Office Cleaner",
+    "category": "Cleaner",
+    "location": "Motijheel, Dhaka",
+    "hourly_wage": "320.00",
+    "rating": "4.0",
+    "review_count": 1,
+    "description": "Provides scheduled office cleaning with attention to shared workspaces.",
+    "phone": "01710000009",
+    "email": "rina.cleaner@example.com",
+    "available": true,
+    "experience": 6,
+    "skills": [
+      "Office cleaning",
+      "Floor care",
+      "Waste management"
+    ],
+    "created_at": "2026-08-06T18:45:22.390Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 10,
+  "fields": {
+    "name": "Habib Rahman",
+    "photo": "labor_photos/habib-rahman.jpg",
+    "profession": "Commercial Electrician",
+    "category": "Electrician",
+    "location": "Agrabad, Chattogram",
+    "hourly_wage": "580.00",
+    "rating": "5.0",
+    "review_count": 1,
+    "description": "Installs and maintains electrical systems for shops and small businesses.",
+    "phone": "01710000010",
+    "email": "habib.electrician@example.com",
+    "available": true,
+    "experience": 11,
+    "skills": [
+      "Commercial wiring",
+      "Panel setup",
+      "Load testing"
+    ],
+    "created_at": "2026-08-06T18:45:22.392Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 11,
+  "fields": {
+    "name": "Monirul Islam",
+    "photo": "labor_photos/monirul-islam.jpg",
+    "profession": "Sanitary Plumber",
+    "category": "Plumber",
+    "location": "Sonadanga, Khulna",
+    "hourly_wage": "340.00",
+    "rating": "3.0",
+    "review_count": 1,
+    "description": "Specializes in sanitary lines, water tanks, and drainage repair.",
+    "phone": "01710000011",
+    "email": "monirul.plumber@example.com",
+    "available": true,
+    "experience": 5,
+    "skills": [
+      "Sanitary lines",
+      "Tank fitting",
+      "Drain cleaning"
+    ],
+    "created_at": "2026-08-06T18:45:22.395Z"
+  }
+},
+{
+  "model": "labor.labor",
+  "pk": 12,
+  "fields": {
+    "name": "Abdul Kader",
+    "photo": "labor_photos/abdul-kader.jpg",
+    "profession": "Door and Window Carpenter",
+    "category": "Carpenter",
+    "location": "Zindabazar, Sylhet",
+    "hourly_wage": "460.00",
+    "rating": "4.0",
+    "review_count": 1,
+    "description": "Repairs and installs wooden doors, windows, locks, and frames.",
+    "phone": "01710000012",
+    "email": "kader.carpenter@example.com",
+    "available": true,
+    "experience": 8,
+    "skills": [
+      "Door fitting",
+      "Window repair",
+      "Lock installation"
+    ],
+    "created_at": "2026-08-06T18:45:22.397Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "labor": 1,
+    "rating": 5,
+    "comment": "Very professional.",
+    "date": "2026-08-06T18:45:22.399Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "labor": 1,
+    "rating": 4,
+    "comment": "Arrived on time.",
+    "date": "2026-08-06T18:45:22.400Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "labor": 2,
+    "rating": 5,
+    "comment": "Fixed the leak quickly.",
+    "date": "2026-08-06T18:45:22.402Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 4,
+  "fields": {
+    "user": 4,
+    "labor": 2,
+    "rating": 4,
+    "comment": "Good quality work.",
+    "date": "2026-08-06T18:45:22.403Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 5,
+  "fields": {
+    "user": 1,
+    "labor": 3,
+    "rating": 5,
+    "comment": "Excellent finish.",
+    "date": "2026-08-06T18:45:22.405Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 6,
+  "fields": {
+    "user": 2,
+    "labor": 4,
+    "rating": 4,
+    "comment": "Neat painting work.",
+    "date": "2026-08-06T18:45:22.406Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 7,
+  "fields": {
+    "user": 3,
+    "labor": 5,
+    "rating": 5,
+    "comment": "Strong brickwork.",
+    "date": "2026-08-06T18:45:22.406Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 8,
+  "fields": {
+    "user": 4,
+    "labor": 6,
+    "rating": 5,
+    "comment": "Thorough cleaning.",
+    "date": "2026-08-06T18:45:22.407Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 9,
+  "fields": {
+    "user": 1,
+    "labor": 7,
+    "rating": 4,
+    "comment": "Garden looks fresh.",
+    "date": "2026-08-06T18:45:22.408Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 10,
+  "fields": {
+    "user": 2,
+    "labor": 8,
+    "rating": 5,
+    "comment": "AC works perfectly now.",
+    "date": "2026-08-06T18:45:22.409Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 11,
+  "fields": {
+    "user": 3,
+    "labor": 9,
+    "rating": 4,
+    "comment": "Reliable service.",
+    "date": "2026-08-06T18:45:22.409Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 12,
+  "fields": {
+    "user": 4,
+    "labor": 10,
+    "rating": 5,
+    "comment": "Highly skilled.",
+    "date": "2026-08-06T18:45:22.410Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 13,
+  "fields": {
+    "user": 1,
+    "labor": 11,
+    "rating": 3,
+    "comment": "Work was satisfactory.",
+    "date": "2026-08-06T18:45:22.411Z"
+  }
+},
+{
+  "model": "labor.review",
+  "pk": 14,
+  "fields": {
+    "user": 2,
+    "labor": 12,
+    "rating": 4,
+    "comment": "Good door repair.",
+    "date": "2026-08-06T18:45:22.412Z"
+  }
+},
+{
+  "model": "booking.booking",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "labor": 1,
+    "work_date": "2026-08-09",
+    "start_time": "09:00:00",
+    "duration": "2.00",
+    "address": "House 12, Dhanmondi, Dhaka",
+    "notes": "DUMMY-BK-001",
+    "status": "pending",
+    "created_at": "2026-08-06T18:45:22.423Z"
+  }
+},
+{
+  "model": "booking.booking",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "labor": 2,
+    "work_date": "2026-08-10",
+    "start_time": "10:30:00",
+    "duration": "1.50",
+    "address": "Road 5, Mirpur, Dhaka",
+    "notes": "DUMMY-BK-002",
+    "status": "accepted",
+    "created_at": "2026-08-06T18:45:22.425Z"
+  }
+},
+{
+  "model": "booking.booking",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "labor": 4,
+    "work_date": "2026-08-12",
+    "start_time": "08:00:00",
+    "duration": "8.00",
+    "address": "Block C, Mohammadpur, Dhaka",
+    "notes": "DUMMY-BK-003",
+    "status": "accepted",
+    "created_at": "2026-08-06T18:45:22.426Z"
+  }
+},
+{
+  "model": "booking.booking",
+  "pk": 4,
+  "fields": {
+    "user": 4,
+    "labor": 8,
+    "work_date": "2026-08-04",
+    "start_time": "14:00:00",
+    "duration": "2.00",
+    "address": "Bashundhara R/A, Dhaka",
+    "notes": "DUMMY-BK-004",
+    "status": "completed",
+    "created_at": "2026-08-06T18:45:22.427Z"
+  }
+},
+{
+  "model": "booking.booking",
+  "pk": 5,
+  "fields": {
+    "user": 1,
+    "labor": 5,
+    "work_date": "2026-08-14",
+    "start_time": "07:30:00",
+    "duration": "6.00",
+    "address": "Savar Bus Stand, Dhaka",
+    "notes": "DUMMY-BK-005",
+    "status": "pending",
+    "created_at": "2026-08-06T18:45:22.428Z"
+  }
+},
+{
+  "model": "booking.booking",
+  "pk": 6,
+  "fields": {
+    "user": 2,
+    "labor": 3,
+    "work_date": "2026-08-02",
+    "start_time": "11:00:00",
+    "duration": "3.00",
+    "address": "Sector 7, Uttara, Dhaka",
+    "notes": "DUMMY-BK-006",
+    "status": "rejected",
+    "created_at": "2026-08-06T18:45:22.429Z"
+  }
+}
+]
