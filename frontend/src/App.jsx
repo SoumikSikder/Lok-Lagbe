@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
+import HowItWorksPage from "./pages/HowItWorksPage";
+import PricingPage from "./pages/PricingPage";
 
 /**
  * Root application component that sets up client side routing.
@@ -19,6 +21,14 @@ function App() {
                 <Route
                     path="/register"
                     element={<RegisterPage />}
+                />
+                <Route
+                    path="/how-it-works"
+                    element={<HowItWorksPage />}
+                />
+                <Route
+                    path="/pricing"
+                    element={<PricingPage />}
                 />
             </Routes>
         </BrowserRouter>

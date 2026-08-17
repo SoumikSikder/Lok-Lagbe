@@ -61,6 +61,18 @@ function HomePage() {
                 </div>
                 <div className="flex items-center gap-4">
                     <a
+                        href="/how-it-works"
+                        className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+                    >
+                        How it works
+                    </a>
+                    <a
+                        href="/pricing"
+                        className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+                    >
+                        Pricing
+                    </a>
+                    <a
                         href="/login"
                         className="text-sm text-text-secondary hover:text-text-primary transition-colors"
                     >
