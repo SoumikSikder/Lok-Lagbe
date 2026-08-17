@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/LaborFilters.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/LaborFilters.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState } from "react";
+
+
+const LABOR_CATEGORIES = [
+    "AC Technician",
+    "Carpenter",
+    "Cleaner",
+    "Electrician",
+    "Gardener",
+    "Mason",
+    "Painter",
+    "Plumber",
+];
+
+const SORT_OPTIONS = [
+    { value: "highest_rated", label: "Highest rated" },
+    { value: "lowest_wage", label: "Lowest wage" },
+    { value: "highest_wage", label: "Highest wage" },
+    { value: "most_reviewed", label: "Most reviewed" },
+];
+
+
+/**
+ * Display category, rating, wage, and sorting controls.
+ *
+ * @param {object} props Component properties.
+ * @param {object} props.initialValues Currently applied filter values.
+ * @param {Function} props.onApply Apply validated filters.
+ * @param {Function} props.onReset Clear all filters and sorting.
+ * @returns {JSX.Element} Responsive labor filter form.
+ */
+function LaborFilters({ initialValues, onApply, onReset }) {
+    const [category, setCategory] = useState(initialValues.category);
+    const [rating, setRating] = useState(initialValues.rating);
+    const [minimumWage, setMinimumWage] = useState(initialValues.min_wage);
+    const [maximumWage, setMaximumWage] = useState(initialValues.max_wage);
+    const [sort, setSort] = useState(initialValues.sort);
+    const [errors, setErrors] = useState({});
+
+    function _validateWages() {
+        const nextErrors = {};
+        const parsedMinimum = Number(minimumWage);
+        const parsedMaximum = Number(maximumWage);
+
+        if (minimumWage !== "" &amp;&amp; (!Number.isFinite(parsedMinimum) || parsedMinimum &lt; 0)) {
+            nextErrors.min_wage = "Enter a non-negative minimum wage.";
+        }
+        if (maximumWage !== "" &amp;&amp; (!Number.isFinite(parsedMaximum) || parsedMaximum &lt; 0)) {
+            nextErrors.max_wage = "Enter a non-negative maximum wage.";
+        }
+        if (
+            !nextErrors.min_wage
+            &amp;&amp; !nextErrors.max_wage
+            &amp;&amp; minimumWage !== ""
+            &amp;&amp; maximumWage !== ""
+            &amp;&amp; parsedMinimum > parsedMaximum
+        ) {
+            nextErrors.max_wage = "Maximum wage must not be below minimum wage.";
+        }
+
+        setErrors(nextErrors);
+        return Object.keys(nextErrors).length === 0;
+    }
+
+    function _handleSubmit(event) {
+        event.preventDefault();
+        if (!_validateWages()) {
+            return;
+        }
+
+        onApply({
+            category,
+            rating,
+            min_wage: minimumWage.trim(),
+            max_wage: maximumWage.trim(),
+            sort,
+        });
+    }
+
+    function _handleReset() {
+        setCategory("");
+        setRating("");
+        setMinimumWage("");
+        setMaximumWage("");
+        setSort("highest_rated");
+        setErrors({});
+        onReset();
+    }
+
+    return (
+        &lt;form
+            onSubmit={_handleSubmit}
+            className="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200 sm:p-5"
+            noValidate
+        >
+            &lt;div className="flex items-center justify-between gap-4">
+                &lt;h2 className="font-semibold text-slate-900">
+                    Filter and sort
+                &lt;/h2>
+                &lt;button
+                    type="button"
+                    onClick={_handleReset}
+                    className="text-sm font-semibold text-brand-700 transition hover:text-brand-800"
+                >
+                    Reset
+                &lt;/button>
+            &lt;/div>
+
+            &lt;div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                &lt;label className="text-sm font-medium text-slate-700">
+                    Category
+                    &lt;select
+                        value={category}
+                        onChange={(event) => setCategory(event.target.value)}
+                        className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-brand-500 focus:ring-3 focus:ring-brand-100"
+                    >
+                        &lt;option value="">All categories&lt;/option>
+                        {LABOR_CATEGORIES.map((option) => (
+                            &lt;option key={option} value={option}>
+                                {option}
+                            &lt;/option>
+                        ))}
+                    &lt;/select>
+                &lt;/label>
+
+                &lt;label className="text-sm font-medium text-slate-700">
+                    Minimum rating
+                    &lt;select
+                        value={rating}
+                        onChange={(event) => setRating(event.target.value)}
+                        className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-brand-500 focus:ring-3 focus:ring-brand-100"
+                    >
+                        &lt;option value="">Any rating&lt;/option>
+                        &lt;option value="3">3.0 and above&lt;/option>
+                        &lt;option value="4">4.0 and above&lt;/option>
+                        &lt;option value="4.5">4.5 and above&lt;/option>
+                    &lt;/select>
+                &lt;/label>
+
+                &lt;label className="text-sm font-medium text-slate-700">
+                    Minimum wage
+                    &lt;input
+                        type="number"
+                        min="0"
+                        step="50"
+                        value={minimumWage}
+                        onChange={(event) => setMinimumWage(event.target.value)}
+                        placeholder="৳0"
+                        aria-invalid={Boolean(errors.min_wage)}
+                        className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none placeholder:text-slate-400 focus:border-brand-500 focus:ring-3 focus:ring-brand-100"
+                    />
+                    {errors.min_wage &amp;&amp; (
+                        &lt;span className="mt-1 block text-xs text-red-700">
+                            {errors.min_wage}
+                        &lt;/span>
+                    )}
+                &lt;/label>
+
+                &lt;label className="text-sm font-medium text-slate-700">
+                    Maximum wage
+                    &lt;input
+                        type="number"
+                        min="0"
+                        step="50"
+                        value={maximumWage}
+                        onChange={(event) => setMaximumWage(event.target.value)}
+                        placeholder="No maximum"
+                        aria-invalid={Boolean(errors.max_wage)}
+                        className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none placeholder:text-slate-400 focus:border-brand-500 focus:ring-3 focus:ring-brand-100"
+                    />
+                    {errors.max_wage &amp;&amp; (
+                        &lt;span className="mt-1 block text-xs text-red-700">
+                            {errors.max_wage}
+                        &lt;/span>
+                    )}
+                &lt;/label>
+
+                &lt;label className="text-sm font-medium text-slate-700">
+                    Sort by
+                    &lt;select
+                        value={sort}
+                        onChange={(event) => setSort(event.target.value)}
+                        className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none focus:border-brand-500 focus:ring-3 focus:ring-brand-100"
+                    >
+                        {SORT_OPTIONS.map((option) => (
+                            &lt;option key={option.value} value={option.value}>
+                                {option.label}
+                            &lt;/option>
+                        ))}
+                    &lt;/select>
+                &lt;/label>
+            &lt;/div>
+
+            &lt;div className="mt-5 flex justify-end">
+                &lt;button
+                    type="submit"
+                    className="w-full rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 sm:w-auto"
+                >
+                    Apply filters
+                &lt;/button>
+            &lt;/div>
+        &lt;/form>
+    );
+}
+
+
+export default LaborFilters;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppShell">AppShell</a></li><li><a href="global.html#BookingConfirmation">BookingConfirmation</a></li><li><a href="global.html#BookingSuccessPage">BookingSuccessPage</a></li><li><a href="global.html#EmptyState">EmptyState</a></li><li><a href="global.html#ErrorState">ErrorState</a></li><li><a href="global.html#FormFieldError">FormFieldError</a></li><li><a href="global.html#HireForm">HireForm</a></li><li><a href="global.html#HireLaborPage">HireLaborPage</a></li><li><a href="global.html#HireLaborSummary">HireLaborSummary</a></li><li><a href="global.html#LaborCard">LaborCard</a></li><li><a href="global.html#LaborDetailsContent">LaborDetailsContent</a></li><li><a href="global.html#LaborDetailsPage">LaborDetailsPage</a></li><li><a href="global.html#LaborFilters">LaborFilters</a></li><li><a href="global.html#LaborListPage">LaborListPage</a></li><li><a href="global.html#LaborPhoto">LaborPhoto</a></li><li><a href="global.html#LoadingSpinner">LoadingSpinner</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#PagePlaceholder">PagePlaceholder</a></li><li><a href="global.html#Pagination">Pagination</a></li><li><a href="global.html#PaymentMethodForm">PaymentMethodForm</a></li><li><a href="global.html#PaymentPage">PaymentPage</a></li><li><a href="global.html#PaymentSuccess">PaymentSuccess</a></li><li><a href="global.html#PaymentSummary">PaymentSummary</a></li><li><a href="global.html#RatingDisplay">RatingDisplay</a></li><li><a href="global.html#ReviewForm">ReviewForm</a></li><li><a href="global.html#ReviewList">ReviewList</a></li><li><a href="global.html#SearchBar">SearchBar</a></li><li><a href="global.html#_formatDate">_formatDate</a></li><li><a href="global.html#_formatTime">_formatTime</a></li><li><a href="global.html#_getInitials">_getInitials</a></li><li><a href="global.html#_getNavLinkClassName">_getNavLinkClassName</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Aug 17 2026 22:35:54 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

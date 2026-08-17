@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/LaborDetailsContent.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/LaborDetailsContent.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Link } from "react-router";
+
+import LaborPhoto from "./LaborPhoto.jsx";
+import RatingDisplay from "./RatingDisplay.jsx";
+import ReviewForm from "./ReviewForm.jsx";
+import ReviewList from "./ReviewList.jsx";
+
+
+const CURRENCY_FORMATTER = new Intl.NumberFormat("en-BD", {
+    style: "currency",
+    currency: "BDT",
+    maximumFractionDigits: 0,
+});
+
+
+/**
+ * Render the complete labor profile returned by the detail API.
+ *
+ * @param {object} props Component properties.
+ * @param {object} props.labor Complete labor detail API record.
+ * @param {Function} props.onReviewSubmit Callback creating a review.
+ * @param {string} [props.reviewSuccessMessage] Review confirmation text.
+ * @returns {JSX.Element} Labor profile, skills, actions, and reviews.
+ */
+function LaborDetailsContent({
+    labor,
+    onReviewSubmit,
+    reviewSuccessMessage = "",
+}) {
+    const skills = Array.isArray(labor.skills) ? labor.skills : [];
+    const reviews = Array.isArray(labor.reviews) ? labor.reviews : [];
+    const experienceLabel = `${labor.experience} ${
+        labor.experience === 1 ? "year" : "years"
+    }`;
+
+    return (
+        &lt;>
+            &lt;Link
+                to="/labors"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-brand-700 transition hover:text-brand-800"
+            >
+                &lt;span aria-hidden="true">←&lt;/span>
+                Back to labor listings
+            &lt;/Link>
+
+            &lt;article className="mt-6 overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200">
+                &lt;div className="grid lg:grid-cols-2">
+                    &lt;div className="aspect-4/3 overflow-hidden bg-brand-100 lg:min-h-full">
+                        &lt;LaborPhoto
+                            labor={labor}
+                            className="size-full object-cover text-7xl"
+                        />
+                    &lt;/div>
+
+                    &lt;div className="flex flex-col p-6 sm:p-8 lg:p-10">
+                        &lt;div className="flex flex-wrap items-center gap-3">
+                            &lt;span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700 ring-1 ring-brand-200">
+                                {labor.category}
+                            &lt;/span>
+                            &lt;span
+                                className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ${
+                                    labor.available
+                                        ? "bg-emerald-50 text-emerald-700 ring-emerald-200"
+                                        : "bg-slate-100 text-slate-600 ring-slate-200"
+                                }`}
+                            >
+                                {labor.available ? "Available" : "Unavailable"}
+                            &lt;/span>
+                        &lt;/div>
+
+                        &lt;h1 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                            {labor.name}
+                        &lt;/h1>
+                        &lt;p className="mt-2 text-lg font-semibold text-brand-700">
+                            {labor.profession}
+                        &lt;/p>
+                        &lt;p className="mt-3 text-sm text-slate-600">
+                            &lt;span aria-hidden="true">⌖&lt;/span> {labor.location}
+                        &lt;/p>
+
+                        &lt;div className="mt-5">
+                            &lt;RatingDisplay
+                                rating={labor.rating}
+                                reviewCount={labor.review_count}
+                            />
+                        &lt;/div>
+
+                        &lt;p className="mt-6 text-3xl font-bold text-slate-900">
+                            {CURRENCY_FORMATTER.format(labor.hourly_wage)}
+                            &lt;span className="ml-2 text-base font-normal text-slate-500">
+                                per hour
+                            &lt;/span>
+                        &lt;/p>
+
+                        &lt;p className="mt-6 leading-7 text-slate-600">
+                            {labor.description}
+                        &lt;/p>
+
+                        &lt;div className="mt-8">
+                            {labor.available ? (
+                                &lt;Link
+                                    to={`/labors/${labor.id}/hire`}
+                                    className="inline-flex w-full items-center justify-center rounded-xl bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 sm:w-auto"
+                                >
+                                    Hire now
+                                &lt;/Link>
+                            ) : (
+                                &lt;button
+                                    type="button"
+                                    disabled
+                                    className="w-full cursor-not-allowed rounded-xl bg-slate-200 px-6 py-3.5 text-sm font-semibold text-slate-500 sm:w-auto"
+                                >
+                                    Currently unavailable
+                                &lt;/button>
+                            )}
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/article>
+
+            &lt;div className="mt-8 grid gap-8 lg:grid-cols-3">
+                &lt;section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 lg:col-span-2">
+                    &lt;h2 className="text-xl font-bold text-slate-900">
+                        Experience and skills
+                    &lt;/h2>
+                    &lt;div className="mt-5 rounded-xl bg-brand-50 p-4">
+                        &lt;p className="text-sm text-brand-700">Work experience&lt;/p>
+                        &lt;p className="mt-1 text-xl font-bold text-brand-900">
+                            {experienceLabel}
+                        &lt;/p>
+                    &lt;/div>
+                    &lt;h3 className="mt-6 font-semibold text-slate-900">Skills&lt;/h3>
+                    &lt;ul className="mt-3 flex flex-wrap gap-2">
+                        {skills.length > 0 ? (
+                            skills.map((skill) => (
+                                &lt;li
+                                    key={skill}
+                                    className="rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700"
+                                >
+                                    {skill}
+                                &lt;/li>
+                            ))
+                        ) : (
+                            &lt;li className="text-sm text-slate-500">
+                                No skills have been listed.
+                            &lt;/li>
+                        )}
+                    &lt;/ul>
+                &lt;/section>
+
+                &lt;aside className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+                    &lt;h2 className="text-xl font-bold text-slate-900">
+                        Contact details
+                    &lt;/h2>
+                    &lt;dl className="mt-5 space-y-5">
+                        &lt;div>
+                            &lt;dt className="text-sm text-slate-500">Phone&lt;/dt>
+                            &lt;dd className="mt-1 font-semibold text-slate-900">
+                                &lt;a
+                                    href={`tel:${labor.phone}`}
+                                    className="transition hover:text-brand-700"
+                                >
+                                    {labor.phone}
+                                &lt;/a>
+                            &lt;/dd>
+                        &lt;/div>
+                        &lt;div>
+                            &lt;dt className="text-sm text-slate-500">Email&lt;/dt>
+                            &lt;dd className="mt-1 break-all font-semibold text-slate-900">
+                                &lt;a
+                                    href={`mailto:${labor.email}`}
+                                    className="transition hover:text-brand-700"
+                                >
+                                    {labor.email}
+                                &lt;/a>
+                            &lt;/dd>
+                        &lt;/div>
+                    &lt;/dl>
+                &lt;/aside>
+            &lt;/div>
+
+            &lt;section className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
+                &lt;div className="mb-6">
+                    &lt;p className="text-sm font-semibold uppercase tracking-wider text-brand-600">
+                        Customer feedback
+                    &lt;/p>
+                    &lt;h2 className="mt-2 text-2xl font-bold text-slate-900">
+                        Reviews and ratings
+                    &lt;/h2>
+                &lt;/div>
+                &lt;ReviewForm
+                    onSubmit={onReviewSubmit}
+                    successMessage={reviewSuccessMessage}
+                />
+                &lt;div className="mt-8">
+                    &lt;h3 className="mb-4 text-lg font-bold text-slate-900">
+                        Community reviews
+                    &lt;/h3>
+                    &lt;ReviewList reviews={reviews} />
+                &lt;/div>
+            &lt;/section>
+        &lt;/>
+    );
+}
+
+
+export default LaborDetailsContent;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppShell">AppShell</a></li><li><a href="global.html#BookingConfirmation">BookingConfirmation</a></li><li><a href="global.html#BookingSuccessPage">BookingSuccessPage</a></li><li><a href="global.html#EmptyState">EmptyState</a></li><li><a href="global.html#ErrorState">ErrorState</a></li><li><a href="global.html#FormFieldError">FormFieldError</a></li><li><a href="global.html#HireForm">HireForm</a></li><li><a href="global.html#HireLaborPage">HireLaborPage</a></li><li><a href="global.html#HireLaborSummary">HireLaborSummary</a></li><li><a href="global.html#LaborCard">LaborCard</a></li><li><a href="global.html#LaborDetailsContent">LaborDetailsContent</a></li><li><a href="global.html#LaborDetailsPage">LaborDetailsPage</a></li><li><a href="global.html#LaborFilters">LaborFilters</a></li><li><a href="global.html#LaborListPage">LaborListPage</a></li><li><a href="global.html#LaborPhoto">LaborPhoto</a></li><li><a href="global.html#LoadingSpinner">LoadingSpinner</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#PagePlaceholder">PagePlaceholder</a></li><li><a href="global.html#Pagination">Pagination</a></li><li><a href="global.html#PaymentMethodForm">PaymentMethodForm</a></li><li><a href="global.html#PaymentPage">PaymentPage</a></li><li><a href="global.html#PaymentSuccess">PaymentSuccess</a></li><li><a href="global.html#PaymentSummary">PaymentSummary</a></li><li><a href="global.html#RatingDisplay">RatingDisplay</a></li><li><a href="global.html#ReviewForm">ReviewForm</a></li><li><a href="global.html#ReviewList">ReviewList</a></li><li><a href="global.html#SearchBar">SearchBar</a></li><li><a href="global.html#_formatDate">_formatDate</a></li><li><a href="global.html#_formatTime">_formatTime</a></li><li><a href="global.html#_getInitials">_getInitials</a></li><li><a href="global.html#_getNavLinkClassName">_getNavLinkClassName</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Aug 17 2026 22:35:54 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

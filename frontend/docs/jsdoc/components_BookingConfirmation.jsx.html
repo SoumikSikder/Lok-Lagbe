@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/BookingConfirmation.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/BookingConfirmation.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Link } from "react-router";
+
+
+const DATE_FORMATTER = new Intl.DateTimeFormat("en-BD", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+});
+const TIME_FORMATTER = new Intl.DateTimeFormat("en-BD", {
+    hour: "numeric",
+    minute: "2-digit",
+});
+
+
+/**
+ * Format an API date without shifting it across time zones.
+ *
+ * @param {string} value Date formatted as YYYY-MM-DD.
+ * @returns {string} Human-readable work date.
+ */
+function _formatDate(value) {
+    const date = new Date(`${value}T00:00:00`);
+    return Number.isNaN(date.getTime())
+        ? "Date unavailable"
+        : DATE_FORMATTER.format(date);
+}
+
+
+/**
+ * Format an API time value for the user's locale.
+ *
+ * @param {string} value Time formatted as HH:MM or HH:MM:SS.
+ * @returns {string} Human-readable start time.
+ */
+function _formatTime(value) {
+    const [hours, minutes] = value.split(":").map(Number);
+    const date = new Date(2000, 0, 1, hours, minutes);
+    return Number.isNaN(date.getTime())
+        ? "Time unavailable"
+        : TIME_FORMATTER.format(date);
+}
+
+
+/**
+ * Display the persisted booking returned by Django.
+ *
+ * @param {object} props Component properties.
+ * @param {object} props.booking Booking detail API record.
+ * @returns {JSX.Element} Booking success message, summary, and next actions.
+ */
+function BookingConfirmation({ booking }) {
+    const duration = Number(booking.duration);
+    const durationLabel = `${duration} ${duration === 1 ? "hour" : "hours"}`;
+
+    return (
+        &lt;section className="mx-auto max-w-3xl rounded-3xl bg-white p-6 text-center shadow-sm ring-1 ring-slate-200 sm:p-10">
+            &lt;div
+                className="mx-auto flex size-16 items-center justify-center rounded-full bg-emerald-100 text-3xl font-bold text-emerald-700"
+                aria-hidden="true"
+            >
+                ✓
+            &lt;/div>
+            &lt;p className="mt-5 text-sm font-semibold uppercase tracking-wider text-emerald-700">
+                Booking successful
+            &lt;/p>
+            &lt;h1 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">
+                Booking #{booking.id}
+            &lt;/h1>
+            &lt;p className="mx-auto mt-3 max-w-xl leading-7 text-slate-600">
+                Your request to hire {booking.labor_name} was created and is
+                waiting for confirmation.
+            &lt;/p>
+
+            &lt;dl className="mt-8 grid gap-4 text-left sm:grid-cols-2">
+                &lt;div className="rounded-2xl bg-slate-50 p-4">
+                    &lt;dt className="text-sm text-slate-500">Status&lt;/dt>
+                    &lt;dd className="mt-1 font-bold text-amber-700">
+                        {booking.status_display}
+                    &lt;/dd>
+                &lt;/div>
+                &lt;div className="rounded-2xl bg-slate-50 p-4">
+                    &lt;dt className="text-sm text-slate-500">Laborer&lt;/dt>
+                    &lt;dd className="mt-1 font-bold text-slate-900">
+                        {booking.labor_name}
+                    &lt;/dd>
+                &lt;/div>
+                &lt;div className="rounded-2xl bg-slate-50 p-4">
+                    &lt;dt className="text-sm text-slate-500">Work date&lt;/dt>
+                    &lt;dd className="mt-1 font-bold text-slate-900">
+                        {_formatDate(booking.work_date)}
+                    &lt;/dd>
+                &lt;/div>
+                &lt;div className="rounded-2xl bg-slate-50 p-4">
+                    &lt;dt className="text-sm text-slate-500">Start time&lt;/dt>
+                    &lt;dd className="mt-1 font-bold text-slate-900">
+                        {_formatTime(booking.start_time)}
+                    &lt;/dd>
+                &lt;/div>
+                &lt;div className="rounded-2xl bg-slate-50 p-4 sm:col-span-2">
+                    &lt;dt className="text-sm text-slate-500">Duration&lt;/dt>
+                    &lt;dd className="mt-1 font-bold text-slate-900">
+                        {durationLabel}
+                    &lt;/dd>
+                &lt;/div>
+                &lt;div className="rounded-2xl bg-slate-50 p-4 sm:col-span-2">
+                    &lt;dt className="text-sm text-slate-500">Job address&lt;/dt>
+                    &lt;dd className="mt-1 font-bold text-slate-900">
+                        {booking.address}
+                    &lt;/dd>
+                &lt;/div>
+                {booking.notes &amp;&amp; (
+                    &lt;div className="rounded-2xl bg-slate-50 p-4 sm:col-span-2">
+                        &lt;dt className="text-sm text-slate-500">Notes&lt;/dt>
+                        &lt;dd className="mt-1 whitespace-pre-wrap text-slate-700">
+                            {booking.notes}
+                        &lt;/dd>
+                    &lt;/div>
+                )}
+            &lt;/dl>
+
+            &lt;div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-center">
+                &lt;Link
+                    to="/labors"
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                >
+                    Browse laborers
+                &lt;/Link>
+                &lt;Link
+                    to={`/bookings/${booking.id}/payment`}
+                    className="inline-flex items-center justify-center rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700"
+                >
+                    Continue to payment
+                &lt;/Link>
+            &lt;/div>
+        &lt;/section>
+    );
+}
+
+
+export default BookingConfirmation;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppShell">AppShell</a></li><li><a href="global.html#BookingConfirmation">BookingConfirmation</a></li><li><a href="global.html#BookingSuccessPage">BookingSuccessPage</a></li><li><a href="global.html#EmptyState">EmptyState</a></li><li><a href="global.html#ErrorState">ErrorState</a></li><li><a href="global.html#FormFieldError">FormFieldError</a></li><li><a href="global.html#HireForm">HireForm</a></li><li><a href="global.html#HireLaborPage">HireLaborPage</a></li><li><a href="global.html#HireLaborSummary">HireLaborSummary</a></li><li><a href="global.html#LaborCard">LaborCard</a></li><li><a href="global.html#LaborDetailsContent">LaborDetailsContent</a></li><li><a href="global.html#LaborDetailsPage">LaborDetailsPage</a></li><li><a href="global.html#LaborFilters">LaborFilters</a></li><li><a href="global.html#LaborListPage">LaborListPage</a></li><li><a href="global.html#LaborPhoto">LaborPhoto</a></li><li><a href="global.html#LoadingSpinner">LoadingSpinner</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#PagePlaceholder">PagePlaceholder</a></li><li><a href="global.html#Pagination">Pagination</a></li><li><a href="global.html#PaymentMethodForm">PaymentMethodForm</a></li><li><a href="global.html#PaymentPage">PaymentPage</a></li><li><a href="global.html#PaymentSuccess">PaymentSuccess</a></li><li><a href="global.html#PaymentSummary">PaymentSummary</a></li><li><a href="global.html#RatingDisplay">RatingDisplay</a></li><li><a href="global.html#ReviewForm">ReviewForm</a></li><li><a href="global.html#ReviewList">ReviewList</a></li><li><a href="global.html#SearchBar">SearchBar</a></li><li><a href="global.html#_formatDate">_formatDate</a></li><li><a href="global.html#_formatTime">_formatTime</a></li><li><a href="global.html#_getInitials">_getInitials</a></li><li><a href="global.html#_getNavLinkClassName">_getNavLinkClassName</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Aug 17 2026 22:35:54 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
