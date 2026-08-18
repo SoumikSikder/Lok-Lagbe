@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSDoc Documentation — Frontend: Manage Labor Listing</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background-color: #f7fafc;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1a365d;
+            color: #ffffff;
+            padding: 2rem;
+            text-align: left;
+            border-bottom: 4px solid #2b6cb0;
+        }
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+        header p {
+            margin: 0;
+            color: #e2e8f0;
+            font-size: 1rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .section {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        h2 {
+            color: #2b6cb0;
+            border-bottom: 2px solid #63b3ed;
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+        h3 {
+            color: #2d3748;
+            margin-top: 1.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+        }
+        th {
+            background-color: #edf2f7;
+            color: #2d3748;
+        }
+        tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        code {
+            background-color: #edf2f7;
+            color: #dd6b20;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background-color: #1a202c;
+            color: #e2e8f0;
+            padding: 1.2rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+        }
+        .tag {
+            display: inline-block;
+            padding: 0.2em 0.5em;
+            font-size: 80%;
+            font-weight: bold;
+            border-radius: 4px;
+            background-color: #4a5568;
+            color: #ffffff;
+        }
+        .tag-param { background-color: #3182ce; }
+        .tag-returns { background-color: #38a169; }
+        .tag-private { background-color: #d69e2e; }
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        .alert-info {
+            background-color: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            color: #2b6cb0;
+        }
+        .alert-warning {
+            background-color: #fffaf0;
+            border-left: 4px solid #dd6b20;
+            color: #c05621;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>JSDoc Documentation — Frontend Module</h1>
+        <p>Component: <code>ManageLabourListings.jsx</code> | Project: Lok-Lagbe</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="section">
+            <h2>1. Component Overview</h2>
+            <p>
+                The <code>ManageLabourListings</code> component renders the System Administrator interface for 
+                managing labor profiles. It connects to the Django backend REST API to perform live CRUD operations,
+                enforces input validation, profile image checking, and locked email editing.
+            </p>
+            <div class="alert alert-info">
+                <strong>Coding Standards Enforced:</strong> 
+                Uses <code>camelCase</code> for props, <code>ALL_UPPERCASE</code> for constants, 
+                prefixes non-React custom methods with <code>_</code>, 4-space indentation, and full JSDoc comments.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. React State Catalog</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>State Variable</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>listings</code></td>
+                        <td>Array&lt;Object&gt;</td>
+                        <td><code>[]</code></td>
+                        <td>List of labor listing objects fetched from backend.</td>
+                    </tr>
+                    <tr>
+                        <td><code>searchQuery</code></td>
+                        <td>string</td>
+                        <td><code>''</code></td>
+                        <td>Filter string for searching name, category, or skills.</td>
+                    </tr>
+                    <tr>
+                        <td><code>categoryFilter</code></td>
+                        <td>string</td>
+                        <td><code>''</code></td>
+                        <td>Category dropdown filter value.</td>
+                    </tr>
+                    <tr>
+                        <td><code>isModalOpen</code></td>
+                        <td>boolean</td>
+                        <td><code>false</code></td>
+                        <td>Controls visibility of Add/Edit modal dialog.</td>
+                    </tr>
+                    <tr>
+                        <td><code>isEditMode</code></td>
+                        <td>boolean</td>
+                        <td><code>false</code></td>
+                        <td>True when editing existing profile (locks email field).</td>
+                    </tr>
+                    <tr>
+                        <td><code>formData</code></td>
+                        <td>Object</td>
+                        <td><code>{ name, email, ... }</code></td>
+                        <td>Controlled form inputs for labor profile fields.</td>
+                    </tr>
+                    <tr>
+                        <td><code>alertMessage</code></td>
+                        <td>string | null</td>
+                        <td><code>null</code></td>
+                        <td>Banner notification alert message string.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>3. Method Documentation (JSDoc Spec)</h2>
+
+            <h3><code>_fetchListings()</code></h3>
+            <p><span class="tag tag-private">Private Method</span> <span class="tag tag-returns">Returns: Promise&lt;void&gt;</span></p>
+            <p>Fetches all labor listings from backend API endpoint <code>/api/admin/labour-listings/</code>.</p>
+
+            <h3><code>_handleFileChange(event)</code></h3>
+            <p><span class="tag tag-param">@param {Event} event</span></p>
+            <p>Handles profile photo selection. Validates that file extension is one of <code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, or <code>.webp</code>. Rejects unsupported formats with an alert message.</p>
+
+            <h3><code>_validateForm()</code></h3>
+            <p><span class="tag tag-returns">Returns: boolean</span></p>
+            <p>Checks that mandatory fields (<code>name</code>, <code>email</code>, <code>category</code>, <code>phone</code>) are not empty. Triggers error alert if blank.</p>
+
+            <h3><code>_handleSubmit(event)</code></h3>
+            <p><span class="tag tag-param">@param {Event} event</span></p>
+            <p>Submits multipart form data to API. On update mode, <code>email</code> input field is disabled/locked to enforce the exception rule.</p>
+
+            <h3><code>_handleDelete(id)</code></h3>
+            <p><span class="tag tag-param">@param {number} id</span></p>
+            <p>Prompts user confirmation dialog and deletes the target labor profile.</p>
+        </div>
+
+        <div class="section">
+            <h2>4. Use Case Specifications & Exceptions</h2>
+            <div class="alert alert-warning">
+                <strong>Exception Scenarios Handled:</strong>
+                <ul>
+                    <li><strong>Empty Mandatory Fields:</strong> Prompts <em>"Please complete all mandatory fields."</em> and prevents submit.</li>
+                    <li><strong>Locked Email Field:</strong> In Edit mode, <code>email</code> input is rendered as <code>disabled={true}</code> with lock indicator 🔒.</li>
+                    <li><strong>Unsupported Image Format:</strong> Rejects non-image uploads with message <em>"Unsupported profile image format. Please upload a JPG, JPEG, PNG, or WEBP image."</em></li>
+                    <li><strong>Server / DB Error:</strong> Preserves user entered data in form state so changes are not lost upon retry.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
