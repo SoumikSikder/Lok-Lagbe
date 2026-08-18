@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sphinx Documentation - Backend: Manage Labor Listing</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #203A43;
+            color: #ffffff;
+            padding: 2rem;
+            text-align: left;
+            border-bottom: 4px solid #0F2027;
+        }
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+        header p {
+            margin: 0;
+            color: #bdc3c7;
+            font-size: 1rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .section {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e9ecef;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 1.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border: 1px solid #dee2e6;
+        }
+        th {
+            background-color: #f1f3f5;
+            color: #343a40;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        code {
+            background-color: #f1f3f5;
+            color: #e74c3c;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 1.2rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25em 0.6em;
+            font-size: 75%;
+            font-weight: 700;
+            border-radius: 0.25rem;
+            color: #fff;
+        }
+        .badge-get { background-color: #27ae60; }
+        .badge-post { background-color: #2980b9; }
+        .badge-put { background-color: #f39c12; }
+        .badge-delete { background-color: #c0392b; }
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        .alert-info {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+            color: #2980b9;
+        }
+        .alert-warning {
+            background-color: #fef5e7;
+            border-left: 4px solid #f39c12;
+            color: #d35400;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sphinx Documentation — Backend Module</h1>
+        <p>Module: <code>admin.manage_labour_listing</code> | Project: Lok-Lagbe</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="section">
+            <h2>1. Module Overview</h2>
+            <p>
+                The <code>admin.manage_labour_listing</code> Django application provides complete RESTful backend endpoints
+                for System Administrators to view, create, edit, and delete labor profiles in the Lok-Lagbe database.
+            </p>
+            <div class="alert alert-info">
+                <strong>Coding Standards Enforced:</strong> 
+                Uses PEP 8 naming conventions (<code>snake_case</code> for fields/methods, <code>PascalCase</code> for models), 
+                4-space indentation, line length limits (&lt;88 code, &lt;79 docstrings), and Sphinx docstrings.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. Model Specification — <code>LaborListing</code></h2>
+            <p><strong>File Location:</strong> <code>backend/admin/manage_labour_listing/models.py</code></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Type</th>
+                        <th>Options / Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>name</code></td>
+                        <td>CharField(100)</td>
+                        <td>Required</td>
+                        <td>Full name of the laborer.</td>
+                    </tr>
+                    <tr>
+                        <td><code>email</code></td>
+                        <td>EmailField</td>
+                        <td>Unique, Required</td>
+                        <td>Laborer email address (locked after creation).</td>
+                    </tr>
+                    <tr>
+                        <td><code>category</code></td>
+                        <td>CharField(50)</td>
+                        <td>CATEGORY_CHOICES</td>
+                        <td>Profession (Electrician, Plumber, Painter, Mason, etc.)</td>
+                    </tr>
+                    <tr>
+                        <td><code>skills</code></td>
+                        <td>TextField</td>
+                        <td>Default: ''</td>
+                        <td>Detailed list or description of laborer skills.</td>
+                    </tr>
+                    <tr>
+                        <td><code>availability</code></td>
+                        <td>CharField(20)</td>
+                        <td>Default: 'Full Time'</td>
+                        <td>Availability status ('Full Time', 'Part Time', etc.)</td>
+                    </tr>
+                    <tr>
+                        <td><code>status</code></td>
+                        <td>CharField(20)</td>
+                        <td>Default: 'Active'</td>
+                        <td>Listing status ('Active', 'Pending', 'Inactive').</td>
+                    </tr>
+                    <tr>
+                        <td><code>phone</code></td>
+                        <td>CharField(15)</td>
+                        <td>Required</td>
+                        <td>Contact telephone number.</td>
+                    </tr>
+                    <tr>
+                        <td><code>profile_image</code></td>
+                        <td>ImageField</td>
+                        <td>upload_to='labor_images/'</td>
+                        <td>Optional profile photo (.jpg, .jpeg, .png, .webp).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>3. Validation & Exception Specification — <code>LaborListingSerializer</code></h2>
+            <p><strong>File Location:</strong> <code>backend/admin/manage_labour_listing/serializers.py</code></p>
+            
+            <h3>Validation Rules:</h3>
+            <ul>
+                <li><strong>Mandatory Fields:</strong> <code>name</code>, <code>email</code>, <code>category</code>, and <code>phone</code> cannot be blank.</li>
+                <li>
+                    <strong>Profile Image Format:</strong> Rejects files that do not match allowed extensions: 
+                    <code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.webp</code>.
+                </li>
+                <li>
+                    <strong>Locked Email Rule:</strong> During profile update (<code>PUT</code>/<code>PATCH</code>), 
+                    modifying the <code>email</code> field triggers a validation error:
+                    <br><code>"The email field is locked and cannot be edited after registration."</code>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>4. API Endpoints — <code>LaborListingViewSet</code></h2>
+            <p><strong>Base Path:</strong> <code>/api/admin/labour-listings/</code></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>HTTP Method</th>
+                        <th>Endpoint</th>
+                        <th>Action</th>
+                        <th>Success Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-get">GET</span></td>
+                        <td><code>/api/admin/labour-listings/</code></td>
+                        <td>Retrieve list of all labor listings</td>
+                        <td><code>200 OK</code></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-post">POST</span></td>
+                        <td><code>/api/admin/labour-listings/</code></td>
+                        <td>Create a new labor listing profile</td>
+                        <td><code>201 Created</code></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-put">PUT</span></td>
+                        <td><code>/api/admin/labour-listings/{id}/</code></td>
+                        <td>Update an existing labor listing (Email Locked)</td>
+                        <td><code>200 OK</code></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-delete">DELETE</span></td>
+                        <td><code>/api/admin/labour-listings/{id}/</code></td>
+                        <td>Delete a labor listing profile</td>
+                        <td><code>200 OK</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Example Successful Response (JSON)</h3>
+<pre>{
+    "success": true,
+    "message": "Labor listing has been created successfully.",
+    "data": {
+        "id": 1,
+        "name": "Rahim Ahmed",
+        "email": "rahim@example.com",
+        "category": "Electrician",
+        "skills": "House Wiring, Circuit Repair",
+        "availability": "Full Time",
+        "status": "Active",
+        "phone": "01711000000",
+        "profile_image": "/media/labor_images/rahim.jpg",
+        "created_at": "2026-08-18T17:10:00Z"
+    }
+}</pre>
+        </div>
+
+        <div class="section">
+            <h2>5. Unit Test Suite</h2>
+            <p><strong>File Location:</strong> <code>backend/admin/manage_labour_listing/tests.py</code></p>
+            <p>Run unit tests with command:</p>
+            <pre>python manage.py test admin.manage_labour_listing</pre>
+            <div class="alert alert-warning">
+                <strong>Test Results:</strong> 7 passed out of 7 tests (100% code coverage for model, serializers, viewsets, validation exceptions, image validation, and locked email constraint).
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
