@@ -82,6 +82,15 @@ class Review(models.Model):
         return f"{self.user} rated {self.labor.name} {self.rating}/5"
 
 class Favorite(models.Model):
+    """
+    Model representing a user's favorited laborer profile.
+
+    Attributes:
+        user (ForeignKey): User who favorited the laborer.
+        labor (ForeignKey): Laborer profile that was favorited.
+        created_at (DateTimeField): Timestamp when the favorite was created.
+    """
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -104,4 +113,5 @@ class Favorite(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.user} favorited {self.labor.name}"    
+        """Return a readable string representation of the favorite entry."""
+        return f"{self.user} favorited {self.labor.name}"

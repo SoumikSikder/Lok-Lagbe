@@ -8,6 +8,12 @@ import LoadingSpinner from "../components/LoadingSpinner.jsx";
 import RatingDisplay from "../components/RatingDisplay.jsx";
 import { getBookingHistory } from "../services/bookingService.js";
 
+/**
+ * Get CSS badge styling classes based on booking status.
+ *
+ * @param {string} status Booking status e.g. "pending", "accepted", "completed", "rejected".
+ * @returns {string} Tailwind CSS badge styling classes.
+ */
 function _getStatusBadge(status) {
     const s = (status || "").toLowerCase();
     switch (s) {
@@ -24,6 +30,11 @@ function _getStatusBadge(status) {
     }
 }
 
+/**
+ * Render the Hire History page displaying user's past and active service hires.
+ *
+ * @returns {JSX.Element} Interactive hire history list with status filtering.
+ */
 function HireHistoryPage() {
     const [bookings, setBookings] = useState([]);
     const [isLoading, setIsLoading] = useState(true);

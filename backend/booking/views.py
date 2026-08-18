@@ -37,10 +37,22 @@ class BookingDetailAPIView(DatabaseErrorMixin, generics.RetrieveAPIView):
         )
 
 class BookingHistoryAPIView(DatabaseErrorMixin, generics.ListAPIView):
+    """
+    API view for retrieving the authenticated user's hire/booking history.
+
+    Supports optional query filtering by `status` (e.g. `?status=pending`)
+    and orders results by creation date (`-created_at`).
+    """
+
     serializer_class = BookingSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        """
+        Filter booking history records to the authenticated user.
+
+        Optionally filters by booking status if provided in request query parameters.
+        """
         queryset = Booking.objects.filter(
             user=self.request.user
         ).select_related("labor", "user")

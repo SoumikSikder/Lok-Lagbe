@@ -6,6 +6,11 @@ import LoadingSpinner from "../components/LoadingSpinner.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import { useFavorites } from "../context/FavoritesContext.jsx";
 
+/**
+ * Render the Favorites page showing user's saved favorite laborers.
+ *
+ * @returns {JSX.Element} Interactive list of favorited laborers with search filtering.
+ */
 function FavoritesPage() {
     const { favorites, isLoading } = useFavorites();
     const [searchQuery, setSearchQuery] = useState("");

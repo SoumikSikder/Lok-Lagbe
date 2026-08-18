@@ -64,6 +64,12 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 class FavoriteSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Favorite model.
+
+    Includes nested labor details via `labor_detail` for single-request presentation.
+    """
+
     labor_detail = LaborListSerializer(source="labor", read_only=True)
 
     class Meta:

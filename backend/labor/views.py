@@ -155,15 +155,23 @@ class FavoriteListCreateAPIView(
     DatabaseErrorMixin,
     generics.ListCreateAPIView,
 ):
+    """
+    API view for listing and creating user favorite laborers.
+
+    Allows authenticated users to fetch their favorited laborers or save a new laborer.
+    """
+
     serializer_class = FavoriteSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        """Retrieve favorite records owned by the authenticated user."""
         return Favorite.objects.filter(
             user=self.request.user
         ).select_related("labor")
 
     def perform_create(self, serializer):
+        """Save a new favorite record for the requesting user, catching duplicate entries."""
         labor = serializer.validated_data["labor"]
 
         try:
@@ -178,10 +186,17 @@ class FavoriteDeleteAPIView(
     DatabaseErrorMixin,
     generics.DestroyAPIView,
 ):
+    """
+    API view for removing a laborer from user's favorites.
+
+    Restricted to deleting entries owned by the requesting user.
+    """
+
     serializer_class = FavoriteSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        """Filter favorite deletion scope to the current authenticated user."""
         return Favorite.objects.filter(
             user=self.request.user
-        )        
+        )
