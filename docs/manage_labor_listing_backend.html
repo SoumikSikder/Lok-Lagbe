@@ -3,294 +3,742 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sphinx Documentation - Backend: Manage Labor Listing</title>
+    <title>Sphinx Technical Documentation — admin.manage_labour_listing</title>
     <style>
+        :root {
+            --sphinx-sidebar-bg: #2980b9;
+            --sphinx-sidebar-hover: #1f6692;
+            --sphinx-text: #333333;
+            --sphinx-link: #2980b9;
+            --sphinx-code-bg: #f8f9fa;
+            --sphinx-border: #e1e4e5;
+            --sphinx-admonition-bg: #f0f7fb;
+            --sphinx-admonition-border: #3498db;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #2c3e50;
-            background-color: #f8f9fa;
+            font-family: "SFProText-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
+            color: var(--sphinx-text);
+            background-color: #edf0f2;
+            display: flex;
+            min-height: 100vh;
         }
-        header {
-            background-color: #203A43;
+
+        /* Sidebar Styling (Sphinx ReadTheDocs Theme) */
+        nav.sphinx-sidebar {
+            width: 300px;
+            background-color: #343131;
+            color: #b3b3b3;
+            flex-shrink: 0;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid #1a1a1a;
+        }
+
+        .sidebar-header {
+            background-color: #242222;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .sidebar-header h2 {
             color: #ffffff;
-            padding: 2rem;
-            text-align: left;
-            border-bottom: 4px solid #0F2027;
-        }
-        header h1 {
+            font-size: 1.1rem;
             margin: 0 0 0.5rem 0;
-            font-size: 2rem;
         }
-        header p {
+
+        .sidebar-header span {
+            font-size: 0.8rem;
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+            list-style: none;
             margin: 0;
-            color: #bdc3c7;
-            font-size: 1rem;
         }
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
+
+        .sidebar-menu li a {
+            display: block;
+            padding: 0.6rem 1.5rem;
+            color: #d9d9d9;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s;
         }
-        .section {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e9ecef;
+
+        .sidebar-menu li a:hover {
+            background-color: var(--sphinx-sidebar-hover);
+            color: #ffffff;
         }
-        h2 {
+
+        .sidebar-menu li.sub-item a {
+            padding-left: 2.5rem;
+            font-size: 0.83rem;
+            color: #b3b3b3;
+        }
+
+        /* Main Body Content */
+        main.sphinx-content {
+            margin-left: 300px;
+            flex-grow: 1;
+            padding: 2.5rem 3.5rem;
+            background-color: #ffffff;
+            max-width: 1000px;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--sphinx-link);
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 2.2rem;
             color: #2c3e50;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid var(--sphinx-border);
             padding-bottom: 0.5rem;
             margin-top: 0;
         }
-        h3 {
-            color: #2980b9;
-            margin-top: 1.5rem;
+
+        h2 {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-top: 2.5rem;
+            border-bottom: 1px solid var(--sphinx-border);
+            padding-bottom: 0.3rem;
         }
-        table {
+
+        h3 {
+            font-size: 1.25rem;
+            color: #34495e;
+            margin-top: 1.8rem;
+        }
+
+        p, li {
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Sphinx Code Block & Signatures */
+        .py-signature {
+            background-color: #eef6f9;
+            border-left: 4px solid #3498db;
+            padding: 0.8rem 1.2rem;
+            font-family: "Consolas", "Courier New", monospace;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin: 1.2rem 0;
+            border-radius: 0 4px 4px 0;
+            color: #1a252f;
+        }
+
+        .py-signature .sig-name {
+            color: #2980b9;
+        }
+
+        .py-signature .sig-param {
+            color: #e67e22;
+            font-weight: normal;
+        }
+
+        .docstring-block {
+            background-color: var(--sphinx-code-bg);
+            border: 1px solid var(--sphinx-border);
+            padding: 1.2rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .docstring-param {
+            margin-left: 1rem;
+            color: #27ae60;
+            font-family: monospace;
+        }
+
+        /* Admonitions */
+        .admonition {
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            border-left: 4px solid;
+            font-size: 0.9rem;
+        }
+
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .admonition-note {
+            background-color: #eef6f9;
+            border-color: #3498db;
+            color: #1b4f72;
+        }
+
+        .admonition-warning {
+            background-color: #fcf8e3;
+            border-color: #f39c12;
+            color: #8a6d3b;
+        }
+
+        .admonition-danger {
+            background-color: #f2dede;
+            border-color: #e74c3c;
+            color: #a94442;
+        }
+
+        /* Tables */
+        table.doc-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
         }
-        th, td {
+
+        table.doc-table th, table.doc-table td {
+            border: 1px solid var(--sphinx-border);
+            padding: 0.75rem 1rem;
             text-align: left;
-            padding: 0.75rem;
-            border: 1px solid #dee2e6;
         }
-        th {
-            background-color: #f1f3f5;
-            color: #343a40;
+
+        table.doc-table th {
+            background-color: #f2f5f7;
+            color: #2c3e50;
+            font-weight: bold;
         }
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
+
+        table.doc-table tr:nth-child(even) {
+            background-color: #fcfcfc;
         }
+
         code {
-            background-color: #f1f3f5;
-            color: #e74c3c;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.9em;
+            background-color: #f4f6f8;
+            color: #c7254e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.88em;
         }
+
         pre {
-            background-color: #282c34;
-            color: #abb2bf;
+            background-color: #272822;
+            color: #f8f8f2;
             padding: 1.2rem;
-            border-radius: 6px;
+            border-radius: 5px;
             overflow-x: auto;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.9em;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
         }
-        .badge {
+
+        .badge-http {
             display: inline-block;
-            padding: 0.25em 0.6em;
-            font-size: 75%;
-            font-weight: 700;
-            border-radius: 0.25rem;
-            color: #fff;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: #ffffff;
+            font-family: monospace;
         }
-        .badge-get { background-color: #27ae60; }
-        .badge-post { background-color: #2980b9; }
-        .badge-put { background-color: #f39c12; }
-        .badge-delete { background-color: #c0392b; }
-        .alert {
-            padding: 1rem;
-            border-radius: 6px;
-            margin: 1rem 0;
-        }
-        .alert-info {
-            background-color: #e8f4f8;
-            border-left: 4px solid #3498db;
-            color: #2980b9;
-        }
-        .alert-warning {
-            background-color: #fef5e7;
-            border-left: 4px solid #f39c12;
-            color: #d35400;
+
+        .get { background-color: #27ae60; }
+        .post { background-color: #2980b9; }
+        .put { background-color: #f39c12; }
+        .delete { background-color: #c0392b; }
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--sphinx-border);
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Sphinx Documentation — Backend Module</h1>
-        <p>Module: <code>admin.manage_labour_listing</code> | Project: Lok-Lagbe</p>
-    </header>
+    <!-- Left Sphinx Sidebar -->
+    <nav class="sphinx-sidebar">
+        <div class="sidebar-header">
+            <h2>Lok-Lagbe Backend</h2>
+            <span>Sphinx Docs v1.0.0</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#overview">1. Module Overview</a></li>
+            <li><a href="#architecture">2. Architecture & Request Flow</a></li>
+            <li><a href="#models">3. Data Model (models.py)</a></li>
+            <li class="sub-item"><a href="#model-laborlisting">class LaborListing</a></li>
+            <li class="sub-item"><a href="#model-choices">Choice Mappings</a></li>
+            <li><a href="#serializers">4. Serializer & Validation (serializers.py)</a></li>
+            <li class="sub-item"><a href="#serializer-class">class LaborListingSerializer</a></li>
+            <li class="sub-item"><a href="#serializer-image-val">validate_profile_image()</a></li>
+            <li class="sub-item"><a href="#serializer-email-val">validate_email()</a></li>
+            <li class="sub-item"><a href="#serializer-email-lock">update() & Email Lock Exception</a></li>
+            <li><a href="#views">5. ViewSet & API Controllers (views.py)</a></li>
+            <li class="sub-item"><a href="#viewset-list">list() Endpoint</a></li>
+            <li class="sub-item"><a href="#viewset-create">create() Endpoint</a></li>
+            <li class="sub-item"><a href="#viewset-update">update() Endpoint</a></li>
+            <li class="sub-item"><a href="#viewset-destroy">destroy() Endpoint</a></li>
+            <li><a href="#urls">6. URL Routing (urls.py)</a></li>
+            <li><a href="#exceptions">7. Use-Case Exception Matrix</a></li>
+            <li><a href="#unit-tests">8. Unit Test Suite (tests.py)</a></li>
+        </ul>
+    </nav>
 
-    <div class="container">
+    <!-- Main Content Area -->
+    <main class="sphinx-content">
         
-        <div class="section">
-            <h2>1. Module Overview</h2>
-            <p>
-                The <code>admin.manage_labour_listing</code> Django application provides complete RESTful backend endpoints
-                for System Administrators to view, create, edit, and delete labor profiles in the Lok-Lagbe database.
-            </p>
-            <div class="alert alert-info">
-                <strong>Coding Standards Enforced:</strong> 
-                Uses PEP 8 naming conventions (<code>snake_case</code> for fields/methods, <code>PascalCase</code> for models), 
-                4-space indentation, line length limits (&lt;88 code, &lt;79 docstrings), and Sphinx docstrings.
-            </div>
+        <div class="breadcrumb">
+            <a href="#">Lok-Lagbe Docs</a> &raquo; <a href="#">Backend Modules</a> &raquo; admin.manage_labour_listing
         </div>
 
-        <div class="section">
-            <h2>2. Model Specification — <code>LaborListing</code></h2>
+        <section id="overview">
+            <h1>Module: <code>admin.manage_labour_listing</code></h1>
+            <p>
+                The <code>admin.manage_labour_listing</code> package contains the entire backend implementation
+                for System Administrators to manage worker profiles in the <strong>Lok-Lagbe</strong> platform.
+                It provides complete RESTful CRUD operations (Create, Read, Update, Delete), strict input validation,
+                image extension verification, email edit lock enforcement, and standardized JSON responses.
+            </p>
+
+            <div class="admonition admonition-note">
+                <div class="admonition-title">Strict PEP 8 & Sphinx Standard Compliance</div>
+                This module strictly enforces Python PEP 8 style guidelines (4-space indentation, max 88-char code line limit, max 79-char docstrings line limit, <code>snake_case</code> for functions/variables/methods, <code>PascalCase</code> for classes, <code>ALL_UPPERCASE</code> for constants) and full Sphinx docstring formats.
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>2. System Architecture & Request Flow</h2>
+            <p>The request lifecycle follows standard Django REST Framework MVC/MVT architecture:</p>
+            <pre>
+[ HTTP Request ] 
+       │
+       ▼
+[ Django URL Router: /api/admin/labour-listings/ ]
+       │
+       ▼
+[ LaborListingViewSet (views.py) ]
+       │
+  ┌────┴──────────────────────────┐
+  │  Parser: MultiPart / Form / JSON
+  │  Permissions: AllowAny / Admin
+  └────┬──────────────────────────┘
+       │
+       ▼
+[ LaborListingSerializer (serializers.py) ]
+       │
+  ┌────┴────────────────────────────────────────┐
+  │  1. Mandatory field presence check           │
+  │  2. Profile image extension check (.jpg, etc)│
+  │  3. Locked Email enforcement on update      │
+  └────┬────────────────────────────────────────┘
+       │
+       ▼
+[ LaborListing Model / ORM (models.py) ]
+       │
+       ▼
+[ SQLite Database: db.sqlite3 ]
+            </pre>
+        </section>
+
+        <section id="models">
+            <h2>3. Data Model Specification — <code>models.py</code></h2>
             <p><strong>File Location:</strong> <code>backend/admin/manage_labour_listing/models.py</code></p>
-            <table>
+
+            <div id="model-laborlisting" class="py-signature">
+                class <span class="sig-name">LaborListing</span>(<span class="sig-param">models.Model</span>)
+            </div>
+
+            <div class="docstring-block">
+                <strong>Docstring:</strong><br>
+                Model representing a labor listing profile in the system.<br>
+                Stores contact information, skill sets, availability status, and profile pictures of registered laborers.
+            </div>
+
+            <h3>Model Attributes & Field Definitions</h3>
+            <table class="doc-table">
                 <thead>
                     <tr>
                         <th>Field Name</th>
-                        <th>Type</th>
-                        <th>Options / Default</th>
+                        <th>Django Field Type</th>
+                        <th>Database Type</th>
+                        <th>Constraints / Choices</th>
                         <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td><code>id</code></td>
+                        <td>BigAutoField</td>
+                        <td>INTEGER</td>
+                        <td>Primary Key, Auto-increment</td>
+                        <td>Unique database identifier.</td>
+                    </tr>
+                    <tr>
                         <td><code>name</code></td>
-                        <td>CharField(100)</td>
-                        <td>Required</td>
-                        <td>Full name of the laborer.</td>
+                        <td>CharField</td>
+                        <td>VARCHAR(100)</td>
+                        <td>max_length=100, blank=False</td>
+                        <td>Full legal name of the laborer.</td>
                     </tr>
                     <tr>
                         <td><code>email</code></td>
                         <td>EmailField</td>
-                        <td>Unique, Required</td>
-                        <td>Laborer email address (locked after creation).</td>
+                        <td>VARCHAR(254)</td>
+                        <td>unique=True, blank=False</td>
+                        <td>Email address. Locked upon registration.</td>
                     </tr>
                     <tr>
                         <td><code>category</code></td>
-                        <td>CharField(50)</td>
-                        <td>CATEGORY_CHOICES</td>
-                        <td>Profession (Electrician, Plumber, Painter, Mason, etc.)</td>
+                        <td>CharField</td>
+                        <td>VARCHAR(50)</td>
+                        <td>choices=CATEGORY_CHOICES</td>
+                        <td>Laborer profession category.</td>
                     </tr>
                     <tr>
                         <td><code>skills</code></td>
                         <td>TextField</td>
-                        <td>Default: ''</td>
-                        <td>Detailed list or description of laborer skills.</td>
+                        <td>TEXT</td>
+                        <td>blank=True, default=''</td>
+                        <td>Detailed list or description of worker skills.</td>
                     </tr>
                     <tr>
                         <td><code>availability</code></td>
-                        <td>CharField(20)</td>
-                        <td>Default: 'Full Time'</td>
-                        <td>Availability status ('Full Time', 'Part Time', etc.)</td>
+                        <td>CharField</td>
+                        <td>VARCHAR(20)</td>
+                        <td>choices=AVAILABILITY_CHOICES, default='Full Time'</td>
+                        <td>Current work availability schedule.</td>
                     </tr>
                     <tr>
                         <td><code>status</code></td>
-                        <td>CharField(20)</td>
-                        <td>Default: 'Active'</td>
-                        <td>Listing status ('Active', 'Pending', 'Inactive').</td>
+                        <td>CharField</td>
+                        <td>VARCHAR(20)</td>
+                        <td>choices=STATUS_CHOICES, default='Active'</td>
+                        <td>Profile status ('Active', 'Pending', 'Inactive').</td>
                     </tr>
                     <tr>
                         <td><code>phone</code></td>
-                        <td>CharField(15)</td>
-                        <td>Required</td>
-                        <td>Contact telephone number.</td>
+                        <td>CharField</td>
+                        <td>VARCHAR(15)</td>
+                        <td>max_length=15, blank=False</td>
+                        <td>Primary telephone contact number.</td>
                     </tr>
                     <tr>
                         <td><code>profile_image</code></td>
                         <td>ImageField</td>
-                        <td>upload_to='labor_images/'</td>
-                        <td>Optional profile photo (.jpg, .jpeg, .png, .webp).</td>
+                        <td>VARCHAR(100)</td>
+                        <td>upload_to='labor_images/', null=True, blank=True</td>
+                        <td>Optional profile photo file.</td>
+                    </tr>
+                    <tr>
+                        <td><code>created_at</code></td>
+                        <td>DateTimeField</td>
+                        <td>DATETIME</td>
+                        <td>auto_now_add=True</td>
+                        <td>Timestamp when profile was created.</td>
+                    </tr>
+                    <tr>
+                        <td><code>updated_at</code></td>
+                        <td>DateTimeField</td>
+                        <td>DATETIME</td>
+                        <td>auto_now=True</td>
+                        <td>Timestamp when profile was last modified.</td>
                     </tr>
                 </tbody>
             </table>
-        </div>
 
-        <div class="section">
-            <h2>3. Validation & Exception Specification — <code>LaborListingSerializer</code></h2>
+            <h3 id="model-choices">Model Choice Mappings (Class Attributes)</h3>
+            <pre><code>CATEGORY_CHOICES = [
+    ('Electrician', 'Electrician'),
+    ('Plumber', 'Plumber'),
+    ('Painter', 'Painter'),
+    ('Carpenter', 'Carpenter'),
+    ('Cleaner', 'Cleaner'),
+    ('Mason', 'Mason'),
+    ('Gardener', 'Gardener'),
+    ('General Laborer', 'General Laborer'),
+]
+
+AVAILABILITY_CHOICES = [
+    ('Full Time', 'Full Time'),
+    ('Part Time', 'Part Time'),
+    ('Weekends', 'Weekends'),
+    ('On Call', 'On Call'),
+]
+
+STATUS_CHOICES = [
+    ('Active', 'Active'),
+    ('Pending', 'Pending'),
+    ('Inactive', 'Inactive'),
+]</code></pre>
+
+            <h3>Model Meta & Methods</h3>
+            <div class="py-signature">
+                <span class="sig-name">class Meta</span>: ordering = ['-created_at'], verbose_name = 'Labor Listing'
+            </div>
+            <div class="py-signature">
+                def <span class="sig-name">__str__</span>(<span class="sig-param">self</span>): <span class="sig-param">returns f"{self.name} - {self.category}"</span>
+            </div>
+        </section>
+
+        <section id="serializers">
+            <h2>4. Serializer & Validation Logic — <code>serializers.py</code></h2>
             <p><strong>File Location:</strong> <code>backend/admin/manage_labour_listing/serializers.py</code></p>
-            
-            <h3>Validation Rules:</h3>
-            <ul>
-                <li><strong>Mandatory Fields:</strong> <code>name</code>, <code>email</code>, <code>category</code>, and <code>phone</code> cannot be blank.</li>
-                <li>
-                    <strong>Profile Image Format:</strong> Rejects files that do not match allowed extensions: 
-                    <code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.webp</code>.
-                </li>
-                <li>
-                    <strong>Locked Email Rule:</strong> During profile update (<code>PUT</code>/<code>PATCH</code>), 
-                    modifying the <code>email</code> field triggers a validation error:
-                    <br><code>"The email field is locked and cannot be edited after registration."</code>
-                </li>
-            </ul>
-        </div>
 
-        <div class="section">
-            <h2>4. API Endpoints — <code>LaborListingViewSet</code></h2>
-            <p><strong>Base Path:</strong> <code>/api/admin/labour-listings/</code></p>
-            <table>
+            <div id="serializer-class" class="py-signature">
+                class <span class="sig-name">LaborListingSerializer</span>(<span class="sig-param">serializers.ModelSerializer</span>)
+            </div>
+
+            <div class="docstring-block">
+                <strong>Docstring:</strong><br>
+                Serializer for the LaborListing model.<br>
+                Handles validation for mandatory fields, profile image format, and enforces the rule that email cannot be modified after registration.
+            </div>
+
+            <h3>Allowed Image Extensions Constant</h3>
+            <pre><code>ALLOWED_IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp']</code></pre>
+
+            <h3 id="serializer-image-val">Method: <code>validate_profile_image(self, value)</code></h3>
+            <div class="py-signature">
+                def <span class="sig-name">validate_profile_image</span>(<span class="sig-param">self, value</span>)
+            </div>
+            <div class="docstring-block">
+                Validates the file extension of the uploaded profile image.<br><br>
+                <span class="docstring-param">:parameter value:</span> Uploaded File object<br>
+                <span class="docstring-param">:return:</span> Validated File object<br>
+                <span class="docstring-param">:raises serializers.ValidationError:</span> If extension not in <code>ALLOWED_IMAGE_EXTENSIONS</code>
+            </div>
+
+            <h3 id="serializer-email-val">Method: <code>validate_email(self, value)</code></h3>
+            <div class="py-signature">
+                def <span class="sig-name">validate_email</span>(<span class="sig-param">self, value</span>)
+            </div>
+            <div class="docstring-block">
+                Validates that mandatory email is provided and not empty.<br><br>
+                <span class="docstring-param">:parameter value:</span> Email string<br>
+                <span class="docstring-param">:return:</span> Stripped email string<br>
+                <span class="docstring-param">:raises serializers.ValidationError:</span> If email is blank
+            </div>
+
+            <h3 id="serializer-email-lock">Method: <code>update(self, instance, validated_data)</code> [Email Lock Rule]</h3>
+            <div class="py-signature">
+                def <span class="sig-name">update</span>(<span class="sig-param">self, instance, validated_data</span>)
+            </div>
+            <div class="docstring-block">
+                Updates an existing LaborListing instance. Enforces the exception rule that email cannot be edited after creation.<br><br>
+                <span class="docstring-param">:parameter instance:</span> Existing LaborListing database object<br>
+                <span class="docstring-param">:parameter validated_data:</span> Dictionary of validated field values<br>
+                <span class="docstring-param">:return:</span> Updated LaborListing instance<br>
+                <span class="docstring-param">:raises serializers.ValidationError:</span> If <code>new_email != instance.email</code>
+            </div>
+
+            <div class="admonition admonition-danger">
+                <div class="admonition-title">Exception Rule Enforcement</div>
+                If an administrator attempts to send a modified email address in a <code>PUT</code> or <code>PATCH</code> request, the serializer immediately halts execution and raises a ValidationError:
+                <br><code>{"email": "The email field is locked and cannot be edited."}</code>
+            </div>
+        </section>
+
+        <section id="views">
+            <h2>5. API ViewSet Controller — <code>views.py</code></h2>
+            <p><strong>File Location:</strong> <code>backend/admin/manage_labour_listing/views.py</code></p>
+
+            <div class="py-signature">
+                class <span class="sig-name">LaborListingViewSet</span>(<span class="sig-param">viewsets.ModelViewSet</span>)
+            </div>
+
+            <p><strong>Configured Parsers:</strong> <code>MultiPartParser</code>, <code>FormParser</code>, <code>JSONParser</code></p>
+            <p><strong>Permissions:</strong> <code>AllowAny</code></p>
+
+            <h3 id="viewset-list">Endpoint 1: List Profiles</h3>
+            <div class="py-signature">
+                <span class="badge-http get">GET</span> /api/admin/labour-listings/
+            </div>
+            <p><strong>Method Signature:</strong> <code>def list(self, request, *args, **kwargs)</code></p>
+            <p>Retrieves all labor profiles ordered by creation timestamp (newest first).</p>
+
+            <h3 id="viewset-create">Endpoint 2: Create Profile</h3>
+            <div class="py-signature">
+                <span class="badge-http post">POST</span> /api/admin/labour-listings/
+            </div>
+            <p><strong>Method Signature:</strong> <code>def create(self, request, *args, **kwargs)</code></p>
+            <p>Validates and stores a new labor profile with optional photo upload.</p>
+
+            <h3 id="viewset-update">Endpoint 3: Update Profile (Email Locked)</h3>
+            <div class="py-signature">
+                <span class="badge-http put">PUT</span> /api/admin/labour-listings/{id}/
+            </div>
+            <p><strong>Method Signature:</strong> <code>def update(self, request, *args, **kwargs)</code></p>
+            <p>Updates an existing labor profile while strictly enforcing the email lock constraint.</p>
+
+            <h3 id="viewset-destroy">Endpoint 4: Delete Profile</h3>
+            <div class="py-signature">
+                <span class="badge-http delete">DELETE</span> /api/admin/labour-listings/{id}/
+            </div>
+            <p><strong>Method Signature:</strong> <code>def destroy(self, request, *args, **kwargs)</code></p>
+            <p>Removes the specified labor profile from the database.</p>
+        </section>
+
+        <section id="urls">
+            <h2>6. URL Configuration — <code>urls.py</code></h2>
+            <p><strong>File Location:</strong> <code>backend/admin/manage_labour_listing/urls.py</code></p>
+            <pre><code>from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import LaborListingViewSet
+
+router = DefaultRouter()
+router.register(r'labour-listings', LaborListingViewSet, basename='labour-listing')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]</code></pre>
+        </section>
+
+        <section id="exceptions">
+            <h2>7. Use-Case Exception Matrix & Error Payloads</h2>
+            <table class="doc-table">
                 <thead>
                     <tr>
-                        <th>HTTP Method</th>
-                        <th>Endpoint</th>
-                        <th>Action</th>
-                        <th>Success Status</th>
+                        <th>Exception Scenario</th>
+                        <th>HTTP Status Code</th>
+                        <th>JSON Response Structure</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><span class="badge badge-get">GET</span></td>
-                        <td><code>/api/admin/labour-listings/</code></td>
-                        <td>Retrieve list of all labor listings</td>
-                        <td><code>200 OK</code></td>
+                        <td><strong>Empty Mandatory Fields</strong></td>
+                        <td><code>400 Bad Request</code></td>
+                        <td><pre><code>{
+    "success": false,
+    "message": "Validation failed. Please check mandatory fields.",
+    "errors": {
+        "name": ["This field may not be blank."],
+        "phone": ["This field may not be blank."]
+    }
+}</code></pre></td>
                     </tr>
                     <tr>
-                        <td><span class="badge badge-post">POST</span></td>
-                        <td><code>/api/admin/labour-listings/</code></td>
-                        <td>Create a new labor listing profile</td>
-                        <td><code>201 Created</code></td>
+                        <td><strong>Locked Email Modification Attempt</strong></td>
+                        <td><code>400 Bad Request</code></td>
+                        <td><pre><code>{
+    "success": false,
+    "message": "Validation failed. Check entered fields.",
+    "errors": {
+        "email": "The email field is locked and cannot be edited."
+    }
+}</code></pre></td>
                     </tr>
                     <tr>
-                        <td><span class="badge badge-put">PUT</span></td>
-                        <td><code>/api/admin/labour-listings/{id}/</code></td>
-                        <td>Update an existing labor listing (Email Locked)</td>
-                        <td><code>200 OK</code></td>
+                        <td><strong>Unsupported Image Format Upload</strong></td>
+                        <td><code>400 Bad Request</code></td>
+                        <td><pre><code>{
+    "success": false,
+    "message": "Validation failed. Please check mandatory fields.",
+    "errors": {
+        "profile_image": ["Unsupported image format. Please upload a JPG, JPEG, PNG, or WEBP image."]
+    }
+}</code></pre></td>
                     </tr>
                     <tr>
-                        <td><span class="badge badge-delete">DELETE</span></td>
-                        <td><code>/api/admin/labour-listings/{id}/</code></td>
-                        <td>Delete a labor listing profile</td>
-                        <td><code>200 OK</code></td>
+                        <td><strong>Database Connection Failure</strong></td>
+                        <td><code>500 Internal Server Error</code></td>
+                        <td><pre><code>{
+    "success": false,
+    "message": "Database update fails. Changes not saved."
+}</code></pre></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="unit-tests">
+            <h2>8. Unit Test Suite Specification — <code>tests.py</code></h2>
+            <p><strong>File Location:</strong> <code>backend/admin/manage_labour_listing/tests.py</code></p>
+
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Test Method Name</th>
+                        <th>Target Verification</th>
+                        <th>Expected Outcome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>test_list_labor_listings()</code></td>
+                        <td>Verify GET /api/admin/labour-listings/</td>
+                        <td>Returns status <code>200 OK</code> with success=True</td>
+                    </tr>
+                    <tr>
+                        <td><code>test_create_labor_listing_success()</code></td>
+                        <td>Verify POST with valid payload</td>
+                        <td>Returns status <code>201 Created</code> with success=True</td>
+                    </tr>
+                    <tr>
+                        <td><code>test_create_labor_listing_empty_mandatory_field()</code></td>
+                        <td>Verify POST with blank name/phone</td>
+                        <td>Returns status <code>400 Bad Request</code> with field errors</td>
+                    </tr>
+                    <tr>
+                        <td><code>test_update_labor_listing_success()</code></td>
+                        <td>Verify PUT with valid payload</td>
+                        <td>Returns status <code>200 OK</code> with updated data</td>
+                    </tr>
+                    <tr>
+                        <td><code>test_update_labor_listing_email_locked_exception()</code></td>
+                        <td>Verify PUT with modified email</td>
+                        <td>Returns status <code>400 Bad Request</code> with locked email error</td>
+                    </tr>
+                    <tr>
+                        <td><code>test_upload_invalid_image_format_exception()</code></td>
+                        <td>Verify uploading .txt as profile picture</td>
+                        <td>Returns status <code>400 Bad Request</code> with image format error</td>
+                    </tr>
+                    <tr>
+                        <td><code>test_delete_labor_listing()</code></td>
+                        <td>Verify DELETE /api/admin/labour-listings/{id}/</td>
+                        <td>Returns status <code>200 OK</code> and removes record from DB</td>
                     </tr>
                 </tbody>
             </table>
 
-            <h3>Example Successful Response (JSON)</h3>
-<pre>{
-    "success": true,
-    "message": "Labor listing has been created successfully.",
-    "data": {
-        "id": 1,
-        "name": "Rahim Ahmed",
-        "email": "rahim@example.com",
-        "category": "Electrician",
-        "skills": "House Wiring, Circuit Repair",
-        "availability": "Full Time",
-        "status": "Active",
-        "phone": "01711000000",
-        "profile_image": "/media/labor_images/rahim.jpg",
-        "created_at": "2026-08-18T17:10:00Z"
-    }
-}</pre>
-        </div>
+            <h3>Latest Execution Output</h3>
+            <pre>Found 7 test(s).
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.145s
 
-        <div class="section">
-            <h2>5. Unit Test Suite</h2>
-            <p><strong>File Location:</strong> <code>backend/admin/manage_labour_listing/tests.py</code></p>
-            <p>Run unit tests with command:</p>
-            <pre>python manage.py test admin.manage_labour_listing</pre>
-            <div class="alert alert-warning">
-                <strong>Test Results:</strong> 7 passed out of 7 tests (100% code coverage for model, serializers, viewsets, validation exceptions, image validation, and locked email constraint).
-            </div>
-        </div>
+OK (7 passed, 0 failures, 0 errors)
+Destroying test database for alias 'default'...</pre>
+        </section>
 
-    </div>
+        <footer>
+            <p>&copy; 2026 Lok-Lagbe Project — Built with Django REST Framework & Sphinx Technical Documentation Standard.</p>
+        </footer>
+
+    </main>
 
 </body>
 </html>

@@ -3,237 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSDoc Documentation — Frontend: Manage Labor Listing</title>
+    <title>JSDoc Technical Documentation — Frontend: Manage Labour Listing</title>
     <style>
+        :root {
+            --jsdoc-sidebar-bg: #1e293b;
+            --jsdoc-sidebar-hover: #334155;
+            --jsdoc-text: #1e293b;
+            --jsdoc-link: #2563eb;
+            --jsdoc-code-bg: #f8fafc;
+            --jsdoc-border: #e2e8f0;
+            --jsdoc-tag-param: #2563eb;
+            --jsdoc-tag-returns: #16a34a;
+            --jsdoc-tag-private: #d97706;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #1a202c;
-            background-color: #f7fafc;
             margin: 0;
             padding: 0;
+            color: var(--jsdoc-text);
+            background-color: #f1f5f9;
+            display: flex;
+            min-height: 100vh;
         }
-        header {
-            background-color: #1a365d;
-            color: #ffffff;
-            padding: 2rem;
-            text-align: left;
-            border-bottom: 4px solid #2b6cb0;
+
+        /* Sidebar Navigation */
+        nav.jsdoc-sidebar {
+            width: 300px;
+            background-color: var(--jsdoc-sidebar-bg);
+            color: #94a3b8;
+            flex-shrink: 0;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid #0f172a;
         }
-        header h1 {
+
+        .sidebar-header {
+            background-color: #0f172a;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .sidebar-header h2 {
+            color: #f8fafc;
+            font-size: 1.1rem;
             margin: 0 0 0.5rem 0;
-            font-size: 2rem;
         }
-        header p {
+
+        .sidebar-header span {
+            font-size: 0.8rem;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+            list-style: none;
             margin: 0;
-            color: #e2e8f0;
-            font-size: 1rem;
         }
-        .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
+
+        .sidebar-menu li a {
+            display: block;
+            padding: 0.6rem 1.5rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s;
         }
-        .section {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
+
+        .sidebar-menu li a:hover {
+            background-color: var(--jsdoc-sidebar-hover);
+            color: #ffffff;
         }
-        h2 {
-            color: #2b6cb0;
-            border-bottom: 2px solid #63b3ed;
+
+        .sidebar-menu li.sub-item a {
+            padding-left: 2.5rem;
+            font-size: 0.83rem;
+            color: #94a3b8;
+        }
+
+        /* Main Content */
+        main.jsdoc-content {
+            margin-left: 300px;
+            flex-grow: 1;
+            padding: 2.5rem 3.5rem;
+            background-color: #ffffff;
+            max-width: 1000px;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--jsdoc-link);
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #0f172a;
+            border-bottom: 2px solid var(--jsdoc-border);
             padding-bottom: 0.5rem;
             margin-top: 0;
         }
-        h3 {
-            color: #2d3748;
-            margin-top: 1.5rem;
+
+        h2 {
+            font-size: 1.6rem;
+            color: #0f172a;
+            margin-top: 2.5rem;
+            border-bottom: 1px solid var(--jsdoc-border);
+            padding-bottom: 0.3rem;
         }
-        table {
+
+        h3 {
+            font-size: 1.25rem;
+            color: #1e293b;
+            margin-top: 1.8rem;
+        }
+
+        p, li {
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* JSDoc Signatures */
+        .js-signature {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 0.8rem 1.2rem;
+            font-family: "Consolas", "Courier New", monospace;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin: 1.2rem 0;
+            border-radius: 0 4px 4px 0;
+            color: #1e3a8a;
+        }
+
+        .js-signature .sig-name {
+            color: #1d4ed8;
+        }
+
+        .js-signature .sig-param {
+            color: #d97706;
+            font-weight: normal;
+        }
+
+        .docblock {
+            background-color: var(--jsdoc-code-bg);
+            border: 1px solid var(--jsdoc-border);
+            padding: 1.2rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag-pill {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-right: 6px;
+            font-family: monospace;
+        }
+
+        .tag-param { background-color: var(--jsdoc-tag-param); }
+        .tag-returns { background-color: var(--jsdoc-tag-returns); }
+        .tag-private { background-color: var(--jsdoc-tag-private); }
+
+        /* Admonition Alert Boxes */
+        .admonition {
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+            border-left: 4px solid;
+            font-size: 0.9rem;
+        }
+
+        .admonition-info {
+            background-color: #f0f9ff;
+            border-color: #0284c7;
+            color: #0369a1;
+        }
+
+        .admonition-warning {
+            background-color: #fffbeb;
+            border-color: #d97706;
+            color: #b45309;
+        }
+
+        /* Tables */
+        table.doc-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
         }
-        th, td {
+
+        table.doc-table th, table.doc-table td {
+            border: 1px solid var(--jsdoc-border);
+            padding: 0.75rem 1rem;
             text-align: left;
-            padding: 0.75rem;
-            border: 1px solid #e2e8f0;
         }
-        th {
-            background-color: #edf2f7;
-            color: #2d3748;
+
+        table.doc-table th {
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-weight: bold;
         }
-        tr:nth-child(even) {
-            background-color: #f7fafc;
+
+        table.doc-table tr:nth-child(even) {
+            background-color: #fcfcfc;
         }
+
         code {
-            background-color: #edf2f7;
-            color: #dd6b20;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.9em;
+            background-color: #f1f5f9;
+            color: #ea580c;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.88em;
         }
+
         pre {
-            background-color: #1a202c;
-            color: #e2e8f0;
+            background-color: #0f172a;
+            color: #f8fafc;
             padding: 1.2rem;
             border-radius: 6px;
             overflow-x: auto;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.9em;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
         }
-        .tag {
-            display: inline-block;
-            padding: 0.2em 0.5em;
-            font-size: 80%;
-            font-weight: bold;
-            border-radius: 4px;
-            background-color: #4a5568;
-            color: #ffffff;
-        }
-        .tag-param { background-color: #3182ce; }
-        .tag-returns { background-color: #38a169; }
-        .tag-private { background-color: #d69e2e; }
-        .alert {
-            padding: 1rem;
-            border-radius: 6px;
-            margin: 1rem 0;
-        }
-        .alert-info {
-            background-color: #ebf8ff;
-            border-left: 4px solid #3182ce;
-            color: #2b6cb0;
-        }
-        .alert-warning {
-            background-color: #fffaf0;
-            border-left: 4px solid #dd6b20;
-            color: #c05621;
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--jsdoc-border);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>JSDoc Documentation — Frontend Module</h1>
-        <p>Component: <code>ManageLabourListings.jsx</code> | Project: Lok-Lagbe</p>
-    </header>
+    <!-- Left JSDoc Sidebar -->
+    <nav class="jsdoc-sidebar">
+        <div class="sidebar-header">
+            <h2>Lok-Lagbe Frontend</h2>
+            <span>JSDoc Docs v1.0.0</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#overview">1. Module Overview</a></li>
+            <li><a href="#hierarchy">2. Component Hierarchy</a></li>
+            <li><a href="#constants">3. Constants Catalog</a></li>
+            <li><a href="#state">4. React State Specification</a></li>
+            <li><a href="#methods">5. Component Methods (JSDoc)</a></li>
+            <li class="sub-item"><a href="#m-fetch">_fetchListings()</a></li>
+            <li class="sub-item"><a href="#m-alert">_showAlert()</a></li>
+            <li class="sub-item"><a href="#m-file">_handleFileChange()</a></li>
+            <li class="sub-item"><a href="#m-validate">_validateForm()</a></li>
+            <li class="sub-item"><a href="#m-submit">_handleSubmit()</a></li>
+            <li class="sub-item"><a href="#m-delete">_handleDelete()</a></li>
+            <li><a href="#usecase">6. Use-Case Exceptions & Rules</a></li>
+            <li><a href="#styling">7. Styling System & Layout</a></li>
+        </ul>
+    </nav>
 
-    <div class="container">
+    <!-- Main Content Area -->
+    <main class="jsdoc-content">
         
-        <div class="section">
-            <h2>1. Component Overview</h2>
-            <p>
-                The <code>ManageLabourListings</code> component renders the System Administrator interface for 
-                managing labor profiles. It connects to the Django backend REST API to perform live CRUD operations,
-                enforces input validation, profile image checking, and locked email editing.
-            </p>
-            <div class="alert alert-info">
-                <strong>Coding Standards Enforced:</strong> 
-                Uses <code>camelCase</code> for props, <code>ALL_UPPERCASE</code> for constants, 
-                prefixes non-React custom methods with <code>_</code>, 4-space indentation, and full JSDoc comments.
-            </div>
+        <div class="breadcrumb">
+            <a href="#">Lok-Lagbe Docs</a> &raquo; <a href="#">Frontend Modules</a> &raquo; ManageLabourListings.jsx
         </div>
 
-        <div class="section">
-            <h2>2. React State Catalog</h2>
-            <table>
+        <section id="overview">
+            <h1>Component: <code>ManageLabourListings</code></h1>
+            <p>
+                The <code>ManageLabourListings</code> React component provides the complete user interface for System Administrators to view, search, create, update, and remove labor listing profiles. It connects directly to the Django REST API backend endpoints.
+            </p>
+
+            <div class="admonition admonition-info">
+                <strong>Coding Standard Compliance:</strong> 
+                Uses <code>camelCase</code> for props, <code>ALL_UPPERCASE</code> for constants, prefixes non-React custom methods with an underscore <code>_</code> (e.g. <code>_handleSubmit</code>), uses 4-space indentation, and includes full JSDoc comments.
+            </div>
+        </section>
+
+        <section id="hierarchy">
+            <h2>2. Component Hierarchy & Flow</h2>
+            <pre>
+[ App.jsx ] ── (Mounts Root Container)
+     │
+     ▼
+[ AdminUI.jsx ] ── (Admin Navbar & Tab Manager)
+     │
+     ├── Tab 1: [ ManageLabourListings.jsx ] (Active Component)
+     │                ├── Search & Filter Toolbar
+     │                ├── Listings Table (Data Grid)
+     │                ├── Add / Edit Modal Form (with Email Lock)
+     │                └── Notification Banner
+     │
+     └── Tab 2: [ EditSystemDatabase.jsx ] (Database Direct Access)
+            </pre>
+        </section>
+
+        <section id="constants">
+            <h2>3. Constants Catalog</h2>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Constant Name</th>
+                        <th>Type</th>
+                        <th>Value / Options</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>API_BASE_URL</code></td>
+                        <td>string</td>
+                        <td><code>'http://localhost:8000/api/admin/labour-listings/'</code></td>
+                        <td>Django backend REST API endpoint base URL.</td>
+                    </tr>
+                    <tr>
+                        <td><code>CATEGORY_OPTIONS</code></td>
+                        <td>Array&lt;string&gt;</td>
+                        <td>Electrician, Plumber, Painter, Carpenter, Cleaner, Mason, Gardener, General Laborer</td>
+                        <td>Pre-defined list of worker professions.</td>
+                    </tr>
+                    <tr>
+                        <td><code>AVAILABILITY_OPTIONS</code></td>
+                        <td>Array&lt;string&gt;</td>
+                        <td>Full Time, Part Time, Weekends, On Call</td>
+                        <td>Available worker work schedules.</td>
+                    </tr>
+                    <tr>
+                        <td><code>STATUS_OPTIONS</code></td>
+                        <td>Array&lt;string&gt;</td>
+                        <td>Active, Pending, Inactive</td>
+                        <td>Profile status options.</td>
+                    </tr>
+                    <tr>
+                        <td><code>ALLOWED_IMAGE_EXTENSIONS</code></td>
+                        <td>Array&lt;string&gt;</td>
+                        <td><code>['.jpg', '.jpeg', '.png', '.webp']</code></td>
+                        <td>Allowed profile photo file extensions.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="state">
+            <h2>4. React State Specification</h2>
+            <table class="doc-table">
                 <thead>
                     <tr>
                         <th>State Variable</th>
-                        <th>Type</th>
-                        <th>Default</th>
+                        <th>Initial Value</th>
+                        <th>Data Type</th>
                         <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code>listings</code></td>
-                        <td>Array&lt;Object&gt;</td>
                         <td><code>[]</code></td>
-                        <td>List of labor listing objects fetched from backend.</td>
+                        <td>Array&lt;Object&gt;</td>
+                        <td>Listings fetched from backend API.</td>
+                    </tr>
+                    <tr>
+                        <td><code>loading</code></td>
+                        <td><code>false</code></td>
+                        <td>boolean</td>
+                        <td>Loading state during API calls.</td>
                     </tr>
                     <tr>
                         <td><code>searchQuery</code></td>
-                        <td>string</td>
                         <td><code>''</code></td>
-                        <td>Filter string for searching name, category, or skills.</td>
+                        <td>string</td>
+                        <td>Search string for filtering name/profession/skills.</td>
                     </tr>
                     <tr>
                         <td><code>categoryFilter</code></td>
-                        <td>string</td>
                         <td><code>''</code></td>
+                        <td>string</td>
                         <td>Category dropdown filter value.</td>
                     </tr>
                     <tr>
                         <td><code>isModalOpen</code></td>
-                        <td>boolean</td>
                         <td><code>false</code></td>
-                        <td>Controls visibility of Add/Edit modal dialog.</td>
+                        <td>boolean</td>
+                        <td>Visibility of Add/Edit modal dialog.</td>
                     </tr>
                     <tr>
                         <td><code>isEditMode</code></td>
-                        <td>boolean</td>
                         <td><code>false</code></td>
+                        <td>boolean</td>
                         <td>True when editing existing profile (locks email field).</td>
                     </tr>
                     <tr>
-                        <td><code>formData</code></td>
-                        <td>Object</td>
-                        <td><code>{ name, email, ... }</code></td>
-                        <td>Controlled form inputs for labor profile fields.</td>
+                        <td><code>selectedId</code></td>
+                        <td><code>null</code></td>
+                        <td>number | null</td>
+                        <td>Target listing ID being edited.</td>
                     </tr>
                     <tr>
                         <td><code>alertMessage</code></td>
-                        <td>string | null</td>
                         <td><code>null</code></td>
-                        <td>Banner notification alert message string.</td>
+                        <td>string | null</td>
+                        <td>Text displayed in notification banner.</td>
+                    </tr>
+                    <tr>
+                        <td><code>alertType</code></td>
+                        <td><code>'success'</code></td>
+                        <td>string</td>
+                        <td>Alert theme type ('success' or 'error').</td>
+                    </tr>
+                    <tr>
+                        <td><code>formData</code></td>
+                        <td><code>{ name, email, ... }</code></td>
+                        <td>Object</td>
+                        <td>Controlled form inputs state object.</td>
+                    </tr>
+                    <tr>
+                        <td><code>profileImage</code></td>
+                        <td><code>null</code></td>
+                        <td>File | null</td>
+                        <td>Selected photo File object.</td>
+                    </tr>
+                    <tr>
+                        <td><code>imagePreview</code></td>
+                        <td><code>null</code></td>
+                        <td>string | null</td>
+                        <td>Blob preview URL for chosen photo.</td>
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </section>
 
-        <div class="section">
-            <h2>3. Method Documentation (JSDoc Spec)</h2>
+        <section id="methods">
+            <h2>5. Component Helper Methods (JSDoc Specifications)</h2>
 
-            <h3><code>_fetchListings()</code></h3>
-            <p><span class="tag tag-private">Private Method</span> <span class="tag tag-returns">Returns: Promise&lt;void&gt;</span></p>
-            <p>Fetches all labor listings from backend API endpoint <code>/api/admin/labour-listings/</code>.</p>
+            <div id="m-fetch" class="js-signature">
+                async function <span class="sig-name">_fetchListings</span>()
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-returns">Returns: Promise&lt;void&gt;</span><br>
+                Fetches all labor listings from the backend API. Updates <code>listings</code> state or displays an error alert banner if the database request fails.
+            </div>
 
-            <h3><code>_handleFileChange(event)</code></h3>
-            <p><span class="tag tag-param">@param {Event} event</span></p>
-            <p>Handles profile photo selection. Validates that file extension is one of <code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, or <code>.webp</code>. Rejects unsupported formats with an alert message.</p>
+            <div id="m-alert" class="js-signature">
+                function <span class="sig-name">_showAlert</span>(<span class="sig-param">message, type = 'success'</span>)
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span><br>
+                <span class="tag-pill tag-param">@param {string} message</span> Notification banner text<br>
+                <span class="tag-pill tag-param">@param {string} type</span> 'success' or 'error'<br>
+                Displays top notification banner and sets an automatic 5-second dismiss timer.
+            </div>
 
-            <h3><code>_validateForm()</code></h3>
-            <p><span class="tag tag-returns">Returns: boolean</span></p>
-            <p>Checks that mandatory fields (<code>name</code>, <code>email</code>, <code>category</code>, <code>phone</code>) are not empty. Triggers error alert if blank.</p>
+            <div id="m-file" class="js-signature">
+                function <span class="sig-name">_handleFileChange</span>(<span class="sig-param">event</span>)
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span><br>
+                <span class="tag-pill tag-param">@param {Event} event</span> File input change event<br>
+                Validates the file extension against <code>ALLOWED_IMAGE_EXTENSIONS</code> (<code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.webp</code>). Rejects unsupported files with an alert banner.
+            </div>
 
-            <h3><code>_handleSubmit(event)</code></h3>
-            <p><span class="tag tag-param">@param {Event} event</span></p>
-            <p>Submits multipart form data to API. On update mode, <code>email</code> input field is disabled/locked to enforce the exception rule.</p>
+            <div id="m-validate" class="js-signature">
+                function <span class="sig-name">_validateForm</span>()
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-returns">Returns: boolean</span><br>
+                Validates that mandatory fields (<code>name</code>, <code>email</code>, <code>category</code>, <code>phone</code>) are not blank. Returns <code>false</code> and triggers error banner if mandatory fields are missing.
+            </div>
 
-            <h3><code>_handleDelete(id)</code></h3>
-            <p><span class="tag tag-param">@param {number} id</span></p>
-            <p>Prompts user confirmation dialog and deletes the target labor profile.</p>
-        </div>
+            <div id="m-submit" class="js-signature">
+                async function <span class="sig-name">_handleSubmit</span>(<span class="sig-param">event</span>)
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {FormEvent} event</span><br>
+                Constructs <code>FormData</code> multipart payload and invokes <code>POST</code> (Create) or <code>PUT</code> (Update) API request. In Update mode, the <code>email</code> input field is rendered with <code>disabled={true}</code> to enforce the locked email requirement. Preserves form data on failure so administrator can retry without re-typing.
+            </div>
 
-        <div class="section">
-            <h2>4. Use Case Specifications & Exceptions</h2>
-            <div class="alert alert-warning">
-                <strong>Exception Scenarios Handled:</strong>
+            <div id="m-delete" class="js-signature">
+                async function <span class="sig-name">_handleDelete</span>(<span class="sig-param">id</span>)
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {number} id</span><br>
+                Prompts a window confirmation modal. Upon confirmation, sends <code>DELETE</code> API request to remove the profile.
+            </div>
+        </section>
+
+        <section id="usecase">
+            <h2>6. Use-Case Rules & Exception Handling</h2>
+            <div class="admonition admonition-warning">
+                <h3>System Administrator Rules & Exceptions Matrix</h3>
                 <ul>
-                    <li><strong>Empty Mandatory Fields:</strong> Prompts <em>"Please complete all mandatory fields."</em> and prevents submit.</li>
-                    <li><strong>Locked Email Field:</strong> In Edit mode, <code>email</code> input is rendered as <code>disabled={true}</code> with lock indicator 🔒.</li>
-                    <li><strong>Unsupported Image Format:</strong> Rejects non-image uploads with message <em>"Unsupported profile image format. Please upload a JPG, JPEG, PNG, or WEBP image."</em></li>
-                    <li><strong>Server / DB Error:</strong> Preserves user entered data in form state so changes are not lost upon retry.</li>
+                    <li>
+                        <strong>🔒 Locked Email Rule:</strong> When editing an existing labor listing (<code>isEditMode = true</code>), the email input is disabled (<code>disabled={true}</code>) with lock indicator 🔒. The email field cannot be modified after initial registration.
+                    </li>
+                    <li>
+                        <strong>🖼️ Image Format Rejection:</strong> Uploading non-image formats (e.g. <code>.pdf</code>, <code>.txt</code>, <code>.docx</code>) triggers an error alert: <em>"Unsupported profile image format. Please upload a JPG, JPEG, PNG, or WEBP image."</em>
+                    </li>
+                    <li>
+                        <strong>⚠️ Mandatory Field Checks:</strong> Submitting with blank required fields triggers: <em>"Please complete all mandatory fields."</em>
+                    </li>
+                    <li>
+                        <strong>💾 Error Form Preservation:</strong> If a database or server connection error occurs, the form remains open and entered data is preserved so the administrator can retry without losing their work.
+                    </li>
                 </ul>
             </div>
-        </div>
+        </section>
 
-    </div>
+        <section id="styling">
+            <h2>7. Component Styling System</h2>
+            <p>Styles are defined via structured, encapsulated inline JavaScript style objects:</p>
+            <pre><code>const styles = {
+    container: { fontFamily: 'Segoe UI, sans-serif', padding: '24px', maxWidth: '1200px' },
+    addButton: { backgroundColor: '#007bff', color: '#ffffff', padding: '10px 18px' },
+    statusBadge: { padding: '4px 10px', borderRadius: '12px', fontSize: '12px' },
+    lockedTag: { color: '#dc3545', fontSize: '12px' },
+    modalOverlay: { position: 'fixed', backgroundColor: 'rgba(0,0,0,0.5)' },
+};</code></pre>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Lok-Lagbe Project — Built with React & JSDoc Technical Documentation Standard.</p>
+        </footer>
+
+    </main>
 
 </body>
 </html>
