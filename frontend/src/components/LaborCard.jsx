@@ -1,15 +1,14 @@
 import { Link } from "react-router";
 
+import FavoriteButton from "./FavoriteButton.jsx";
 import LaborPhoto from "./LaborPhoto.jsx";
 import RatingDisplay from "./RatingDisplay.jsx";
-
 
 const CURRENCY_FORMATTER = new Intl.NumberFormat("en-BD", {
     style: "currency",
     currency: "BDT",
     maximumFractionDigits: 0,
 });
-
 
 /**
  * Display one labor profile as a responsive horizontal listing row.
@@ -27,11 +26,14 @@ function LaborCard({ labor }) {
     return (
         <article className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-brand-200 hover:shadow-md">
             <div className="grid sm:grid-cols-[180px_minmax(0,1fr)] lg:grid-cols-[190px_minmax(0,1fr)_260px]">
-                <div className="aspect-4/3 overflow-hidden bg-brand-100 sm:aspect-auto sm:min-h-56">
+                <div className="aspect-4/3 overflow-hidden bg-brand-100 sm:aspect-auto sm:min-h-56 relative">
                     <LaborPhoto
                         labor={labor}
                         className="size-full object-cover text-5xl transition duration-500 group-hover:scale-105"
                     />
+                    <div className="absolute top-3 left-3 sm:hidden">
+                        <FavoriteButton labor={labor} />
+                    </div>
                 </div>
 
                 <div className="flex min-w-0 flex-col p-5 sm:p-6">
@@ -44,15 +46,18 @@ function LaborCard({ labor }) {
                                 {labor.profession}
                             </p>
                         </div>
-                        <span
-                            className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ${
-                                labor.available
-                                    ? "bg-emerald-50 text-emerald-700 ring-emerald-200"
-                                    : "bg-slate-100 text-slate-600 ring-slate-200"
-                            }`}
-                        >
-                            {labor.available ? "Available" : "Unavailable"}
-                        </span>
+                        <div className="flex items-center gap-2">
+                            <FavoriteButton labor={labor} className="hidden sm:inline-flex" />
+                            <span
+                                className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ${
+                                    labor.available
+                                        ? "bg-emerald-50 text-emerald-700 ring-emerald-200"
+                                        : "bg-slate-100 text-slate-600 ring-slate-200"
+                                }`}
+                            >
+                                {labor.available ? "Available" : "Unavailable"}
+                            </span>
+                        </div>
                     </div>
 
                     <p className="mt-3 flex items-center gap-2 text-sm text-slate-600">

@@ -193,3 +193,51 @@ class LaborApiTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("rating", response.data)
+
+    def test_add_and_list_favorite_laborers(self):
+        create_response = self.client.post(
+            "/api/favorites/",
+            {"labor": self.electrician.id},
+            format="json",
+        )
+        self.assertEqual(create_response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(create_response.data["labor"], self.electrician.id)
+        self.assertEqual(
+            create_response.data["labor_detail"]["name"],
+            self.electrician.name,
+        )
+
+        list_response = self.client.get("/api/favorites/")
+        self.assertEqual(list_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(list_response.data), 1)
+
+    def test_duplicate_favorite_returns_400(self):
+        self.client.post(
+            "/api/favorites/",
+            {"labor": self.plumber.id},
+            format="json",
+        )
+        duplicate_response = self.client.post(
+            "/api/favorites/",
+            {"labor": self.plumber.id},
+            format="json",
+        )
+        self.assertEqual(
+            duplicate_response.status_code, status.HTTP_400_BAD_REQUEST
+        )
+        self.assertIn("already in your favorites", str(duplicate_response.data).lower())
+
+    def test_delete_favorite_laborer(self):
+        create_response = self.client.post(
+            "/api/favorites/",
+            {"labor": self.dhaka_cleaner.id},
+            format="json",
+        )
+        fav_id = create_response.data["id"]
+
+        delete_response = self.client.delete(f"/api/favorites/{fav_id}/")
+        self.assertEqual(delete_response.status_code, status.HTTP_204_NO_CONTENT)
+
+        list_response = self.client.get("/api/favorites/")
+        self.assertEqual(len(list_response.data), 0)
+

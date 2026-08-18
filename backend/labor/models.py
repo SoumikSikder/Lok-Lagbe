@@ -78,5 +78,30 @@ class Review(models.Model):
         ]
 
     def __str__(self):
-        """Return a readable summary of the review."""
+        """Return a readable summary of the review.yes it's working"""
         return f"{self.user} rated {self.labor.name} {self.rating}/5"
+
+class Favorite(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="favorite_laborers",
+    )
+    labor = models.ForeignKey(
+        Labor,
+        on_delete=models.CASCADE,
+        related_name="favorited_by",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "labor"],
+                name="unique_favorite_per_user_and_labor",
+            ),
+        ]
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.user} favorited {self.labor.name}"    

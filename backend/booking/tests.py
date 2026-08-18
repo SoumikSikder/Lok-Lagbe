@@ -156,3 +156,24 @@ class BookingApiTests(APITestCase):
             response.data["labor_name"],
             self.available_labor.name,
         )
+
+    def test_booking_history_list_and_filtering(self):
+        response = self.client.get("/api/bookings/history/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]["labor_name"], self.available_labor.name)
+        self.assertIn("labor_profession", response.data[0])
+
+        filtered_response = self.client.get("/api/bookings/history/?status=pending")
+        self.assertEqual(filtered_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(filtered_response.data), 1)
+
+        empty_filter_response = self.client.get("/api/bookings/history/?status=completed")
+        self.assertEqual(empty_filter_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(empty_filter_response.data), 0)
+
+    def test_booking_history_unauthenticated_returns_403(self):
+        anonymous_client = APIClient()
+        response = anonymous_client.get("/api/bookings/history/")
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+

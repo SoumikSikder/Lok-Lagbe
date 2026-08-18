@@ -29,6 +29,17 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
 ]
 
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [],
+        },
+    },
+]
+
 ROOT_URLCONF = "loklagbe.urls"
 WSGI_APPLICATION = "loklagbe.wsgi.application"
 

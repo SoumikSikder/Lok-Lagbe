@@ -1,7 +1,10 @@
 from django.urls import path
 
-from booking.views import BookingCreateAPIView, BookingDetailAPIView
-
+from booking.views import (
+    BookingCreateAPIView,
+    BookingDetailAPIView,
+    BookingHistoryAPIView,
+)
 
 app_name = "booking"
 
@@ -11,5 +14,10 @@ urlpatterns = [
         "bookings/<int:pk>/",
         BookingDetailAPIView.as_view(),
         name="booking-detail",
+    ),
+    path(
+        "bookings/history/",
+        BookingHistoryAPIView.as_view(),
+        name="booking-history",
     ),
 ]

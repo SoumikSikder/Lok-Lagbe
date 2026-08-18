@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 
+import FavoriteButton from "./FavoriteButton.jsx";
 import LaborPhoto from "./LaborPhoto.jsx";
 import RatingDisplay from "./RatingDisplay.jsx";
 import ReviewForm from "./ReviewForm.jsx";
@@ -53,19 +54,22 @@ function LaborDetailsContent({
                     </div>
 
                     <div className="flex flex-col p-6 sm:p-8 lg:p-10">
-                        <div className="flex flex-wrap items-center gap-3">
-                            <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700 ring-1 ring-brand-200">
-                                {labor.category}
-                            </span>
-                            <span
-                                className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ${
-                                    labor.available
-                                        ? "bg-emerald-50 text-emerald-700 ring-emerald-200"
-                                        : "bg-slate-100 text-slate-600 ring-slate-200"
-                                }`}
-                            >
-                                {labor.available ? "Available" : "Unavailable"}
-                            </span>
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                            <div className="flex items-center gap-3">
+                                <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700 ring-1 ring-brand-200">
+                                    {labor.category}
+                                </span>
+                                <span
+                                    className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ${
+                                        labor.available
+                                            ? "bg-emerald-50 text-emerald-700 ring-emerald-200"
+                                            : "bg-slate-100 text-slate-600 ring-slate-200"
+                                    }`}
+                                >
+                                    {labor.available ? "Available" : "Unavailable"}
+                                </span>
+                            </div>
+                            <FavoriteButton labor={labor} showLabel={true} />
                         </div>
 
                         <h1 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
@@ -96,7 +100,7 @@ function LaborDetailsContent({
                             {labor.description}
                         </p>
 
-                        <div className="mt-8">
+                        <div className="mt-8 flex items-center gap-4 flex-wrap">
                             {labor.available ? (
                                 <Link
                                     to={`/labors/${labor.id}/hire`}
@@ -113,6 +117,7 @@ function LaborDetailsContent({
                                     Currently unavailable
                                 </button>
                             )}
+                            <FavoriteButton labor={labor} showLabel={true} className="py-3 px-4 rounded-xl text-sm" />
                         </div>
                     </div>
                 </div>

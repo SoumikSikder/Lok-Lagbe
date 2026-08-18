@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from labor.models import Labor, Review
+from labor.models import Favorite, Labor, Review
 
 
 class LaborListSerializer(serializers.ModelSerializer):
@@ -61,6 +61,27 @@ class ReviewSerializer(serializers.ModelSerializer):
                 )
 
         return attributes
+
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    labor_detail = LaborListSerializer(source="labor", read_only=True)
+
+    class Meta:
+        model = Favorite
+        fields = [
+            "id",
+            "user",
+            "labor",
+            "labor_detail",
+            "created_at",
+        ]
+        read_only_fields = [
+            "id",
+            "user",
+            "labor_detail",
+            "created_at",
+        ]
+
 
 
 class LaborDetailSerializer(serializers.ModelSerializer):

@@ -1,6 +1,8 @@
 from django.urls import path
 
 from labor.views import (
+    FavoriteDeleteAPIView,
+    FavoriteListCreateAPIView,
     LaborDetailAPIView,
     LaborListAPIView,
     ReviewCreateAPIView,
@@ -17,4 +19,14 @@ urlpatterns = [
         name="labor-detail",
     ),
     path("reviews/", ReviewCreateAPIView.as_view(), name="review-create"),
+    path(
+        "favorites/",
+        FavoriteListCreateAPIView.as_view(),
+        name="favorite-list-create",
+    ),
+    path(
+        "favorites/<int:pk>/",
+        FavoriteDeleteAPIView.as_view(),
+        name="favorite-delete",
+    ),
 ]

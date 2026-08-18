@@ -14,6 +14,14 @@ class BookingSerializer(serializers.ModelSerializer):
         read_only=True,
     )
     labor_name = serializers.CharField(source="labor.name", read_only=True)
+    labor_profession = serializers.CharField(source="labor.profession", read_only=True)
+    labor_photo = serializers.ImageField(source="labor.photo", read_only=True)
+    labor_rating = serializers.DecimalField(
+        source="labor.rating",
+        max_digits=2,
+        decimal_places=1,
+        read_only=True,
+    )
     status_display = serializers.CharField(
         source="get_status_display",
         read_only=True,
@@ -27,6 +35,9 @@ class BookingSerializer(serializers.ModelSerializer):
             "labor",
             "labor_hourly_wage",
             "labor_name",
+            "labor_profession",
+            "labor_photo",
+            "labor_rating",
             "work_date",
             "start_time",
             "duration",
@@ -41,6 +52,9 @@ class BookingSerializer(serializers.ModelSerializer):
             "user",
             "labor_hourly_wage",
             "labor_name",
+            "labor_profession",
+            "labor_photo",
+            "labor_rating",
             "status",
             "status_display",
             "created_at",

@@ -1,16 +1,43 @@
-.. Lok-Lagbe documentation master file, created by
-   sphinx-quickstart on Sat Aug 15 21:11:47 2026.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Lok-Lagbe - Feature Documentation (Tanzim Ahamad)
+===================================================
 
-Lok-Lagbe documentation
-=======================
+This documentation covers the assigned features implemented for the Lok-Lagbe platform:
+1. **View Hire History**
+2. **Manage Favorite Laborers**
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
+Generated automatically using **Sphinx**.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Features:
+
+   hire_history
+   favorites
+
+View Hire History Feature
+-------------------------
+.. autoclass:: booking.views.BookingHistoryAPIView
+   :members:
+   :undoc-members:
+
+.. autoclass:: booking.serializers.BookingSerializer
+   :members:
+   :undoc-members:
+
+Manage Favorite Laborers Feature
+--------------------------------
+.. autoclass:: labor.models.Favorite
+   :members:
+   :undoc-members:
+
+.. autoclass:: labor.views.FavoriteListCreateAPIView
+   :members:
+   :undoc-members:
+
+.. autoclass:: labor.views.FavoriteDeleteAPIView
+   :members:
+   :undoc-members:
+
+.. autoclass:: labor.serializers.FavoriteSerializer
+   :members:
+   :undoc-members:

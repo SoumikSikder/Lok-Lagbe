@@ -5,8 +5,9 @@ from django.db.models import Avg, Count, Q
 from rest_framework import generics, permissions, serializers
 from rest_framework.pagination import PageNumberPagination
 
-from labor.models import Labor, Review
+from labor.models import Favorite, Labor, Review
 from labor.serializers import (
+    FavoriteSerializer,
     LaborDetailSerializer,
     LaborListSerializer,
     ReviewSerializer,
@@ -149,3 +150,38 @@ class ReviewCreateAPIView(DatabaseErrorMixin, generics.CreateAPIView):
         )
         labor.review_count = summary["count"]
         labor.save(update_fields=["rating", "review_count"])
+
+class FavoriteListCreateAPIView(
+    DatabaseErrorMixin,
+    generics.ListCreateAPIView,
+):
+    serializer_class = FavoriteSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Favorite.objects.filter(
+            user=self.request.user
+        ).select_related("labor")
+
+    def perform_create(self, serializer):
+        labor = serializer.validated_data["labor"]
+
+        try:
+            serializer.save(user=self.request.user)
+        except IntegrityError as exception:
+            raise serializers.ValidationError(
+                {"labor": "This laborer is already in your favorites."}
+            ) from exception
+
+
+class FavoriteDeleteAPIView(
+    DatabaseErrorMixin,
+    generics.DestroyAPIView,
+):
+    serializer_class = FavoriteSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Favorite.objects.filter(
+            user=self.request.user
+        )        

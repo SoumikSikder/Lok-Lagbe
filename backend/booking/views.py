@@ -35,3 +35,19 @@ class BookingDetailAPIView(DatabaseErrorMixin, generics.RetrieveAPIView):
             "labor",
             "user",
         )
+
+class BookingHistoryAPIView(DatabaseErrorMixin, generics.ListAPIView):
+    serializer_class = BookingSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Booking.objects.filter(
+            user=self.request.user
+        ).select_related("labor", "user")
+
+        status_filter = self.request.query_params.get("status", "").strip()
+        if status_filter:
+            queryset = queryset.filter(status__iexact=status_filter)
+
+        return queryset.order_by("-created_at")
+
