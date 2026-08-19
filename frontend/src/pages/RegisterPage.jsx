@@ -68,12 +68,8 @@ function RegisterPage() {
             );
             setSuccess("Account created successfully! You can now log in.");
         } catch (err) {
-            const message =
-                err.response?.data?.username?.[0] ||
-                err.response?.data?.email?.[0] ||
-                err.response?.data?.password?.[0] ||
-                "Registration failed. Please try again.";
-            setError(message);
+            // ApiError already extracts the first DRF field error as its message.
+            setError(err?.message || "Registration failed. Please try again.");
         } finally {
             setLoading(false);
         }

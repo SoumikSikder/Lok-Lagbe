@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import RegisterPage from '../../pages/RegisterPage';
 import * as authService from '../../services/authService';
+import { ApiError } from '../../services/apiClient.js';
 
 /**
  * Test suite for the RegisterPage component.
@@ -143,13 +144,12 @@ describe('RegisterPage', () => {
         const user = userEvent.setup();
 
         // Mock the API call to return an error
-        vi.spyOn(authService, '_registerUser').mockRejectedValue({
-            response: {
-                data: {
-                    username: ['This username is already taken.'],
-                },
-            },
-        });
+        vi.spyOn(authService, '_registerUser').mockRejectedValue(
+            new ApiError('This username is already taken.', {
+                status: 400,
+                details: { username: ['This username is already taken.'] },
+            })
+        );
 
         _renderRegisterPage();
 

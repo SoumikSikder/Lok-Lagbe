@@ -26,11 +26,25 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import RegisterPage from "./pages/RegisterPage";
-import HowItWorksPage from "./pages/HowItWorksPage";
-import PricingPage from "./pages/PricingPage";
+            <pre class="prettyprint source linenums"><code>import { Navigate, Route, Routes } from "react-router";
+
+import AppShell from "./components/AppShell.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import AdminUI from "./Admin UI/AdminUI.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import RegisterPage from "./pages/RegisterPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import ManageProfilePage from "./pages/ManageProfilePage.jsx";
+import HowItWorksPage from "./pages/HowItWorksPage.jsx";
+import PricingPage from "./pages/PricingPage.jsx";
+import BookingSuccessPage from "./pages/BookingSuccessPage.jsx";
+import FavoritesPage from "./pages/FavoritesPage.jsx";
+import HireHistoryPage from "./pages/HireHistoryPage.jsx";
+import HireLaborPage from "./pages/HireLaborPage.jsx";
+import LaborDetailsPage from "./pages/LaborDetailsPage.jsx";
+import LaborListPage from "./pages/LaborListPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
+import PaymentPage from "./pages/PaymentPage.jsx";
 
 /**
  * Root application component that sets up client side routing.
@@ -40,26 +54,51 @@ import PricingPage from "./pages/PricingPage";
  */
 function App() {
     return (
-        &lt;BrowserRouter>
+        &lt;AppShell>
             &lt;Routes>
+                &lt;Route path="/" element={&lt;HomePage />} />
+                &lt;Route path="/register" element={&lt;RegisterPage />} />
+                &lt;Route path="/login" element={&lt;LoginPage />} />
+                &lt;Route path="/admin" element={&lt;AdminUI />} />
                 &lt;Route
-                    path="/"
-                    element={&lt;HomePage />}
+                    path="/profile"
+                    element={
+                        &lt;ProtectedRoute>
+                            &lt;ManageProfilePage />
+                        &lt;/ProtectedRoute>
+                    }
+                />
+                &lt;Route path="/how-it-works" element={&lt;HowItWorksPage />} />
+                &lt;Route path="/pricing" element={&lt;PricingPage />} />
+                &lt;Route path="/labors" element={&lt;LaborListPage />} />
+                &lt;Route
+                    path="/labors/:laborId"
+                    element={&lt;LaborDetailsPage />}
                 />
                 &lt;Route
-                    path="/register"
-                    element={&lt;RegisterPage />}
+                    path="/labors/:laborId/hire"
+                    element={&lt;HireLaborPage />}
                 />
                 &lt;Route
-                    path="/how-it-works"
-                    element={&lt;HowItWorksPage />}
+                    path="/bookings/history"
+                    element={&lt;HireHistoryPage />}
                 />
                 &lt;Route
-                    path="/pricing"
-                    element={&lt;PricingPage />}
+                    path="/hire-history"
+                    element={&lt;Navigate to="/bookings/history" replace />}
                 />
+                &lt;Route path="/favorites" element={&lt;FavoritesPage />} />
+                &lt;Route
+                    path="/bookings/:bookingId/success"
+                    element={&lt;BookingSuccessPage />}
+                />
+                &lt;Route
+                    path="/bookings/:bookingId/payment"
+                    element={&lt;PaymentPage />}
+                />
+                &lt;Route path="*" element={&lt;NotFoundPage />} />
             &lt;/Routes>
-        &lt;/BrowserRouter>
+        &lt;/AppShell>
     );
 }
 
@@ -73,13 +112,13 @@ export default App;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#API_URL">API_URL</a></li><li><a href="global.html#AVATAR_COLORS">AVATAR_COLORS</a></li><li><a href="global.html#AVATAR_OPTIONS">AVATAR_OPTIONS</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#CATEGORY_PRICING">CATEGORY_PRICING</a></li><li><a href="global.html#COMMON_QUESTIONS">COMMON_QUESTIONS</a></li><li><a href="global.html#HIRING_STEPS">HIRING_STEPS</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HowItWorksPage">HowItWorksPage</a></li><li><a href="global.html#JOB_CATEGORIES">JOB_CATEGORIES</a></li><li><a href="global.html#PAYMENT_METHODS">PAYMENT_METHODS</a></li><li><a href="global.html#PLATFORM_STATS">PLATFORM_STATS</a></li><li><a href="global.html#PRICING_RULES">PRICING_RULES</a></li><li><a href="global.html#PricingPage">PricingPage</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#_registerUser">_registerUser</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ALLOWED_EXTENSIONS">ALLOWED_EXTENSIONS</a></li><li><a href="global.html#API_BASE">API_BASE</a></li><li><a href="global.html#API_BASE_URL">API_BASE_URL</a></li><li><a href="global.html#AVATAR_COLORS">AVATAR_COLORS</a></li><li><a href="global.html#AVATAR_OPTIONS">AVATAR_OPTIONS</a></li><li><a href="global.html#AdminUI">AdminUI</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppShell">AppShell</a></li><li><a href="global.html#Avatar">Avatar</a></li><li><a href="global.html#BookingConfirmation">BookingConfirmation</a></li><li><a href="global.html#BookingSuccessPage">BookingSuccessPage</a></li><li><a href="global.html#CATEGORIES">CATEGORIES</a></li><li><a href="global.html#CATEGORY_PRICING">CATEGORY_PRICING</a></li><li><a href="global.html#COMMON_QUESTIONS">COMMON_QUESTIONS</a></li><li><a href="global.html#EditSystemDatabase">EditSystemDatabase</a></li><li><a href="global.html#EmptyState">EmptyState</a></li><li><a href="global.html#ErrorState">ErrorState</a></li><li><a href="global.html#FavoriteButton">FavoriteButton</a></li><li><a href="global.html#FavoritesPage">FavoritesPage</a></li><li><a href="global.html#FormFieldError">FormFieldError</a></li><li><a href="global.html#HIRING_STEPS">HIRING_STEPS</a></li><li><a href="global.html#HireForm">HireForm</a></li><li><a href="global.html#HireHistoryPage">HireHistoryPage</a></li><li><a href="global.html#HireLaborPage">HireLaborPage</a></li><li><a href="global.html#HireLaborSummary">HireLaborSummary</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HowItWorksPage">HowItWorksPage</a></li><li><a href="global.html#JOB_CATEGORIES">JOB_CATEGORIES</a></li><li><a href="global.html#LaborCard">LaborCard</a></li><li><a href="global.html#LaborDetailsContent">LaborDetailsContent</a></li><li><a href="global.html#LaborDetailsPage">LaborDetailsPage</a></li><li><a href="global.html#LaborFilters">LaborFilters</a></li><li><a href="global.html#LaborListPage">LaborListPage</a></li><li><a href="global.html#LaborPhoto">LaborPhoto</a></li><li><a href="global.html#LoadingSpinner">LoadingSpinner</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#ManageLabourListings">ManageLabourListings</a></li><li><a href="global.html#ManageProfilePage">ManageProfilePage</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#PAYMENT_METHODS">PAYMENT_METHODS</a></li><li><a href="global.html#PLATFORM_STATS">PLATFORM_STATS</a></li><li><a href="global.html#PRICING_RULES">PRICING_RULES</a></li><li><a href="global.html#PagePlaceholder">PagePlaceholder</a></li><li><a href="global.html#Pagination">Pagination</a></li><li><a href="global.html#PaymentMethodForm">PaymentMethodForm</a></li><li><a href="global.html#PaymentPage">PaymentPage</a></li><li><a href="global.html#PaymentSuccess">PaymentSuccess</a></li><li><a href="global.html#PaymentSummary">PaymentSummary</a></li><li><a href="global.html#PricingPage">PricingPage</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#ProfileHeader">ProfileHeader</a></li><li><a href="global.html#ProfileStats">ProfileStats</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RatingDisplay">RatingDisplay</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#ReviewForm">ReviewForm</a></li><li><a href="global.html#ReviewList">ReviewList</a></li><li><a href="global.html#SearchBar">SearchBar</a></li><li><a href="global.html#_formatDate">_formatDate</a></li><li><a href="global.html#_formatTime">_formatTime</a></li><li><a href="global.html#_getInitials">_getInitials</a></li><li><a href="global.html#_getNavLinkClassName">_getNavLinkClassName</a></li><li><a href="global.html#_getProfile">_getProfile</a></li><li><a href="global.html#_getStatusBadge">_getStatusBadge</a></li><li><a href="global.html#_loginUser">_loginUser</a></li><li><a href="global.html#_registerUser">_registerUser</a></li><li><a href="global.html#_updateProfile">_updateProfile</a></li><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#deleteFavorite">deleteFavorite</a></li><li><a href="global.html#getBookingHistory">getBookingHistory</a></li><li><a href="global.html#getFavorites">getFavorites</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#saveToken">saveToken</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Aug 17 2026 19:35:17 GMT+0600 (Bangladesh Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Aug 19 2026 20:49:55 GMT+0600 (Bangladesh Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

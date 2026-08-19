@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/HireHistoryPage.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/HireHistoryPage.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useEffect, useState } from "react";
+import { Link } from "react-router";
+import EmptyState from "../components/EmptyState.jsx";
+import ErrorState from "../components/ErrorState.jsx";
+import FavoriteButton from "../components/FavoriteButton.jsx";
+import LaborPhoto from "../components/LaborPhoto.jsx";
+import LoadingSpinner from "../components/LoadingSpinner.jsx";
+import RatingDisplay from "../components/RatingDisplay.jsx";
+import { getBookingHistory } from "../services/bookingService.js";
+
+/**
+ * Get CSS badge styling classes based on booking status.
+ *
+ * @param {string} status Booking status e.g. "pending", "accepted", "completed", "rejected".
+ * @returns {string} Tailwind CSS badge styling classes.
+ */
+function _getStatusBadge(status) {
+    const s = (status || "").toLowerCase();
+    switch (s) {
+        case "accepted":
+            return "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800";
+        case "completed":
+            return "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800";
+        case "rejected":
+        case "cancelled":
+            return "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-800";
+        case "pending":
+        default:
+            return "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800";
+    }
+}
+
+/**
+ * Render the Hire History page displaying user's past and active service hires.
+ *
+ * @returns {JSX.Element} Interactive hire history list with status filtering.
+ */
+function HireHistoryPage() {
+    const [bookings, setBookings] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [activeTab, setActiveTab] = useState("all");
+
+    const fetchHistory = async (statusFilter = "") => {
+        setIsLoading(true);
+        setErrorMessage(null);
+        try {
+            const params = statusFilter &amp;&amp; statusFilter !== "all" ? { status: statusFilter } : {};
+            const data = await getBookingHistory(params);
+            const list = Array.isArray(data) ? data : (data.results || []);
+            setBookings(list);
+        } catch (err) {
+            console.error("Failed to load hire history:", err);
+            setErrorMessage(
+                err?.message || "Failed to load your hire history. Please try again."
+            );
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchHistory(activeTab);
+    }, [activeTab]);
+
+    return (
+        &lt;div className="max-w-6xl mx-auto px-4 py-8">
+            {/* Page Header */}
+            &lt;div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                &lt;div>
+                    &lt;h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        &lt;span>📋&lt;/span> View Hire History
+                    &lt;/h1>
+                    &lt;p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        Track your past &amp; active service hires across Bangladesh.
+                    &lt;/p>
+                &lt;/div>
+                &lt;Link
+                    to="/labors"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm rounded-lg shadow-sm transition-colors self-start md:self-auto"
+                >
+                    &lt;span>➕&lt;/span> Hire New Laborer
+                &lt;/Link>
+            &lt;/div>
+
+            {/* Filter Tabs */}
+            &lt;div className="flex items-center gap-2 border-b border-gray-200 dark:border-gray-800 mb-6 overflow-x-auto pb-2">
+                {[
+                    { key: "all", label: "All Hires" },
+                    { key: "pending", label: "Pending" },
+                    { key: "accepted", label: "Accepted" },
+                    { key: "completed", label: "Completed" },
+                    { key: "rejected", label: "Rejected" },
+                ].map((tab) => (
+                    &lt;button
+                        key={tab.key}
+                        type="button"
+                        onClick={() => setActiveTab(tab.key)}
+                        className={`px-4 py-2 text-sm font-medium rounded-t-lg transition-colors whitespace-nowrap cursor-pointer ${
+                            activeTab === tab.key
+                                ? "bg-emerald-50 text-emerald-700 border-b-2 border-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-500"
+                                : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                        }`}
+                    >
+                        {tab.label}
+                    &lt;/button>
+                ))}
+            &lt;/div>
+
+            {/* Content States */}
+            {isLoading ? (
+                &lt;div className="py-16 text-center">
+                    &lt;LoadingSpinner message="Loading your hire history..." />
+                &lt;/div>
+            ) : errorMessage ? (
+                &lt;ErrorState
+                    title="Could Not Load Hire History"
+                    message={errorMessage}
+                    onRetry={() => fetchHistory(activeTab)}
+                />
+            ) : bookings.length === 0 ? (
+                &lt;EmptyState
+                    title="No Hire Records Found"
+                    message={
+                        activeTab === "all"
+                            ? "You haven't hired any local workers yet. Browse available professionals to book a service!"
+                            : `No hires found with status "${activeTab}".`
+                    }
+                    actionLabel="Find Workers"
+                    actionTo="/labors"
+                />
+            ) : (
+                &lt;div className="grid grid-cols-1 gap-6">
+                    {bookings.map((booking) => {
+                        const hourlyWage = Number(booking.labor_hourly_wage || 0);
+                        const durationHrs = Number(booking.duration || 1);
+                        const totalCost = (hourlyWage * durationHrs).toFixed(2);
+                        const laborObj = {
+                            id: booking.labor,
+                            name: booking.labor_name,
+                            profession: booking.labor_profession,
+                            photo: booking.labor_photo,
+                            hourly_wage: booking.labor_hourly_wage,
+                        };
+
+                        return (
+                            &lt;div
+                                key={booking.id}
+                                className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col md:flex-row gap-6 items-start justify-between"
+                            >
+                                {/* Left Info: Labor Details */}
+                                &lt;div className="flex gap-4 items-start">
+                                    &lt;LaborPhoto
+                                        photoUrl={booking.labor_photo}
+                                        name={booking.labor_name}
+                                        className="w-16 h-16 rounded-xl object-cover border border-gray-200 dark:border-gray-800 flex-shrink-0"
+                                    />
+                                    &lt;div>
+                                        &lt;div className="flex items-center gap-3 flex-wrap">
+                                            &lt;Link
+                                                to={`/labors/${booking.labor}`}
+                                                className="text-lg font-bold text-gray-900 dark:text-white hover:text-emerald-600 transition-colors"
+                                            >
+                                                {booking.labor_name || `Labor #${booking.labor}`}
+                                            &lt;/Link>
+                                            &lt;span
+                                                className={`px-2.5 py-0.5 rounded-full text-xs font-semibold border ${_getStatusBadge(
+                                                    booking.status
+                                                )}`}
+                                            >
+                                                {booking.status_display || booking.status}
+                                            &lt;/span>
+                                        &lt;/div>
+
+                                        {booking.labor_profession &amp;&amp; (
+                                            &lt;p className="text-sm font-medium text-emerald-600 dark:text-emerald-400 mt-0.5">
+                                                {booking.labor_profession}
+                                            &lt;/p>
+                                        )}
+
+                                        {booking.labor_rating &amp;&amp; (
+                                            &lt;div className="mt-1">
+                                                &lt;RatingDisplay rating={Number(booking.labor_rating)} />
+                                            &lt;/div>
+                                        )}
+
+                                        {/* Work Metadata */}
+                                        &lt;div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs text-gray-600 dark:text-gray-400">
+                                            &lt;div>
+                                                &lt;span className="font-semibold text-gray-700 dark:text-gray-300">📅 Work Date:&lt;/span>{" "}
+                                                {booking.work_date}
+                                            &lt;/div>
+                                            &lt;div>
+                                                &lt;span className="font-semibold text-gray-700 dark:text-gray-300">⏰ Start Time:&lt;/span>{" "}
+                                                {booking.start_time}
+                                            &lt;/div>
+                                            &lt;div>
+                                                &lt;span className="font-semibold text-gray-700 dark:text-gray-300">⏳ Duration:&lt;/span>{" "}
+                                                {booking.duration} hrs
+                                            &lt;/div>
+                                            &lt;div>
+                                                &lt;span className="font-semibold text-gray-700 dark:text-gray-300">📍 Address:&lt;/span>{" "}
+                                                {booking.address}
+                                            &lt;/div>
+                                        &lt;/div>
+
+                                        {booking.notes &amp;&amp; (
+                                            &lt;p className="mt-2 text-xs italic text-gray-500 bg-gray-50 dark:bg-gray-800/60 p-2 rounded border border-gray-100 dark:border-gray-800">
+                                                "{booking.notes}"
+                                            &lt;/p>
+                                        )}
+                                    &lt;/div>
+                                &lt;/div>
+
+                                {/* Right Info: Pricing &amp; Actions */}
+                                &lt;div className="flex flex-col md:items-end justify-between w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-gray-100 dark:border-gray-800 gap-4">
+                                    &lt;div className="text-left md:text-right">
+                                        &lt;p className="text-xs text-gray-500 dark:text-gray-400">Est. Total Cost&lt;/p>
+                                        &lt;p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">
+                                            ৳{totalCost}{" "}
+                                            &lt;span className="text-xs font-normal text-gray-400">
+                                                (৳{hourlyWage}/hr)
+                                            &lt;/span>
+                                        &lt;/p>
+                                        &lt;p className="text-[11px] text-gray-400 mt-0.5">
+                                            Booked on {new Date(booking.created_at).toLocaleDateString()}
+                                        &lt;/p>
+                                    &lt;/div>
+
+                                    &lt;div className="flex items-center gap-2 flex-wrap">
+                                        &lt;FavoriteButton labor={laborObj} showLabel={false} />
+                                        &lt;Link
+                                            to={`/labors/${booking.labor}`}
+                                            className="px-3 py-1.5 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 text-xs font-medium rounded-lg transition-colors"
+                                        >
+                                            View Profile
+                                        &lt;/Link>
+                                        &lt;Link
+                                            to={`/labors/${booking.labor}/hire`}
+                                            className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors"
+                                        >
+                                            Hire Again
+                                        &lt;/Link>
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/div>
+                        );
+                    })}
+                &lt;/div>
+            )}
+        &lt;/div>
+    );
+}
+
+export default HireHistoryPage;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ALLOWED_EXTENSIONS">ALLOWED_EXTENSIONS</a></li><li><a href="global.html#API_BASE">API_BASE</a></li><li><a href="global.html#API_BASE_URL">API_BASE_URL</a></li><li><a href="global.html#AVATAR_COLORS">AVATAR_COLORS</a></li><li><a href="global.html#AVATAR_OPTIONS">AVATAR_OPTIONS</a></li><li><a href="global.html#AdminUI">AdminUI</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppShell">AppShell</a></li><li><a href="global.html#Avatar">Avatar</a></li><li><a href="global.html#BookingConfirmation">BookingConfirmation</a></li><li><a href="global.html#BookingSuccessPage">BookingSuccessPage</a></li><li><a href="global.html#CATEGORIES">CATEGORIES</a></li><li><a href="global.html#CATEGORY_PRICING">CATEGORY_PRICING</a></li><li><a href="global.html#COMMON_QUESTIONS">COMMON_QUESTIONS</a></li><li><a href="global.html#EditSystemDatabase">EditSystemDatabase</a></li><li><a href="global.html#EmptyState">EmptyState</a></li><li><a href="global.html#ErrorState">ErrorState</a></li><li><a href="global.html#FavoriteButton">FavoriteButton</a></li><li><a href="global.html#FavoritesPage">FavoritesPage</a></li><li><a href="global.html#FormFieldError">FormFieldError</a></li><li><a href="global.html#HIRING_STEPS">HIRING_STEPS</a></li><li><a href="global.html#HireForm">HireForm</a></li><li><a href="global.html#HireHistoryPage">HireHistoryPage</a></li><li><a href="global.html#HireLaborPage">HireLaborPage</a></li><li><a href="global.html#HireLaborSummary">HireLaborSummary</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HowItWorksPage">HowItWorksPage</a></li><li><a href="global.html#JOB_CATEGORIES">JOB_CATEGORIES</a></li><li><a href="global.html#LaborCard">LaborCard</a></li><li><a href="global.html#LaborDetailsContent">LaborDetailsContent</a></li><li><a href="global.html#LaborDetailsPage">LaborDetailsPage</a></li><li><a href="global.html#LaborFilters">LaborFilters</a></li><li><a href="global.html#LaborListPage">LaborListPage</a></li><li><a href="global.html#LaborPhoto">LaborPhoto</a></li><li><a href="global.html#LoadingSpinner">LoadingSpinner</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#ManageLabourListings">ManageLabourListings</a></li><li><a href="global.html#ManageProfilePage">ManageProfilePage</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#PAYMENT_METHODS">PAYMENT_METHODS</a></li><li><a href="global.html#PLATFORM_STATS">PLATFORM_STATS</a></li><li><a href="global.html#PRICING_RULES">PRICING_RULES</a></li><li><a href="global.html#PagePlaceholder">PagePlaceholder</a></li><li><a href="global.html#Pagination">Pagination</a></li><li><a href="global.html#PaymentMethodForm">PaymentMethodForm</a></li><li><a href="global.html#PaymentPage">PaymentPage</a></li><li><a href="global.html#PaymentSuccess">PaymentSuccess</a></li><li><a href="global.html#PaymentSummary">PaymentSummary</a></li><li><a href="global.html#PricingPage">PricingPage</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#ProfileHeader">ProfileHeader</a></li><li><a href="global.html#ProfileStats">ProfileStats</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RatingDisplay">RatingDisplay</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#ReviewForm">ReviewForm</a></li><li><a href="global.html#ReviewList">ReviewList</a></li><li><a href="global.html#SearchBar">SearchBar</a></li><li><a href="global.html#_formatDate">_formatDate</a></li><li><a href="global.html#_formatTime">_formatTime</a></li><li><a href="global.html#_getInitials">_getInitials</a></li><li><a href="global.html#_getNavLinkClassName">_getNavLinkClassName</a></li><li><a href="global.html#_getProfile">_getProfile</a></li><li><a href="global.html#_getStatusBadge">_getStatusBadge</a></li><li><a href="global.html#_loginUser">_loginUser</a></li><li><a href="global.html#_registerUser">_registerUser</a></li><li><a href="global.html#_updateProfile">_updateProfile</a></li><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#deleteFavorite">deleteFavorite</a></li><li><a href="global.html#getBookingHistory">getBookingHistory</a></li><li><a href="global.html#getFavorites">getFavorites</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#saveToken">saveToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Aug 19 2026 20:49:55 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
