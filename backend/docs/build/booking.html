@@ -1,0 +1,622 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking App &mdash; Lok Lagbe 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Labor Listing Test Suite" href="testing.html" />
+    <link rel="prev" title="Labor App" href="labor.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="index.html" class="icon icon-home">
+            Lok Lagbe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="labor.html">Labor App</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Booking App</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-apps.booking.apps">Application Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps.booking.apps.BookingConfig"><code class="docutils literal notranslate"><span class="pre">BookingConfig</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-apps.booking.models">Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps.booking.models.Booking"><code class="docutils literal notranslate"><span class="pre">Booking</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.ACCEPTED"><code class="docutils literal notranslate"><span class="pre">Booking.ACCEPTED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.COMPLETED"><code class="docutils literal notranslate"><span class="pre">Booking.COMPLETED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Booking.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Booking.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.PENDING"><code class="docutils literal notranslate"><span class="pre">Booking.PENDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.REJECTED"><code class="docutils literal notranslate"><span class="pre">Booking.REJECTED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.STATUS_CHOICES"><code class="docutils literal notranslate"><span class="pre">Booking.STATUS_CHOICES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.address"><code class="docutils literal notranslate"><span class="pre">Booking.address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.created_at"><code class="docutils literal notranslate"><span class="pre">Booking.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.duration"><code class="docutils literal notranslate"><span class="pre">Booking.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.get_next_by_created_at"><code class="docutils literal notranslate"><span class="pre">Booking.get_next_by_created_at()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.get_next_by_work_date"><code class="docutils literal notranslate"><span class="pre">Booking.get_next_by_work_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.get_previous_by_created_at"><code class="docutils literal notranslate"><span class="pre">Booking.get_previous_by_created_at()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.get_previous_by_work_date"><code class="docutils literal notranslate"><span class="pre">Booking.get_previous_by_work_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.get_status_display"><code class="docutils literal notranslate"><span class="pre">Booking.get_status_display()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.id"><code class="docutils literal notranslate"><span class="pre">Booking.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.labor"><code class="docutils literal notranslate"><span class="pre">Booking.labor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.labor_id"><code class="docutils literal notranslate"><span class="pre">Booking.labor_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.notes"><code class="docutils literal notranslate"><span class="pre">Booking.notes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.objects"><code class="docutils literal notranslate"><span class="pre">Booking.objects</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.start_time"><code class="docutils literal notranslate"><span class="pre">Booking.start_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.status"><code class="docutils literal notranslate"><span class="pre">Booking.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.user"><code class="docutils literal notranslate"><span class="pre">Booking.user</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.user_id"><code class="docutils literal notranslate"><span class="pre">Booking.user_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.models.Booking.work_date"><code class="docutils literal notranslate"><span class="pre">Booking.work_date</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-apps.booking.serializers">Serializer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps.booking.serializers.BookingSerializer"><code class="docutils literal notranslate"><span class="pre">BookingSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.serializers.BookingSerializer.Meta"><code class="docutils literal notranslate"><span class="pre">BookingSerializer.Meta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.serializers.BookingSerializer.validate_labor"><code class="docutils literal notranslate"><span class="pre">BookingSerializer.validate_labor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.serializers.BookingSerializer.validate_work_date"><code class="docutils literal notranslate"><span class="pre">BookingSerializer.validate_work_date()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-apps.booking.views">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps.booking.views.BookingCreateAPIView"><code class="docutils literal notranslate"><span class="pre">BookingCreateAPIView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.views.BookingCreateAPIView.perform_create"><code class="docutils literal notranslate"><span class="pre">BookingCreateAPIView.perform_create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.views.BookingCreateAPIView.permission_classes"><code class="docutils literal notranslate"><span class="pre">BookingCreateAPIView.permission_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.views.BookingCreateAPIView.serializer_class"><code class="docutils literal notranslate"><span class="pre">BookingCreateAPIView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#apps.booking.views.BookingDetailAPIView"><code class="docutils literal notranslate"><span class="pre">BookingDetailAPIView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.views.BookingDetailAPIView.get_queryset"><code class="docutils literal notranslate"><span class="pre">BookingDetailAPIView.get_queryset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.views.BookingDetailAPIView.permission_classes"><code class="docutils literal notranslate"><span class="pre">BookingDetailAPIView.permission_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.views.BookingDetailAPIView.serializer_class"><code class="docutils literal notranslate"><span class="pre">BookingDetailAPIView.serializer_class</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-apps.booking.tests">API Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps.booking.tests.BookingApiTests"><code class="docutils literal notranslate"><span class="pre">BookingApiTests</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests._create_labor"><code class="docutils literal notranslate"><span class="pre">BookingApiTests._create_labor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests._valid_payload"><code class="docutils literal notranslate"><span class="pre">BookingApiTests._valid_payload()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests.setUp"><code class="docutils literal notranslate"><span class="pre">BookingApiTests.setUp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests.setUpTestData"><code class="docutils literal notranslate"><span class="pre">BookingApiTests.setUpTestData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests.test_booking_creation_requires_authentication"><code class="docutils literal notranslate"><span class="pre">BookingApiTests.test_booking_creation_requires_authentication()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests.test_booking_detail_is_limited_to_owner"><code class="docutils literal notranslate"><span class="pre">BookingApiTests.test_booking_detail_is_limited_to_owner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests.test_booking_owner_can_retrieve_complete_record"><code class="docutils literal notranslate"><span class="pre">BookingApiTests.test_booking_owner_can_retrieve_complete_record()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests.test_create_booking_returns_pending_record"><code class="docutils literal notranslate"><span class="pre">BookingApiTests.test_create_booking_returns_pending_record()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests.test_duration_outside_allowed_range_returns_400"><code class="docutils literal notranslate"><span class="pre">BookingApiTests.test_duration_outside_allowed_range_returns_400()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests.test_past_work_date_returns_400"><code class="docutils literal notranslate"><span class="pre">BookingApiTests.test_past_work_date_returns_400()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.booking.tests.BookingApiTests.test_unavailable_labor_returns_400"><code class="docutils literal notranslate"><span class="pre">BookingApiTests.test_unavailable_labor_returns_400()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Labor Listing Test Suite</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Lok Lagbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Booking App</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/booking.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <section id="booking-app">
+<h1>Booking App<a class="headerlink" href="#booking-app" title="Link to this heading"></a></h1>
+<p>The booking app validates authenticated hiring requests, stores their schedule
+and status, and restricts booking details to the owning user.</p>
+<section id="module-apps.booking.apps">
+<span id="application-configuration"></span><h2>Application Configuration<a class="headerlink" href="#module-apps.booking.apps" title="Link to this heading"></a></h2>
+<p>Django application configuration for the booking domain.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.booking.apps.BookingConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.booking.apps.</span></span><span class="sig-name descname"><span class="pre">BookingConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/apps.html#BookingConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.apps.BookingConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
+<p>Register the relocated booking app under its stable Django label.</p>
+</dd></dl>
+
+</section>
+<section id="module-apps.booking.models">
+<span id="model"></span><h2>Model<a class="headerlink" href="#module-apps.booking.models" title="Link to this heading"></a></h2>
+<p>Database model for authenticated labor bookings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.booking.models.Booking">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.booking.models.</span></span><span class="sig-name descname"><span class="pre">Booking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/models.html#Booking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.models.Booking" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Represent a scheduled request by one user to hire a laborer.</p>
+<p>A booking records when and where the work should happen, its expected
+duration, customer notes, and the current workflow status. Deleting a user
+removes their bookings, while a referenced labor profile is protected from
+deletion.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.ACCEPTED">
+<span class="sig-name descname"><span class="pre">ACCEPTED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'accepted'</span></span><a class="headerlink" href="#apps.booking.models.Booking.ACCEPTED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.COMPLETED">
+<span class="sig-name descname"><span class="pre">COMPLETED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'completed'</span></span><a class="headerlink" href="#apps.booking.models.Booking.COMPLETED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.DoesNotExist">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#apps.booking.models.Booking.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.MultipleObjectsReturned">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#apps.booking.models.Booking.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.PENDING">
+<span class="sig-name descname"><span class="pre">PENDING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pending'</span></span><a class="headerlink" href="#apps.booking.models.Booking.PENDING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.REJECTED">
+<span class="sig-name descname"><span class="pre">REJECTED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'rejected'</span></span><a class="headerlink" href="#apps.booking.models.Booking.REJECTED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.STATUS_CHOICES">
+<span class="sig-name descname"><span class="pre">STATUS_CHOICES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('pending',</span> <span class="pre">'Pending'),</span> <span class="pre">('accepted',</span> <span class="pre">'Accepted'),</span> <span class="pre">('rejected',</span> <span class="pre">'Rejected'),</span> <span class="pre">('completed',</span> <span class="pre">'Completed')]</span></span><a class="headerlink" href="#apps.booking.models.Booking.STATUS_CHOICES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.address">
+<span class="sig-name descname"><span class="pre">address</span></span><a class="headerlink" href="#apps.booking.models.Booking.address" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#apps.booking.models.Booking.created_at" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><a class="headerlink" href="#apps.booking.models.Booking.duration" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.get_next_by_created_at">
+<span class="sig-name descname"><span class="pre">get_next_by_created_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">created_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#apps.booking.models.Booking.get_next_by_created_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.get_next_by_work_date">
+<span class="sig-name descname"><span class="pre">get_next_by_work_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;django.db.models.fields.DateField:</span> <span class="pre">work_date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#apps.booking.models.Booking.get_next_by_work_date" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.get_previous_by_created_at">
+<span class="sig-name descname"><span class="pre">get_previous_by_created_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">created_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#apps.booking.models.Booking.get_previous_by_created_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.get_previous_by_work_date">
+<span class="sig-name descname"><span class="pre">get_previous_by_work_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;django.db.models.fields.DateField:</span> <span class="pre">work_date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#apps.booking.models.Booking.get_previous_by_work_date" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.get_status_display">
+<span class="sig-name descname"><span class="pre">get_status_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;django.db.models.fields.CharField:</span> <span class="pre">status&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#apps.booking.models.Booking.get_status_display" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#apps.booking.models.Booking.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.labor">
+<span class="sig-name descname"><span class="pre">labor</span></span><a class="headerlink" href="#apps.booking.models.Booking.labor" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">'children'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.labor_id">
+<span class="sig-name descname"><span class="pre">labor_id</span></span><a class="headerlink" href="#apps.booking.models.Booking.labor_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.notes">
+<span class="sig-name descname"><span class="pre">notes</span></span><a class="headerlink" href="#apps.booking.models.Booking.notes" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#apps.booking.models.Booking.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.start_time">
+<span class="sig-name descname"><span class="pre">start_time</span></span><a class="headerlink" href="#apps.booking.models.Booking.start_time" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.status">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#apps.booking.models.Booking.status" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#apps.booking.models.Booking.user" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">'children'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#apps.booking.models.Booking.user_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.models.Booking.work_date">
+<span class="sig-name descname"><span class="pre">work_date</span></span><a class="headerlink" href="#apps.booking.models.Booking.work_date" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-apps.booking.serializers">
+<span id="serializer"></span><h2>Serializer<a class="headerlink" href="#module-apps.booking.serializers" title="Link to this heading"></a></h2>
+<p>REST Framework serializer and validation for labor bookings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.booking.serializers.BookingSerializer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.booking.serializers.</span></span><span class="sig-name descname"><span class="pre">BookingSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/serializers.html#BookingSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.serializers.BookingSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<p>Serialize booking input and read-only labor/status information.</p>
+<p>Clients select a laborer and submit scheduling details. The authenticated
+user, initial status, labor name, labor wage, and display status are
+controlled by the backend.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.booking.serializers.BookingSerializer.Meta">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/apps/booking/serializers.html#BookingSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.serializers.BookingSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.serializers.BookingSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'user',</span> <span class="pre">'labor',</span> <span class="pre">'labor_hourly_wage',</span> <span class="pre">'labor_name',</span> <span class="pre">'work_date',</span> <span class="pre">'start_time',</span> <span class="pre">'duration',</span> <span class="pre">'address',</span> <span class="pre">'notes',</span> <span class="pre">'status',</span> <span class="pre">'status_display',</span> <span class="pre">'created_at']</span></span><a class="headerlink" href="#apps.booking.serializers.BookingSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.serializers.BookingSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#apps.booking.serializers.BookingSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#apps.booking.models.Booking" title="apps.booking.models.Booking"><code class="xref py py-class docutils literal notranslate"><span class="pre">Booking</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.serializers.BookingSerializer.Meta.read_only_fields">
+<span class="sig-name descname"><span class="pre">read_only_fields</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'user',</span> <span class="pre">'labor_hourly_wage',</span> <span class="pre">'labor_name',</span> <span class="pre">'status',</span> <span class="pre">'status_display',</span> <span class="pre">'created_at']</span></span><a class="headerlink" href="#apps.booking.serializers.BookingSerializer.Meta.read_only_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.serializers.BookingSerializer.validate_labor">
+<span class="sig-name descname"><span class="pre">validate_labor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/serializers.html#BookingSerializer.validate_labor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.serializers.BookingSerializer.validate_labor" title="Link to this definition"></a></dt>
+<dd><p>Require the selected laborer to be currently available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference internal" href="labor.html#apps.labor.models.Labor" title="apps.labor.models.Labor"><em>apps.labor.models.Labor</em></a>) – Selected labor profile.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Available labor profile.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="labor.html#apps.labor.models.Labor" title="apps.labor.models.Labor">apps.labor.models.Labor</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>serializers.ValidationError</strong> – If the laborer is unavailable.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.serializers.BookingSerializer.validate_work_date">
+<span class="sig-name descname"><span class="pre">validate_work_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/serializers.html#BookingSerializer.validate_work_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.serializers.BookingSerializer.validate_work_date" title="Link to this definition"></a></dt>
+<dd><p>Require the requested work date to be today or later.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>datetime.date</em>) – Deserialized booking date.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Validated date.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime.date</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>serializers.ValidationError</strong> – If the date is in the past.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-apps.booking.views">
+<span id="views"></span><h2>Views<a class="headerlink" href="#module-apps.booking.views" title="Link to this heading"></a></h2>
+<p>Authenticated API views for creating and retrieving bookings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.booking.views.BookingCreateAPIView">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.booking.views.</span></span><span class="sig-name descname"><span class="pre">BookingCreateAPIView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/views.html#BookingCreateAPIView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.views.BookingCreateAPIView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DatabaseErrorMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CreateAPIView</span></code></p>
+<p>Create a pending booking for the authenticated user.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.views.BookingCreateAPIView.perform_create">
+<span class="sig-name descname"><span class="pre">perform_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serializer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/views.html#BookingCreateAPIView.perform_create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.views.BookingCreateAPIView.perform_create" title="Link to this definition"></a></dt>
+<dd><p>Recheck labor availability and persist the user’s booking.</p>
+<p>The availability check is repeated after serializer validation so the
+write path does not rely only on an earlier request-validation step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serializer</strong> (<a class="reference internal" href="#apps.booking.serializers.BookingSerializer" title="apps.booking.serializers.BookingSerializer"><em>apps.booking.serializers.BookingSerializer</em></a>) – Validated booking serializer supplied by DRF.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>serializers.ValidationError</strong> – If the selected laborer is no
+longer available.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.views.BookingCreateAPIView.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.IsAuthenticated'&gt;]</span></span><a class="headerlink" href="#apps.booking.views.BookingCreateAPIView.permission_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.views.BookingCreateAPIView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#apps.booking.views.BookingCreateAPIView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#apps.booking.serializers.BookingSerializer" title="apps.booking.serializers.BookingSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BookingSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.booking.views.BookingDetailAPIView">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.booking.views.</span></span><span class="sig-name descname"><span class="pre">BookingDetailAPIView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/views.html#BookingDetailAPIView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.views.BookingDetailAPIView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DatabaseErrorMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">RetrieveAPIView</span></code></p>
+<p>Return one booking only when it belongs to the authenticated user.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.views.BookingDetailAPIView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/views.html#BookingDetailAPIView.get_queryset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.views.BookingDetailAPIView.get_queryset" title="Link to this definition"></a></dt>
+<dd><p>Limit booking lookup to the current user’s records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Owner-scoped bookings with related labor and user loaded.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>django.db.models.QuerySet</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.views.BookingDetailAPIView.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.IsAuthenticated'&gt;]</span></span><a class="headerlink" href="#apps.booking.views.BookingDetailAPIView.permission_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.booking.views.BookingDetailAPIView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#apps.booking.views.BookingDetailAPIView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#apps.booking.serializers.BookingSerializer" title="apps.booking.serializers.BookingSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BookingSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-apps.booking.tests">
+<span id="api-tests"></span><h2>API Tests<a class="headerlink" href="#module-apps.booking.tests" title="Link to this heading"></a></h2>
+<p>Django REST Framework tests for booking creation and retrieval.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.booking.tests.</span></span><span class="sig-name descname"><span class="pre">BookingApiTests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APITestCase</span></code></p>
+<p>Verify booking permissions, validation, persistence, and ownership.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests._create_labor">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">_create_labor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">overrides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests._create_labor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests._create_labor" title="Link to this definition"></a></dt>
+<dd><p>Create a valid labor profile for booking scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>overrides</strong> – Model fields that replace the test defaults.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Persisted labor profile.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="labor.html#apps.labor.models.Labor" title="apps.labor.models.Labor">apps.labor.models.Labor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests._valid_payload">
+<span class="sig-name descname"><span class="pre">_valid_payload</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">overrides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests._valid_payload"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests._valid_payload" title="Link to this definition"></a></dt>
+<dd><p>Return valid booking input with optional field overrides.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>overrides</strong> – Request fields that replace the valid defaults.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>JSON-compatible booking request payload.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests.setUp">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests.setUp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests.setUp" title="Link to this definition"></a></dt>
+<dd><p>Authenticate the shared API client as the booking owner.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests.setUpTestData">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">setUpTestData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests.setUpTestData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests.setUpTestData" title="Link to this definition"></a></dt>
+<dd><p>Create users, labor profiles, and a reusable booking once.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests.test_booking_creation_requires_authentication">
+<span class="sig-name descname"><span class="pre">test_booking_creation_requires_authentication</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests.test_booking_creation_requires_authentication"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests.test_booking_creation_requires_authentication" title="Link to this definition"></a></dt>
+<dd><p>Verify an anonymous client cannot create a booking.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests.test_booking_detail_is_limited_to_owner">
+<span class="sig-name descname"><span class="pre">test_booking_detail_is_limited_to_owner</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests.test_booking_detail_is_limited_to_owner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests.test_booking_detail_is_limited_to_owner" title="Link to this definition"></a></dt>
+<dd><p>Verify another authenticated user receives HTTP 404.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests.test_booking_owner_can_retrieve_complete_record">
+<span class="sig-name descname"><span class="pre">test_booking_owner_can_retrieve_complete_record</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests.test_booking_owner_can_retrieve_complete_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests.test_booking_owner_can_retrieve_complete_record" title="Link to this definition"></a></dt>
+<dd><p>Verify the owner receives booking and related labor fields.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests.test_create_booking_returns_pending_record">
+<span class="sig-name descname"><span class="pre">test_create_booking_returns_pending_record</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests.test_create_booking_returns_pending_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests.test_create_booking_returns_pending_record" title="Link to this definition"></a></dt>
+<dd><p>Verify creation assigns the user and initial pending status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests.test_duration_outside_allowed_range_returns_400">
+<span class="sig-name descname"><span class="pre">test_duration_outside_allowed_range_returns_400</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests.test_duration_outside_allowed_range_returns_400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests.test_duration_outside_allowed_range_returns_400" title="Link to this definition"></a></dt>
+<dd><p>Verify duration must remain within the model’s allowed range.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests.test_past_work_date_returns_400">
+<span class="sig-name descname"><span class="pre">test_past_work_date_returns_400</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests.test_past_work_date_returns_400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests.test_past_work_date_returns_400" title="Link to this definition"></a></dt>
+<dd><p>Verify the API rejects a work date before today.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.booking.tests.BookingApiTests.test_unavailable_labor_returns_400">
+<span class="sig-name descname"><span class="pre">test_unavailable_labor_returns_400</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/booking/tests.html#BookingApiTests.test_unavailable_labor_returns_400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.booking.tests.BookingApiTests.test_unavailable_labor_returns_400" title="Link to this definition"></a></dt>
+<dd><p>Verify an unavailable laborer cannot receive a new booking.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="labor.html" class="btn btn-neutral float-left" title="Labor App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="testing.html" class="btn btn-neutral float-right" title="Labor Listing Test Suite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Group 2.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

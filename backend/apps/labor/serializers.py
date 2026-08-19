@@ -1,9 +1,12 @@
+"""REST Framework serializers for labor profiles and reviews."""
+
 from rest_framework import serializers
 
 from apps.labor.models import Labor, Review
 
 
 class LaborListSerializer(serializers.ModelSerializer):
+    """Serialize the public fields required by labor listing cards."""
 
     class Meta:
         model = Labor
@@ -25,6 +28,7 @@ class LaborListSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    """Serialize reviews and reject duplicate user/labor submissions."""
 
     user_name = serializers.CharField(
         source="user.get_full_name",
@@ -45,6 +49,14 @@ class ReviewSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "user", "user_name", "date"]
 
     def validate(self, attributes):
+        """Reject a second review by the same user for one laborer.
+
+        :param dict attributes: Deserialized values awaiting validation.
+        :return: Validated values when no duplicate review exists.
+        :rtype: dict
+        :raises serializers.ValidationError: If the user already reviewed the
+            selected laborer.
+        """
         request = self.context.get("request")
         labor = attributes.get("labor")
 
@@ -64,6 +76,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 class LaborDetailSerializer(serializers.ModelSerializer):
+    """Serialize a complete labor profile with its nested reviews."""
 
     reviews = ReviewSerializer(many=True, read_only=True)
 

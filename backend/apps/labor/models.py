@@ -1,3 +1,5 @@
+"""Database models for labor profiles and customer reviews."""
+
 from decimal import Decimal
 
 from django.conf import settings
@@ -6,6 +8,11 @@ from django.db import models
 
 
 class Labor(models.Model):
+    """Represent a local professional displayed in the labor marketplace.
+
+    Profiles contain public listing information, contact details, availability,
+    experience, and the denormalized rating summary used for sorting.
+    """
 
     name = models.CharField(max_length=150)
     photo = models.ImageField(upload_to="labor_photos/")
@@ -50,6 +57,11 @@ class Labor(models.Model):
 
 
 class Review(models.Model):
+    """Store one authenticated user's rating of a laborer.
+
+    A database constraint prevents a user from reviewing the same laborer more
+    than once.
+    """
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

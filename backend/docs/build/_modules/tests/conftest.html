@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tests.conftest &mdash; Lok Lagbe 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../index.html" class="icon icon-home">
+            Lok Lagbe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../labor.html">Labor App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testing.html">Labor Listing Test Suite</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Lok Lagbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tests.conftest</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for tests.conftest</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Reusable pytest fixtures for labor-listing API tests.</span>
+
+<span class="sd">Pytest discovers this module automatically and injects fixtures into test</span>
+<span class="sd">functions by matching their argument names.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decimal</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIClient</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">apps.labor.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Labor</span>
+
+
+<div class="viewcode-block" id="api_client">
+<a class="viewcode-back" href="../../testing.html#tests.conftest.api_client">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">api_client</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Return an unauthenticated Django REST Framework test client.</span>
+
+<span class="sd">    The listing endpoint is public, so the client deliberately has no user</span>
+<span class="sd">    credentials.</span>
+
+<span class="sd">    :return: Client used to send in-process requests to the Django API.</span>
+<span class="sd">    :rtype: rest_framework.test.APIClient</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">APIClient</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="labor_factory">
+<a class="viewcode-back" href="../../testing.html#tests.conftest.labor_factory">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">labor_factory</span><span class="p">(</span><span class="n">db</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return a factory that creates valid, customizable labor records.</span>
+
+<span class="sd">    The factory supplies deterministic defaults and accepts keyword</span>
+<span class="sd">    overrides for fields relevant to an individual test. The ``db`` fixture</span>
+<span class="sd">    enables access to pytest-django's isolated test database.</span>
+
+<span class="sd">    :param db: Pytest-django fixture that enables database access.</span>
+<span class="sd">    :return: Callable that creates and returns a :class:`Labor` instance.</span>
+<span class="sd">    :rtype: collections.abc.Callable</span>
+<span class="sd">    """</span>
+    <span class="n">sequence</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_labor</span><span class="p">(</span><span class="o">**</span><span class="n">overrides</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Create one labor record using defaults and field overrides.</span>
+
+<span class="sd">        :param overrides: Model fields that replace the default values.</span>
+<span class="sd">        :return: Persisted labor profile in the current test database.</span>
+<span class="sd">        :rtype: apps.labor.models.Labor</span>
+<span class="sd">        """</span>
+        <span class="k">nonlocal</span> <span class="n">sequence</span>
+        <span class="n">sequence</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Laborer </span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"photo"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"labor_photos/laborer-</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">.jpg"</span><span class="p">,</span>
+            <span class="s2">"profession"</span><span class="p">:</span> <span class="s2">"General Worker"</span><span class="p">,</span>
+            <span class="s2">"category"</span><span class="p">:</span> <span class="s2">"General"</span><span class="p">,</span>
+            <span class="s2">"location"</span><span class="p">:</span> <span class="s2">"Dhaka"</span><span class="p">,</span>
+            <span class="s2">"hourly_wage"</span><span class="p">:</span> <span class="n">Decimal</span><span class="p">(</span><span class="s2">"300.00"</span><span class="p">),</span>
+            <span class="s2">"rating"</span><span class="p">:</span> <span class="n">Decimal</span><span class="p">(</span><span class="s2">"4.0"</span><span class="p">),</span>
+            <span class="s2">"review_count"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Experienced local professional."</span><span class="p">,</span>
+            <span class="s2">"phone"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"0170000</span><span class="si">{</span><span class="n">sequence</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"email"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"laborer-</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">@example.com"</span><span class="p">,</span>
+            <span class="s2">"available"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"experience"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s2">"skills"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Communication"</span><span class="p">],</span>
+        <span class="p">}</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">overrides</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Labor</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_create_labor</span></div>
+
+
+
+<div class="viewcode-block" id="listing_labors">
+<a class="viewcode-back" href="../../testing.html#tests.conftest.listing_labors">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">listing_labors</span><span class="p">(</span><span class="n">labor_factory</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create the deterministic records used by listing feature tests.</span>
+
+<span class="sd">    The returned mapping contains an electrician, cleaner, and plumber with</span>
+<span class="sd">    distinct search fields, wages, ratings, and review counts. Those</span>
+<span class="sd">    differences make filtering and ordering assertions unambiguous.</span>
+
+<span class="sd">    :param labor_factory: Fixture that creates valid labor records.</span>
+<span class="sd">    :return: Records keyed by ``electrician``, ``cleaner``, and ``plumber``.</span>
+<span class="sd">    :rtype: dict[str, apps.labor.models.Labor]</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"electrician"</span><span class="p">:</span> <span class="n">labor_factory</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Rahim Uddin"</span><span class="p">,</span>
+            <span class="n">profession</span><span class="o">=</span><span class="s2">"Residential Electrician"</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="s2">"Electrician"</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="s2">"Dhaka"</span><span class="p">,</span>
+            <span class="n">hourly_wage</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="s2">"500.00"</span><span class="p">),</span>
+            <span class="n">rating</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="s2">"4.8"</span><span class="p">),</span>
+            <span class="n">review_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="s2">"cleaner"</span><span class="p">:</span> <span class="n">labor_factory</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Nadia Akter"</span><span class="p">,</span>
+            <span class="n">profession</span><span class="o">=</span><span class="s2">"Home Cleaner"</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="s2">"Cleaner"</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="s2">"Khulna"</span><span class="p">,</span>
+            <span class="n">hourly_wage</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="s2">"250.00"</span><span class="p">),</span>
+            <span class="n">rating</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="s2">"4.2"</span><span class="p">),</span>
+            <span class="n">review_count</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="s2">"plumber"</span><span class="p">:</span> <span class="n">labor_factory</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Karim Mia"</span><span class="p">,</span>
+            <span class="n">profession</span><span class="o">=</span><span class="s2">"Sanitary Plumber"</span><span class="p">,</span>
+            <span class="n">category</span><span class="o">=</span><span class="s2">"Plumber"</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="s2">"Chattogram"</span><span class="p">,</span>
+            <span class="n">hourly_wage</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="s2">"350.00"</span><span class="p">),</span>
+            <span class="n">rating</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="s2">"4.9"</span><span class="p">),</span>
+            <span class="n">review_count</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">}</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Group 2.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

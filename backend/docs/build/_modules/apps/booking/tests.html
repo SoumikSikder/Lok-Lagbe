@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>apps.booking.tests &mdash; Lok Lagbe 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../../index.html" class="icon icon-home">
+            Lok Lagbe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../labor.html">Labor App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../booking.html">Booking App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">Labor Listing Test Suite</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Lok Lagbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">apps.booking.tests</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for apps.booking.tests</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Django REST Framework tests for booking creation and retrieval."""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decimal</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.auth</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_user_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework</span><span class="w"> </span><span class="kn">import</span> <span class="n">status</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIClient</span><span class="p">,</span> <span class="n">APITestCase</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">apps.booking.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Booking</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">apps.labor.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Labor</span>
+
+
+<div class="viewcode-block" id="BookingApiTests">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BookingApiTests</span><span class="p">(</span><span class="n">APITestCase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Verify booking permissions, validation, persistence, and ownership."""</span>
+
+<div class="viewcode-block" id="BookingApiTests.setUpTestData">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests.setUpTestData">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUpTestData</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Create users, labor profiles, and a reusable booking once."""</span>
+        <span class="n">user_model</span> <span class="o">=</span> <span class="n">get_user_model</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user_model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span>
+            <span class="n">username</span><span class="o">=</span><span class="s2">"booking-user"</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="s2">"test-password"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">other_user</span> <span class="o">=</span> <span class="n">user_model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span>
+            <span class="n">username</span><span class="o">=</span><span class="s2">"other-booking-user"</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="s2">"test-password"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">available_labor</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_create_labor</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Available Electrician"</span><span class="p">,</span>
+            <span class="n">available</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">unavailable_labor</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_create_labor</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"Unavailable Plumber"</span><span class="p">,</span>
+            <span class="n">available</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">existing_booking</span> <span class="o">=</span> <span class="n">Booking</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">user</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+            <span class="n">labor</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">available_labor</span><span class="p">,</span>
+            <span class="n">work_date</span><span class="o">=</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">start_time</span><span class="o">=</span><span class="n">time</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+            <span class="n">duration</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="s2">"2.50"</span><span class="p">),</span>
+            <span class="n">address</span><span class="o">=</span><span class="s2">"Dhanmondi, Dhaka"</span><span class="p">,</span>
+            <span class="n">notes</span><span class="o">=</span><span class="s2">"Existing booking."</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BookingApiTests._create_labor">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests._create_labor">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_labor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">overrides</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Create a valid labor profile for booking scenarios.</span>
+
+<span class="sd">        :param overrides: Model fields that replace the test defaults.</span>
+<span class="sd">        :return: Persisted labor profile.</span>
+<span class="sd">        :rtype: apps.labor.models.Labor</span>
+<span class="sd">        """</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Booking Test Labor"</span><span class="p">,</span>
+            <span class="s2">"photo"</span><span class="p">:</span> <span class="s2">"labor_photos/test.jpg"</span><span class="p">,</span>
+            <span class="s2">"profession"</span><span class="p">:</span> <span class="s2">"Electrician"</span><span class="p">,</span>
+            <span class="s2">"category"</span><span class="p">:</span> <span class="s2">"Electrician"</span><span class="p">,</span>
+            <span class="s2">"location"</span><span class="p">:</span> <span class="s2">"Dhaka"</span><span class="p">,</span>
+            <span class="s2">"hourly_wage"</span><span class="p">:</span> <span class="s2">"450.00"</span><span class="p">,</span>
+            <span class="s2">"rating"</span><span class="p">:</span> <span class="s2">"4.5"</span><span class="p">,</span>
+            <span class="s2">"review_count"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Labor profile for booking tests."</span><span class="p">,</span>
+            <span class="s2">"phone"</span><span class="p">:</span> <span class="s2">"01800000000"</span><span class="p">,</span>
+            <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"booking-worker@example.com"</span><span class="p">,</span>
+            <span class="s2">"available"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"experience"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="s2">"skills"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Wiring"</span><span class="p">],</span>
+        <span class="p">}</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">overrides</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Labor</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">values</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BookingApiTests.setUp">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests.setUp">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Authenticate the shared API client as the booking owner."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">force_authenticate</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BookingApiTests._valid_payload">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests._valid_payload">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_valid_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">overrides</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Return valid booking input with optional field overrides.</span>
+
+<span class="sd">        :param overrides: Request fields that replace the valid defaults.</span>
+<span class="sd">        :return: JSON-compatible booking request payload.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        """</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"labor"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_labor</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s2">"work_date"</span><span class="p">:</span> <span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+            <span class="s2">"start_time"</span><span class="p">:</span> <span class="s2">"10:00"</span><span class="p">,</span>
+            <span class="s2">"duration"</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">,</span>
+            <span class="s2">"address"</span><span class="p">:</span> <span class="s2">"Uttara, Dhaka"</span><span class="p">,</span>
+            <span class="s2">"notes"</span><span class="p">:</span> <span class="s2">"Bring standard tools."</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">payload</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">overrides</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">payload</span></div>
+
+
+<div class="viewcode-block" id="BookingApiTests.test_booking_creation_requires_authentication">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests.test_booking_creation_requires_authentication">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_booking_creation_requires_authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Verify an anonymous client cannot create a booking."""</span>
+        <span class="n">anonymous_client</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">anonymous_client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="s2">"/api/bookings/"</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_valid_payload</span><span class="p">(),</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_403_FORBIDDEN</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BookingApiTests.test_create_booking_returns_pending_record">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests.test_create_booking_returns_pending_record">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_create_booking_returns_pending_record</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Verify creation assigns the user and initial pending status."""</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="s2">"/api/bookings/"</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_valid_payload</span><span class="p">(),</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"user"</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"status"</span><span class="p">],</span> <span class="n">Booking</span><span class="o">.</span><span class="n">PENDING</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"labor_name"</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">available_labor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"labor_hourly_wage"</span><span class="p">],</span> <span class="s2">"450.00"</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BookingApiTests.test_past_work_date_returns_400">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests.test_past_work_date_returns_400">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_past_work_date_returns_400</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Verify the API rejects a work date before today."""</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="s2">"/api/bookings/"</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_valid_payload</span><span class="p">(</span>
+                <span class="n">work_date</span><span class="o">=</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+            <span class="p">),</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_400_BAD_REQUEST</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s2">"work_date"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BookingApiTests.test_duration_outside_allowed_range_returns_400">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests.test_duration_outside_allowed_range_returns_400">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_duration_outside_allowed_range_returns_400</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Verify duration must remain within the model's allowed range."""</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="s2">"/api/bookings/"</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_valid_payload</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">25</span><span class="p">),</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_400_BAD_REQUEST</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s2">"duration"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BookingApiTests.test_unavailable_labor_returns_400">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests.test_unavailable_labor_returns_400">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_unavailable_labor_returns_400</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Verify an unavailable laborer cannot receive a new booking."""</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="s2">"/api/bookings/"</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_valid_payload</span><span class="p">(</span><span class="n">labor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">unavailable_labor</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">"json"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_400_BAD_REQUEST</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s2">"labor"</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BookingApiTests.test_booking_detail_is_limited_to_owner">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests.test_booking_detail_is_limited_to_owner">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_booking_detail_is_limited_to_owner</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Verify another authenticated user receives HTTP 404."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">force_authenticate</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">other_user</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"/api/bookings/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">existing_booking</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/"</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_404_NOT_FOUND</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BookingApiTests.test_booking_owner_can_retrieve_complete_record">
+<a class="viewcode-back" href="../../../booking.html#apps.booking.tests.BookingApiTests.test_booking_owner_can_retrieve_complete_record">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_booking_owner_can_retrieve_complete_record</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Verify the owner receives booking and related labor fields."""</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"/api/bookings/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">existing_booking</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/"</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"address"</span><span class="p">],</span> <span class="s2">"Dhanmondi, Dhaka"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"status_display"</span><span class="p">],</span> <span class="s2">"Pending"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"labor_name"</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">available_labor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Group 2.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

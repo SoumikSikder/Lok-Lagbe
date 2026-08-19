@@ -19,6 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Booking App" href="booking.html" />
     <link rel="prev" title="Lok Lagbe Documentation" href="index.html" /> 
 </head>
 
@@ -44,6 +45,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Labor App</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-apps.labor.apps">Application Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps.labor.apps.LaborConfig"><code class="docutils literal notranslate"><span class="pre">LaborConfig</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#module-apps.labor.models">Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#apps.labor.models.Labor"><code class="docutils literal notranslate"><span class="pre">Labor</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#apps.labor.models.Labor.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Labor.DoesNotExist</span></code></a></li>
@@ -136,6 +141,8 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="booking.html">Booking App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Labor Listing Test Suite</a></li>
 </ul>
 
         </div>
@@ -164,12 +171,27 @@
              
   <section id="labor-app">
 <h1>Labor App<a class="headerlink" href="#labor-app" title="Link to this heading"></a></h1>
+<section id="module-apps.labor.apps">
+<span id="application-configuration"></span><h2>Application Configuration<a class="headerlink" href="#module-apps.labor.apps" title="Link to this heading"></a></h2>
+<p>Django application configuration for the labor domain.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.labor.apps.LaborConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.apps.</span></span><span class="sig-name descname"><span class="pre">LaborConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/apps.html#LaborConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.apps.LaborConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
+<p>Register the relocated labor app while preserving its Django label.</p>
+</dd></dl>
+
+</section>
 <section id="module-apps.labor.models">
 <span id="models"></span><h2>Models<a class="headerlink" href="#module-apps.labor.models" title="Link to this heading"></a></h2>
+<p>Database models for labor profiles and customer reviews.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="apps.labor.models.Labor">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.models.</span></span><span class="sig-name descname"><span class="pre">Labor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hourly_wage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">review_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">available</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experience</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skills</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/models.html#Labor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.models.Labor" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.models.</span></span><span class="sig-name descname"><span class="pre">Labor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/models.html#Labor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.models.Labor" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Represent a local professional displayed in the labor marketplace.</p>
+<p>Profiles contain public listing information, contact details, availability,
+experience, and the denormalized rating summary used for sorting.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="apps.labor.models.Labor.DoesNotExist">
 <span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#apps.labor.models.Labor.DoesNotExist" title="Link to this definition"></a></dt>
@@ -343,8 +365,11 @@ object the first time, the query is executed.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="apps.labor.models.Review">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.models.</span></span><span class="sig-name descname"><span class="pre">Review</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/models.html#Review"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.models.Review" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.models.</span></span><span class="sig-name descname"><span class="pre">Review</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/models.html#Review"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.models.Review" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Store one authenticated user’s rating of a laborer.</p>
+<p>A database constraint prevents a user from reviewing the same laborer more
+than once.</p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="apps.labor.models.Review.DoesNotExist">
 <span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#apps.labor.models.Review.DoesNotExist" title="Link to this definition"></a></dt>
@@ -441,10 +466,12 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 </section>
 <section id="module-apps.labor.serializers">
 <span id="serializers"></span><h2>Serializers<a class="headerlink" href="#module-apps.labor.serializers" title="Link to this heading"></a></h2>
+<p>REST Framework serializers for labor profiles and reviews.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="apps.labor.serializers.LaborDetailSerializer">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.serializers.</span></span><span class="sig-name descname"><span class="pre">LaborDetailSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/serializers.html#LaborDetailSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.serializers.LaborDetailSerializer" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<p>Serialize a complete labor profile with its nested reviews.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="apps.labor.serializers.LaborDetailSerializer.Meta">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/apps/labor/serializers.html#LaborDetailSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.serializers.LaborDetailSerializer.Meta" title="Link to this definition"></a></dt>
@@ -473,6 +500,7 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <dt class="sig sig-object py" id="apps.labor.serializers.LaborListSerializer">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.serializers.</span></span><span class="sig-name descname"><span class="pre">LaborListSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/serializers.html#LaborListSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.serializers.LaborListSerializer" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<p>Serialize the public fields required by labor listing cards.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="apps.labor.serializers.LaborListSerializer.Meta">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/apps/labor/serializers.html#LaborListSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.serializers.LaborListSerializer.Meta" title="Link to this definition"></a></dt>
@@ -501,6 +529,7 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <dt class="sig sig-object py" id="apps.labor.serializers.ReviewSerializer">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.serializers.</span></span><span class="sig-name descname"><span class="pre">ReviewSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/serializers.html#ReviewSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.serializers.ReviewSerializer" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<p>Serialize reviews and reject duplicate user/labor submissions.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="apps.labor.serializers.ReviewSerializer.Meta">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/apps/labor/serializers.html#ReviewSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.serializers.ReviewSerializer.Meta" title="Link to this definition"></a></dt>
@@ -526,17 +555,35 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="apps.labor.serializers.ReviewSerializer.validate">
 <span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/serializers.html#ReviewSerializer.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.serializers.ReviewSerializer.validate" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Reject a second review by the same user for one laborer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attributes</strong> (<em>dict</em>) – Deserialized values awaiting validation.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Validated values when no duplicate review exists.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>serializers.ValidationError</strong> – If the user already reviewed the
+selected laborer.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-apps.labor.views">
 <span id="views"></span><h2>Views<a class="headerlink" href="#module-apps.labor.views" title="Link to this heading"></a></h2>
+<p>API views for browsing labor profiles and submitting reviews.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="apps.labor.views.LaborDetailAPIView">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.views.</span></span><span class="sig-name descname"><span class="pre">LaborDetailAPIView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/views.html#LaborDetailAPIView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.views.LaborDetailAPIView" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DatabaseErrorMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">RetrieveAPIView</span></code></p>
+<p>Return one public labor profile with its associated reviews.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="apps.labor.views.LaborDetailAPIView.permission_classes">
 <span class="sig-name descname"><span class="pre">permission_classes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.AllowAny'&gt;]</span></span><a class="headerlink" href="#apps.labor.views.LaborDetailAPIView.permission_classes" title="Link to this definition"></a></dt>
@@ -559,6 +606,9 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <dt class="sig sig-object py" id="apps.labor.views.LaborListAPIView">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.views.</span></span><span class="sig-name descname"><span class="pre">LaborListAPIView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/views.html#LaborListAPIView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.views.LaborListAPIView" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DatabaseErrorMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ListAPIView</span></code></p>
+<p>Return the public searchable, filterable, and sortable labor list.</p>
+<p>Supported query parameters are <code class="docutils literal notranslate"><span class="pre">search</span></code>, <code class="docutils literal notranslate"><span class="pre">category</span></code>, <code class="docutils literal notranslate"><span class="pre">rating</span></code>,
+<code class="docutils literal notranslate"><span class="pre">min_wage</span></code>, <code class="docutils literal notranslate"><span class="pre">max_wage</span></code>, <code class="docutils literal notranslate"><span class="pre">sort</span></code>, <code class="docutils literal notranslate"><span class="pre">page</span></code>, and <code class="docutils literal notranslate"><span class="pre">page_size</span></code>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="apps.labor.views.LaborListAPIView.SORT_OPTIONS">
 <span class="sig-name descname"><span class="pre">SORT_OPTIONS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'highest_rated':</span> <span class="pre">('-rating',</span> <span class="pre">'-review_count',</span> <span class="pre">'name'),</span> <span class="pre">'highest_wage':</span> <span class="pre">('-hourly_wage',</span> <span class="pre">'-rating',</span> <span class="pre">'name'),</span> <span class="pre">'lowest_wage':</span> <span class="pre">('hourly_wage',</span> <span class="pre">'-rating',</span> <span class="pre">'name'),</span> <span class="pre">'most_reviewed':</span> <span class="pre">('-review_count',</span> <span class="pre">'-rating',</span> <span class="pre">'name')}</span></span><a class="headerlink" href="#apps.labor.views.LaborListAPIView.SORT_OPTIONS" title="Link to this definition"></a></dt>
@@ -567,15 +617,22 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="apps.labor.views.LaborListAPIView.get_queryset">
 <span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/views.html#LaborListAPIView.get_queryset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.views.LaborListAPIView.get_queryset" title="Link to this definition"></a></dt>
-<dd><p>Get the list of items for this view.
-This must be an iterable, and may be a queryset.
-Defaults to using <cite>self.queryset</cite>.</p>
-<p>This method should always be used rather than accessing <cite>self.queryset</cite>
-directly, as <cite>self.queryset</cite> gets evaluated only once, and those results
-are cached for all subsequent requests.</p>
-<p>You may want to override this if you need to provide different
-querysets depending on the incoming request.</p>
-<p>(Eg. return a list of items that is specific to the user)</p>
+<dd><p>Build the validated queryset for the current listing request.</p>
+<p>Text search matches labor name, profession, category, or location.
+Other filters are combined, and the selected deterministic ordering is
+applied after validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Filtered and ordered labor queryset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>django.db.models.QuerySet</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serializers.ValidationError</strong> – If a numeric range or sort option
+is invalid.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -601,6 +658,7 @@ querysets depending on the incoming request.</p>
 <dt class="sig sig-object py" id="apps.labor.views.LaborPagination">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.views.</span></span><span class="sig-name descname"><span class="pre">LaborPagination</span></span><a class="reference internal" href="_modules/apps/labor/views.html#LaborPagination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.views.LaborPagination" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PageNumberPagination</span></code></p>
+<p>Paginate labor listings with a client-selectable, bounded page size.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="apps.labor.views.LaborPagination.max_page_size">
 <span class="sig-name descname"><span class="pre">max_page_size</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></span><a class="headerlink" href="#apps.labor.views.LaborPagination.max_page_size" title="Link to this definition"></a></dt>
@@ -622,10 +680,21 @@ querysets depending on the incoming request.</p>
 <dt class="sig sig-object py" id="apps.labor.views.ReviewCreateAPIView">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.labor.views.</span></span><span class="sig-name descname"><span class="pre">ReviewCreateAPIView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/views.html#ReviewCreateAPIView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.views.ReviewCreateAPIView" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DatabaseErrorMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CreateAPIView</span></code></p>
+<p>Create an authenticated review and refresh its labor rating summary.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="apps.labor.views.ReviewCreateAPIView.perform_create">
 <span class="sig-name descname"><span class="pre">perform_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serializer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/labor/views.html#ReviewCreateAPIView.perform_create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.labor.views.ReviewCreateAPIView.perform_create" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Persist a review and update the laborer’s aggregate rating.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serializer</strong> (<a class="reference internal" href="#apps.labor.serializers.ReviewSerializer" title="apps.labor.serializers.ReviewSerializer"><em>apps.labor.serializers.ReviewSerializer</em></a>) – Validated review serializer supplied by DRF.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>serializers.ValidationError</strong> – If a concurrent request violates
+the one-review-per-user constraint.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="apps.labor.views.ReviewCreateAPIView.permission_classes">
@@ -648,6 +717,7 @@ querysets depending on the incoming request.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Lok Lagbe Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="booking.html" class="btn btn-neutral float-right" title="Booking App" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

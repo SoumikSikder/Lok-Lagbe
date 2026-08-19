@@ -42,6 +42,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../labor.html">Labor App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">Labor Listing Test Suite</a></li>
 </ul>
 
         </div>
@@ -69,7 +70,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for apps.labor.models</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decimal</span>
+<span></span><span class="sd">"""Database models for labor profiles and customer reviews."""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decimal</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.conf</span><span class="w"> </span><span class="kn">import</span> <span class="n">settings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.core.validators</span><span class="w"> </span><span class="kn">import</span> <span class="n">MaxValueValidator</span><span class="p">,</span> <span class="n">MinValueValidator</span>
@@ -79,6 +82,11 @@
 <div class="viewcode-block" id="Labor">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.models.Labor">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Labor</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Represent a local professional displayed in the labor marketplace.</span>
+
+<span class="sd">    Profiles contain public listing information, contact details, availability,</span>
+<span class="sd">    experience, and the denormalized rating summary used for sorting.</span>
+<span class="sd">    """</span>
 
     <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
     <span class="n">photo</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s2">"labor_photos/"</span><span class="p">)</span>
@@ -126,6 +134,11 @@
 <div class="viewcode-block" id="Review">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.models.Review">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Review</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Store one authenticated user's rating of a laborer.</span>
+
+<span class="sd">    A database constraint prevents a user from reviewing the same laborer more</span>
+<span class="sd">    than once.</span>
+<span class="sd">    """</span>
 
     <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
         <span class="n">settings</span><span class="o">.</span><span class="n">AUTH_USER_MODEL</span><span class="p">,</span>

@@ -1,3 +1,5 @@
+"""API views for browsing labor profiles and submitting reviews."""
+
 from decimal import Decimal, InvalidOperation
 
 from django.db import IntegrityError, transaction
@@ -15,6 +17,7 @@ from loklagbe.mixins import DatabaseErrorMixin
 
 
 class LaborPagination(PageNumberPagination):
+    """Paginate labor listings with a client-selectable, bounded page size."""
 
     page_size = 8
     page_size_query_param = "page_size"
@@ -22,6 +25,11 @@ class LaborPagination(PageNumberPagination):
 
 
 class LaborListAPIView(DatabaseErrorMixin, generics.ListAPIView):
+    """Return the public searchable, filterable, and sortable labor list.
+
+    Supported query parameters are ``search``, ``category``, ``rating``,
+    ``min_wage``, ``max_wage``, ``sort``, ``page``, and ``page_size``.
+    """
 
     serializer_class = LaborListSerializer
     permission_classes = [permissions.AllowAny]
@@ -35,6 +43,17 @@ class LaborListAPIView(DatabaseErrorMixin, generics.ListAPIView):
     }
 
     def get_queryset(self):
+        """Build the validated queryset for the current listing request.
+
+        Text search matches labor name, profession, category, or location.
+        Other filters are combined, and the selected deterministic ordering is
+        applied after validation.
+
+        :return: Filtered and ordered labor queryset.
+        :rtype: django.db.models.QuerySet
+        :raises serializers.ValidationError: If a numeric range or sort option
+            is invalid.
+        """
         queryset = Labor.objects.all()
         parameters = self.request.query_params
 
@@ -90,6 +109,16 @@ class LaborListAPIView(DatabaseErrorMixin, generics.ListAPIView):
         return queryset.order_by(*self.SORT_OPTIONS[sort])
 
     def _parse_decimal_parameter(self, name, minimum=None, maximum=None):
+        """Parse and range-check one optional decimal query parameter.
+
+        :param str name: Query-parameter name to read from the request.
+        :param Decimal minimum: Optional inclusive lower bound.
+        :param Decimal maximum: Optional inclusive upper bound.
+        :return: Parsed value, or ``None`` when the parameter is absent.
+        :rtype: Decimal | None
+        :raises serializers.ValidationError: If the input is not finite,
+            numeric, or inside the requested range.
+        """
         raw_value = self.request.query_params.get(name)
         if raw_value in (None, ""):
             return None
@@ -118,6 +147,7 @@ class LaborListAPIView(DatabaseErrorMixin, generics.ListAPIView):
 
 
 class LaborDetailAPIView(DatabaseErrorMixin, generics.RetrieveAPIView):
+    """Return one public labor profile with its associated reviews."""
 
     queryset = Labor.objects.prefetch_related("reviews__user")
     serializer_class = LaborDetailSerializer
@@ -125,12 +155,20 @@ class LaborDetailAPIView(DatabaseErrorMixin, generics.RetrieveAPIView):
 
 
 class ReviewCreateAPIView(DatabaseErrorMixin, generics.CreateAPIView):
+    """Create an authenticated review and refresh its labor rating summary."""
 
     serializer_class = ReviewSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     @transaction.atomic
     def perform_create(self, serializer):
+        """Persist a review and update the laborer's aggregate rating.
+
+        :param serializer: Validated review serializer supplied by DRF.
+        :type serializer: apps.labor.serializers.ReviewSerializer
+        :raises serializers.ValidationError: If a concurrent request violates
+            the one-review-per-user constraint.
+        """
         labor = serializer.validated_data["labor"]
 
         try:

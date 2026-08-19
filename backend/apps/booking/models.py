@@ -1,3 +1,5 @@
+"""Database model for authenticated labor bookings."""
+
 from decimal import Decimal
 
 from django.conf import settings
@@ -8,6 +10,14 @@ from apps.labor.models import Labor
 
 
 class Booking(models.Model):
+    """Represent a scheduled request by one user to hire a laborer.
+
+    A booking records when and where the work should happen, its expected
+    duration, customer notes, and the current workflow status. Deleting a user
+    removes their bookings, while a referenced labor profile is protected from
+    deletion.
+    """
+
     PENDING = "pending"
     ACCEPTED = "accepted"
     REJECTED = "rejected"

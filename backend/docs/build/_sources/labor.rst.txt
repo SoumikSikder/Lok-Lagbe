@@ -1,6 +1,14 @@
 Labor App
 =========
 
+Application Configuration
+-------------------------
+
+.. automodule:: apps.labor.apps
+   :members:
+   :show-inheritance:
+
+
 Models
 ------
 

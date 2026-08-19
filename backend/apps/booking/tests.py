@@ -1,3 +1,5 @@
+"""Django REST Framework tests for booking creation and retrieval."""
+
 from datetime import date, time, timedelta
 from decimal import Decimal
 
@@ -10,9 +12,11 @@ from apps.labor.models import Labor
 
 
 class BookingApiTests(APITestCase):
+    """Verify booking permissions, validation, persistence, and ownership."""
 
     @classmethod
     def setUpTestData(cls):
+        """Create users, labor profiles, and a reusable booking once."""
         user_model = get_user_model()
         cls.user = user_model.objects.create_user(
             username="booking-user",
@@ -42,6 +46,12 @@ class BookingApiTests(APITestCase):
 
     @classmethod
     def _create_labor(cls, **overrides):
+        """Create a valid labor profile for booking scenarios.
+
+        :param overrides: Model fields that replace the test defaults.
+        :return: Persisted labor profile.
+        :rtype: apps.labor.models.Labor
+        """
         values = {
             "name": "Booking Test Labor",
             "photo": "labor_photos/test.jpg",
@@ -62,9 +72,16 @@ class BookingApiTests(APITestCase):
         return Labor.objects.create(**values)
 
     def setUp(self):
+        """Authenticate the shared API client as the booking owner."""
         self.client.force_authenticate(user=self.user)
 
     def _valid_payload(self, **overrides):
+        """Return valid booking input with optional field overrides.
+
+        :param overrides: Request fields that replace the valid defaults.
+        :return: JSON-compatible booking request payload.
+        :rtype: dict
+        """
         payload = {
             "labor": self.available_labor.id,
             "work_date": (date.today() + timedelta(days=1)).isoformat(),
@@ -77,6 +94,7 @@ class BookingApiTests(APITestCase):
         return payload
 
     def test_booking_creation_requires_authentication(self):
+        """Verify an anonymous client cannot create a booking."""
         anonymous_client = APIClient()
 
         response = anonymous_client.post(
@@ -88,6 +106,7 @@ class BookingApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_create_booking_returns_pending_record(self):
+        """Verify creation assigns the user and initial pending status."""
         response = self.client.post(
             "/api/bookings/",
             self._valid_payload(),
@@ -104,6 +123,7 @@ class BookingApiTests(APITestCase):
         self.assertEqual(response.data["labor_hourly_wage"], "450.00")
 
     def test_past_work_date_returns_400(self):
+        """Verify the API rejects a work date before today."""
         response = self.client.post(
             "/api/bookings/",
             self._valid_payload(
@@ -116,6 +136,7 @@ class BookingApiTests(APITestCase):
         self.assertIn("work_date", response.data)
 
     def test_duration_outside_allowed_range_returns_400(self):
+        """Verify duration must remain within the model's allowed range."""
         response = self.client.post(
             "/api/bookings/",
             self._valid_payload(duration=25),
@@ -126,6 +147,7 @@ class BookingApiTests(APITestCase):
         self.assertIn("duration", response.data)
 
     def test_unavailable_labor_returns_400(self):
+        """Verify an unavailable laborer cannot receive a new booking."""
         response = self.client.post(
             "/api/bookings/",
             self._valid_payload(labor=self.unavailable_labor.id),
@@ -136,6 +158,7 @@ class BookingApiTests(APITestCase):
         self.assertIn("labor", response.data)
 
     def test_booking_detail_is_limited_to_owner(self):
+        """Verify another authenticated user receives HTTP 404."""
         self.client.force_authenticate(user=self.other_user)
 
         response = self.client.get(
@@ -145,6 +168,7 @@ class BookingApiTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_booking_owner_can_retrieve_complete_record(self):
+        """Verify the owner receives booking and related labor fields."""
         response = self.client.get(
             f"/api/bookings/{self.existing_booking.id}/"
         )

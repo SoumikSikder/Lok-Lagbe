@@ -42,6 +42,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../labor.html">Labor App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">Labor Listing Test Suite</a></li>
 </ul>
 
         </div>
@@ -69,7 +70,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for apps.labor.views</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decimal</span><span class="p">,</span> <span class="n">InvalidOperation</span>
+<span></span><span class="sd">"""API views for browsing labor profiles and submitting reviews."""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decimal</span><span class="p">,</span> <span class="n">InvalidOperation</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntegrityError</span><span class="p">,</span> <span class="n">transaction</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">django.db.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Avg</span><span class="p">,</span> <span class="n">Count</span><span class="p">,</span> <span class="n">Q</span>
@@ -88,6 +91,7 @@
 <div class="viewcode-block" id="LaborPagination">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.views.LaborPagination">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LaborPagination</span><span class="p">(</span><span class="n">PageNumberPagination</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Paginate labor listings with a client-selectable, bounded page size."""</span>
 
     <span class="n">page_size</span> <span class="o">=</span> <span class="mi">8</span>
     <span class="n">page_size_query_param</span> <span class="o">=</span> <span class="s2">"page_size"</span>
@@ -98,6 +102,11 @@
 <div class="viewcode-block" id="LaborListAPIView">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.views.LaborListAPIView">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LaborListAPIView</span><span class="p">(</span><span class="n">DatabaseErrorMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">ListAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return the public searchable, filterable, and sortable labor list.</span>
+
+<span class="sd">    Supported query parameters are ``search``, ``category``, ``rating``,</span>
+<span class="sd">    ``min_wage``, ``max_wage``, ``sort``, ``page``, and ``page_size``.</span>
+<span class="sd">    """</span>
 
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">LaborListSerializer</span>
     <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">permissions</span><span class="o">.</span><span class="n">AllowAny</span><span class="p">]</span>
@@ -113,6 +122,17 @@
 <div class="viewcode-block" id="LaborListAPIView.get_queryset">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.views.LaborListAPIView.get_queryset">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Build the validated queryset for the current listing request.</span>
+
+<span class="sd">        Text search matches labor name, profession, category, or location.</span>
+<span class="sd">        Other filters are combined, and the selected deterministic ordering is</span>
+<span class="sd">        applied after validation.</span>
+
+<span class="sd">        :return: Filtered and ordered labor queryset.</span>
+<span class="sd">        :rtype: django.db.models.QuerySet</span>
+<span class="sd">        :raises serializers.ValidationError: If a numeric range or sort option</span>
+<span class="sd">            is invalid.</span>
+<span class="sd">        """</span>
         <span class="n">queryset</span> <span class="o">=</span> <span class="n">Labor</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
         <span class="n">parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">query_params</span>
 
@@ -169,6 +189,16 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_parse_decimal_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">minimum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Parse and range-check one optional decimal query parameter.</span>
+
+<span class="sd">        :param str name: Query-parameter name to read from the request.</span>
+<span class="sd">        :param Decimal minimum: Optional inclusive lower bound.</span>
+<span class="sd">        :param Decimal maximum: Optional inclusive upper bound.</span>
+<span class="sd">        :return: Parsed value, or ``None`` when the parameter is absent.</span>
+<span class="sd">        :rtype: Decimal | None</span>
+<span class="sd">        :raises serializers.ValidationError: If the input is not finite,</span>
+<span class="sd">            numeric, or inside the requested range.</span>
+<span class="sd">        """</span>
         <span class="n">raw_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">query_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">raw_value</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">""</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -200,6 +230,7 @@
 <div class="viewcode-block" id="LaborDetailAPIView">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.views.LaborDetailAPIView">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LaborDetailAPIView</span><span class="p">(</span><span class="n">DatabaseErrorMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">RetrieveAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return one public labor profile with its associated reviews."""</span>
 
     <span class="n">queryset</span> <span class="o">=</span> <span class="n">Labor</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">prefetch_related</span><span class="p">(</span><span class="s2">"reviews__user"</span><span class="p">)</span>
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">LaborDetailSerializer</span>
@@ -210,6 +241,7 @@
 <div class="viewcode-block" id="ReviewCreateAPIView">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.views.ReviewCreateAPIView">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ReviewCreateAPIView</span><span class="p">(</span><span class="n">DatabaseErrorMixin</span><span class="p">,</span> <span class="n">generics</span><span class="o">.</span><span class="n">CreateAPIView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Create an authenticated review and refresh its labor rating summary."""</span>
 
     <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ReviewSerializer</span>
     <span class="n">permission_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">permissions</span><span class="o">.</span><span class="n">IsAuthenticated</span><span class="p">]</span>
@@ -218,6 +250,13 @@
 <a class="viewcode-back" href="../../../labor.html#apps.labor.views.ReviewCreateAPIView.perform_create">[docs]</a>
     <span class="nd">@transaction</span><span class="o">.</span><span class="n">atomic</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">perform_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">serializer</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Persist a review and update the laborer's aggregate rating.</span>
+
+<span class="sd">        :param serializer: Validated review serializer supplied by DRF.</span>
+<span class="sd">        :type serializer: apps.labor.serializers.ReviewSerializer</span>
+<span class="sd">        :raises serializers.ValidationError: If a concurrent request violates</span>
+<span class="sd">            the one-review-per-user constraint.</span>
+<span class="sd">        """</span>
         <span class="n">labor</span> <span class="o">=</span> <span class="n">serializer</span><span class="o">.</span><span class="n">validated_data</span><span class="p">[</span><span class="s2">"labor"</span><span class="p">]</span>
 
         <span class="k">try</span><span class="p">:</span>

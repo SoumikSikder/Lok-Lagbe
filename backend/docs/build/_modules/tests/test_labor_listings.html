@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tests.test_labor_listings &mdash; Lok Lagbe 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../index.html" class="icon icon-home">
+            Lok Lagbe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../labor.html">Labor App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testing.html">Labor Listing Test Suite</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Lok Lagbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tests.test_labor_listings</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for tests.test_labor_listings</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Feature tests for the public labor-listing API.</span>
+
+<span class="sd">The suite verifies the response contract, supported searches and filters,</span>
+<span class="sd">deterministic sorting, pagination metadata, and query-parameter validation.</span>
+<span class="sd">Parameterized inputs expand the six test functions into sixteen test cases.</span>
+<span class="sd">"""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">decimal</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decimal</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework</span><span class="w"> </span><span class="kn">import</span> <span class="n">status</span>
+
+
+<span class="n">LIST_URL</span> <span class="o">=</span> <span class="s2">"/api/labors/"</span>
+
+<span class="n">pytestmark</span> <span class="o">=</span> <span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">django_db</span>
+
+
+<div class="viewcode-block" id="_result_ids">
+<a class="viewcode-back" href="../../testing.html#tests.test_labor_listings._result_ids">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_result_ids</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Extract ordered labor IDs from a paginated API response.</span>
+
+<span class="sd">    :param response: Django REST Framework response returned by ``APIClient``.</span>
+<span class="sd">    :return: Labor primary keys in their serialized response order.</span>
+<span class="sd">    :rtype: list[int]</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"results"</span><span class="p">]]</span></div>
+
+
+
+<div class="viewcode-block" id="test_listing_is_public_and_returns_the_expected_contract">
+<a class="viewcode-back" href="../../testing.html#tests.test_labor_listings.test_listing_is_public_and_returns_the_expected_contract">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_listing_is_public_and_returns_the_expected_contract</span><span class="p">(</span>
+    <span class="n">api_client</span><span class="p">,</span>
+    <span class="n">listing_labors</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Verify anonymous access, response fields, and default ordering.</span>
+
+<span class="sd">    :param api_client: Unauthenticated REST Framework test client.</span>
+<span class="sd">    :param listing_labors: Deterministic labor records for list assertions.</span>
+<span class="sd">    """</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LIST_URL</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">body</span><span class="p">[</span><span class="s2">"count"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">body</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"next"</span><span class="p">,</span> <span class="s2">"previous"</span><span class="p">,</span> <span class="s2">"results"</span><span class="p">}</span>
+    <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">,</span>
+        <span class="s2">"name"</span><span class="p">,</span>
+        <span class="s2">"photo"</span><span class="p">,</span>
+        <span class="s2">"profession"</span><span class="p">,</span>
+        <span class="s2">"category"</span><span class="p">,</span>
+        <span class="s2">"location"</span><span class="p">,</span>
+        <span class="s2">"hourly_wage"</span><span class="p">,</span>
+        <span class="s2">"rating"</span><span class="p">,</span>
+        <span class="s2">"review_count"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">,</span>
+        <span class="s2">"available"</span><span class="p">,</span>
+        <span class="s2">"experience"</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">assert</span> <span class="n">_result_ids</span><span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span>
+        <span class="n">listing_labors</span><span class="p">[</span><span class="s2">"plumber"</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="n">listing_labors</span><span class="p">[</span><span class="s2">"electrician"</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="n">listing_labors</span><span class="p">[</span><span class="s2">"cleaner"</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="test_search_matches_supported_labor_fields">
+<a class="viewcode-back" href="../../testing.html#tests.test_labor_listings.test_search_matches_supported_labor_fields">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="p">(</span><span class="s2">"query"</span><span class="p">,</span> <span class="s2">"expected_key"</span><span class="p">),</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">"Rahim"</span><span class="p">,</span> <span class="s2">"electrician"</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"Residential"</span><span class="p">,</span> <span class="s2">"electrician"</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"Cleaner"</span><span class="p">,</span> <span class="s2">"cleaner"</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"Chattogram"</span><span class="p">,</span> <span class="s2">"plumber"</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_search_matches_supported_labor_fields</span><span class="p">(</span>
+    <span class="n">api_client</span><span class="p">,</span>
+    <span class="n">listing_labors</span><span class="p">,</span>
+    <span class="n">query</span><span class="p">,</span>
+    <span class="n">expected_key</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Verify search matching by name, profession, category, and location.</span>
+
+<span class="sd">    :param api_client: Unauthenticated REST Framework test client.</span>
+<span class="sd">    :param listing_labors: Mapping of deterministic labor records.</span>
+<span class="sd">    :param str query: Search value supplied by the parameterized case.</span>
+<span class="sd">    :param str expected_key: Mapping key for the expected labor record.</span>
+<span class="sd">    """</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LIST_URL</span><span class="p">,</span> <span class="p">{</span><span class="s2">"search"</span><span class="p">:</span> <span class="n">query</span><span class="p">})</span>
+
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"count"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">_result_ids</span><span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="n">listing_labors</span><span class="p">[</span><span class="n">expected_key</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="test_combined_filters_return_only_matching_labor">
+<a class="viewcode-back" href="../../testing.html#tests.test_labor_listings.test_combined_filters_return_only_matching_labor">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_combined_filters_return_only_matching_labor</span><span class="p">(</span>
+    <span class="n">api_client</span><span class="p">,</span>
+    <span class="n">listing_labors</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Verify search, category, rating, and wage filters combine with AND.</span>
+
+<span class="sd">    :param api_client: Unauthenticated REST Framework test client.</span>
+<span class="sd">    :param listing_labors: Mapping of deterministic labor records.</span>
+<span class="sd">    """</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">LIST_URL</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">"search"</span><span class="p">:</span> <span class="s2">"Khulna"</span><span class="p">,</span>
+            <span class="s2">"category"</span><span class="p">:</span> <span class="s2">"cleaner"</span><span class="p">,</span>
+            <span class="s2">"rating"</span><span class="p">:</span> <span class="s2">"4"</span><span class="p">,</span>
+            <span class="s2">"min_wage"</span><span class="p">:</span> <span class="s2">"200"</span><span class="p">,</span>
+            <span class="s2">"max_wage"</span><span class="p">:</span> <span class="s2">"300"</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span>
+    <span class="k">assert</span> <span class="n">_result_ids</span><span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="n">listing_labors</span><span class="p">[</span><span class="s2">"cleaner"</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="test_sort_options_return_deterministic_order">
+<a class="viewcode-back" href="../../testing.html#tests.test_labor_listings.test_sort_options_return_deterministic_order">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="p">(</span><span class="s2">"sort"</span><span class="p">,</span> <span class="s2">"expected_keys"</span><span class="p">),</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">"highest_rated"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"plumber"</span><span class="p">,</span> <span class="s2">"electrician"</span><span class="p">,</span> <span class="s2">"cleaner"</span><span class="p">]),</span>
+        <span class="p">(</span><span class="s2">"lowest_wage"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"cleaner"</span><span class="p">,</span> <span class="s2">"plumber"</span><span class="p">,</span> <span class="s2">"electrician"</span><span class="p">]),</span>
+        <span class="p">(</span><span class="s2">"highest_wage"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"electrician"</span><span class="p">,</span> <span class="s2">"plumber"</span><span class="p">,</span> <span class="s2">"cleaner"</span><span class="p">]),</span>
+        <span class="p">(</span><span class="s2">"most_reviewed"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"cleaner"</span><span class="p">,</span> <span class="s2">"electrician"</span><span class="p">,</span> <span class="s2">"plumber"</span><span class="p">]),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_sort_options_return_deterministic_order</span><span class="p">(</span>
+    <span class="n">api_client</span><span class="p">,</span>
+    <span class="n">listing_labors</span><span class="p">,</span>
+    <span class="n">sort</span><span class="p">,</span>
+    <span class="n">expected_keys</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Verify every supported sort option returns the complete expected order.</span>
+
+<span class="sd">    :param api_client: Unauthenticated REST Framework test client.</span>
+<span class="sd">    :param listing_labors: Mapping of deterministic labor records.</span>
+<span class="sd">    :param str sort: API sorting option supplied by the parameterized case.</span>
+<span class="sd">    :param list[str] expected_keys: Labor keys in their expected order.</span>
+<span class="sd">    """</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LIST_URL</span><span class="p">,</span> <span class="p">{</span><span class="s2">"sort"</span><span class="p">:</span> <span class="n">sort</span><span class="p">})</span>
+
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span>
+    <span class="k">assert</span> <span class="n">_result_ids</span><span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span>
+        <span class="n">listing_labors</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">expected_keys</span>
+    <span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="test_pagination_returns_requested_page_and_navigation_links">
+<a class="viewcode-back" href="../../testing.html#tests.test_labor_listings.test_pagination_returns_requested_page_and_navigation_links">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_pagination_returns_requested_page_and_navigation_links</span><span class="p">(</span>
+    <span class="n">api_client</span><span class="p">,</span>
+    <span class="n">labor_factory</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Verify page slicing, total count, and next/previous navigation links.</span>
+
+<span class="sd">    :param api_client: Unauthenticated REST Framework test client.</span>
+<span class="sd">    :param labor_factory: Factory used to create a multi-page dataset.</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">labor_factory</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Worker </span><span class="si">{</span><span class="n">index</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">rating</span><span class="o">=</span><span class="n">Decimal</span><span class="p">(</span><span class="s2">"4.0"</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LIST_URL</span><span class="p">,</span> <span class="p">{</span><span class="s2">"page"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"page_size"</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">body</span><span class="p">[</span><span class="s2">"count"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">10</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s2">"results"</span><span class="p">])</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="k">assert</span> <span class="s2">"page=3"</span> <span class="ow">in</span> <span class="n">body</span><span class="p">[</span><span class="s2">"next"</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="s2">"page_size=3"</span> <span class="ow">in</span> <span class="n">body</span><span class="p">[</span><span class="s2">"previous"</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="test_invalid_listing_parameters_return_field_errors">
+<a class="viewcode-back" href="../../testing.html#tests.test_labor_listings.test_invalid_listing_parameters_return_field_errors">[docs]</a>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="p">(</span><span class="s2">"parameters"</span><span class="p">,</span> <span class="s2">"error_field"</span><span class="p">),</span>
+    <span class="p">[</span>
+        <span class="p">({</span><span class="s2">"rating"</span><span class="p">:</span> <span class="s2">"not-a-number"</span><span class="p">},</span> <span class="s2">"rating"</span><span class="p">),</span>
+        <span class="p">({</span><span class="s2">"rating"</span><span class="p">:</span> <span class="s2">"6"</span><span class="p">},</span> <span class="s2">"rating"</span><span class="p">),</span>
+        <span class="p">({</span><span class="s2">"min_wage"</span><span class="p">:</span> <span class="s2">"-1"</span><span class="p">},</span> <span class="s2">"min_wage"</span><span class="p">),</span>
+        <span class="p">({</span><span class="s2">"min_wage"</span><span class="p">:</span> <span class="s2">"500"</span><span class="p">,</span> <span class="s2">"max_wage"</span><span class="p">:</span> <span class="s2">"200"</span><span class="p">},</span> <span class="s2">"max_wage"</span><span class="p">),</span>
+        <span class="p">({</span><span class="s2">"sort"</span><span class="p">:</span> <span class="s2">"newest"</span><span class="p">},</span> <span class="s2">"sort"</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_invalid_listing_parameters_return_field_errors</span><span class="p">(</span>
+    <span class="n">api_client</span><span class="p">,</span>
+    <span class="n">parameters</span><span class="p">,</span>
+    <span class="n">error_field</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Verify malformed listing parameters return field-specific HTTP 400s.</span>
+
+<span class="sd">    :param api_client: Unauthenticated REST Framework test client.</span>
+<span class="sd">    :param dict parameters: Invalid query parameters for this test case.</span>
+<span class="sd">    :param str error_field: Response field expected to describe the error.</span>
+<span class="sd">    """</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">api_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LIST_URL</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">status</span><span class="o">.</span><span class="n">HTTP_400_BAD_REQUEST</span>
+    <span class="k">assert</span> <span class="n">error_field</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Group 2.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

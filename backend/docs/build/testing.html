@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labor Listing Test Suite &mdash; Lok Lagbe 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Booking App" href="booking.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="index.html" class="icon icon-home">
+            Lok Lagbe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="labor.html">Labor App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="booking.html">Booking App</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Labor Listing Test Suite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-tests.conftest">Fixtures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tests.conftest.api_client"><code class="docutils literal notranslate"><span class="pre">api_client()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.conftest.labor_factory"><code class="docutils literal notranslate"><span class="pre">labor_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.conftest.listing_labors"><code class="docutils literal notranslate"><span class="pre">listing_labors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tests.test_labor_listings">Feature Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tests.test_labor_listings._result_ids"><code class="docutils literal notranslate"><span class="pre">_result_ids()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.test_labor_listings.test_combined_filters_return_only_matching_labor"><code class="docutils literal notranslate"><span class="pre">test_combined_filters_return_only_matching_labor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.test_labor_listings.test_invalid_listing_parameters_return_field_errors"><code class="docutils literal notranslate"><span class="pre">test_invalid_listing_parameters_return_field_errors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.test_labor_listings.test_listing_is_public_and_returns_the_expected_contract"><code class="docutils literal notranslate"><span class="pre">test_listing_is_public_and_returns_the_expected_contract()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.test_labor_listings.test_pagination_returns_requested_page_and_navigation_links"><code class="docutils literal notranslate"><span class="pre">test_pagination_returns_requested_page_and_navigation_links()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.test_labor_listings.test_search_matches_supported_labor_fields"><code class="docutils literal notranslate"><span class="pre">test_search_matches_supported_labor_fields()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.test_labor_listings.test_sort_options_return_deterministic_order"><code class="docutils literal notranslate"><span class="pre">test_sort_options_return_deterministic_order()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Lok Lagbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Labor Listing Test Suite</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/testing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <section id="labor-listing-test-suite">
+<h1>Labor Listing Test Suite<a class="headerlink" href="#labor-listing-test-suite" title="Link to this heading"></a></h1>
+<p>The feature suite exercises the public labor-listing endpoint through Django
+REST Framework’s in-process test client and an isolated pytest-django database.
+Six test functions expand into sixteen cases through parameterization.</p>
+<section id="module-tests.conftest">
+<span id="fixtures"></span><h2>Fixtures<a class="headerlink" href="#module-tests.conftest" title="Link to this heading"></a></h2>
+<p>Reusable pytest fixtures for labor-listing API tests.</p>
+<p>Pytest discovers this module automatically and injects fixtures into test
+functions by matching their argument names.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.conftest.api_client">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">api_client</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/conftest.html#api_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.api_client" title="Link to this definition"></a></dt>
+<dd><p>Return an unauthenticated Django REST Framework test client.</p>
+<p>The listing endpoint is public, so the client deliberately has no user
+credentials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Client used to send in-process requests to the Django API.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>rest_framework.test.APIClient</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.conftest.labor_factory">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">labor_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/conftest.html#labor_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.labor_factory" title="Link to this definition"></a></dt>
+<dd><p>Return a factory that creates valid, customizable labor records.</p>
+<p>The factory supplies deterministic defaults and accepts keyword
+overrides for fields relevant to an individual test. The <code class="docutils literal notranslate"><span class="pre">db</span></code> fixture
+enables access to pytest-django’s isolated test database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>db</strong> – Pytest-django fixture that enables database access.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Callable that creates and returns a <code class="xref py py-class docutils literal notranslate"><span class="pre">Labor</span></code> instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>collections.abc.Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.conftest.listing_labors">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">listing_labors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labor_factory</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/conftest.html#listing_labors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.listing_labors" title="Link to this definition"></a></dt>
+<dd><p>Create the deterministic records used by listing feature tests.</p>
+<p>The returned mapping contains an electrician, cleaner, and plumber with
+distinct search fields, wages, ratings, and review counts. Those
+differences make filtering and ordering assertions unambiguous.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labor_factory</strong> – Fixture that creates valid labor records.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Records keyed by <code class="docutils literal notranslate"><span class="pre">electrician</span></code>, <code class="docutils literal notranslate"><span class="pre">cleaner</span></code>, and <code class="docutils literal notranslate"><span class="pre">plumber</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, <a class="reference internal" href="labor.html#apps.labor.models.Labor" title="apps.labor.models.Labor">apps.labor.models.Labor</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-tests.test_labor_listings">
+<span id="feature-tests"></span><h2>Feature Tests<a class="headerlink" href="#module-tests.test_labor_listings" title="Link to this heading"></a></h2>
+<p>Feature tests for the public labor-listing API.</p>
+<p>The suite verifies the response contract, supported searches and filters,
+deterministic sorting, pagination metadata, and query-parameter validation.
+Parameterized inputs expand the six test functions into sixteen test cases.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_labor_listings._result_ids">
+<span class="sig-prename descclassname"><span class="pre">tests.test_labor_listings.</span></span><span class="sig-name descname"><span class="pre">_result_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_labor_listings.html#_result_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_labor_listings._result_ids" title="Link to this definition"></a></dt>
+<dd><p>Extract ordered labor IDs from a paginated API response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response</strong> – Django REST Framework response returned by <code class="docutils literal notranslate"><span class="pre">APIClient</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Labor primary keys in their serialized response order.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_labor_listings.test_combined_filters_return_only_matching_labor">
+<span class="sig-prename descclassname"><span class="pre">tests.test_labor_listings.</span></span><span class="sig-name descname"><span class="pre">test_combined_filters_return_only_matching_labor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listing_labors</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_labor_listings.html#test_combined_filters_return_only_matching_labor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_labor_listings.test_combined_filters_return_only_matching_labor" title="Link to this definition"></a></dt>
+<dd><p>Verify search, category, rating, and wage filters combine with AND.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_client</strong> – Unauthenticated REST Framework test client.</p></li>
+<li><p><strong>listing_labors</strong> – Mapping of deterministic labor records.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_labor_listings.test_invalid_listing_parameters_return_field_errors">
+<span class="sig-prename descclassname"><span class="pre">tests.test_labor_listings.</span></span><span class="sig-name descname"><span class="pre">test_invalid_listing_parameters_return_field_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_field</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_labor_listings.html#test_invalid_listing_parameters_return_field_errors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_labor_listings.test_invalid_listing_parameters_return_field_errors" title="Link to this definition"></a></dt>
+<dd><p>Verify malformed listing parameters return field-specific HTTP 400s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_client</strong> – Unauthenticated REST Framework test client.</p></li>
+<li><p><strong>parameters</strong> (<em>dict</em>) – Invalid query parameters for this test case.</p></li>
+<li><p><strong>error_field</strong> (<em>str</em>) – Response field expected to describe the error.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_labor_listings.test_listing_is_public_and_returns_the_expected_contract">
+<span class="sig-prename descclassname"><span class="pre">tests.test_labor_listings.</span></span><span class="sig-name descname"><span class="pre">test_listing_is_public_and_returns_the_expected_contract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listing_labors</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_labor_listings.html#test_listing_is_public_and_returns_the_expected_contract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_labor_listings.test_listing_is_public_and_returns_the_expected_contract" title="Link to this definition"></a></dt>
+<dd><p>Verify anonymous access, response fields, and default ordering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_client</strong> – Unauthenticated REST Framework test client.</p></li>
+<li><p><strong>listing_labors</strong> – Deterministic labor records for list assertions.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_labor_listings.test_pagination_returns_requested_page_and_navigation_links">
+<span class="sig-prename descclassname"><span class="pre">tests.test_labor_listings.</span></span><span class="sig-name descname"><span class="pre">test_pagination_returns_requested_page_and_navigation_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labor_factory</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_labor_listings.html#test_pagination_returns_requested_page_and_navigation_links"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_labor_listings.test_pagination_returns_requested_page_and_navigation_links" title="Link to this definition"></a></dt>
+<dd><p>Verify page slicing, total count, and next/previous navigation links.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_client</strong> – Unauthenticated REST Framework test client.</p></li>
+<li><p><strong>labor_factory</strong> – Factory used to create a multi-page dataset.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_labor_listings.test_search_matches_supported_labor_fields">
+<span class="sig-prename descclassname"><span class="pre">tests.test_labor_listings.</span></span><span class="sig-name descname"><span class="pre">test_search_matches_supported_labor_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listing_labors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_labor_listings.html#test_search_matches_supported_labor_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_labor_listings.test_search_matches_supported_labor_fields" title="Link to this definition"></a></dt>
+<dd><p>Verify search matching by name, profession, category, and location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_client</strong> – Unauthenticated REST Framework test client.</p></li>
+<li><p><strong>listing_labors</strong> – Mapping of deterministic labor records.</p></li>
+<li><p><strong>query</strong> (<em>str</em>) – Search value supplied by the parameterized case.</p></li>
+<li><p><strong>expected_key</strong> (<em>str</em>) – Mapping key for the expected labor record.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.test_labor_listings.test_sort_options_return_deterministic_order">
+<span class="sig-prename descclassname"><span class="pre">tests.test_labor_listings.</span></span><span class="sig-name descname"><span class="pre">test_sort_options_return_deterministic_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listing_labors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tests/test_labor_listings.html#test_sort_options_return_deterministic_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.test_labor_listings.test_sort_options_return_deterministic_order" title="Link to this definition"></a></dt>
+<dd><p>Verify every supported sort option returns the complete expected order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_client</strong> – Unauthenticated REST Framework test client.</p></li>
+<li><p><strong>listing_labors</strong> – Mapping of deterministic labor records.</p></li>
+<li><p><strong>sort</strong> (<em>str</em>) – API sorting option supplied by the parameterized case.</p></li>
+<li><p><strong>expected_keys</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Labor keys in their expected order.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="booking.html" class="btn btn-neutral float-left" title="Booking App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Group 2.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

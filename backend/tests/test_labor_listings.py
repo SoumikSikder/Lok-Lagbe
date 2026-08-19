@@ -1,3 +1,10 @@
+"""Feature tests for the public labor-listing API.
+
+The suite verifies the response contract, supported searches and filters,
+deterministic sorting, pagination metadata, and query-parameter validation.
+Parameterized inputs expand the six test functions into sixteen test cases.
+"""
+
 from decimal import Decimal
 
 import pytest
@@ -10,6 +17,12 @@ pytestmark = pytest.mark.django_db
 
 
 def _result_ids(response):
+    """Extract ordered labor IDs from a paginated API response.
+
+    :param response: Django REST Framework response returned by ``APIClient``.
+    :return: Labor primary keys in their serialized response order.
+    :rtype: list[int]
+    """
     return [result["id"] for result in response.json()["results"]]
 
 
@@ -17,6 +30,11 @@ def test_listing_is_public_and_returns_the_expected_contract(
     api_client,
     listing_labors,
 ):
+    """Verify anonymous access, response fields, and default ordering.
+
+    :param api_client: Unauthenticated REST Framework test client.
+    :param listing_labors: Deterministic labor records for list assertions.
+    """
     response = api_client.get(LIST_URL)
 
     assert response.status_code == status.HTTP_200_OK
@@ -59,6 +77,13 @@ def test_search_matches_supported_labor_fields(
     query,
     expected_key,
 ):
+    """Verify search matching by name, profession, category, and location.
+
+    :param api_client: Unauthenticated REST Framework test client.
+    :param listing_labors: Mapping of deterministic labor records.
+    :param str query: Search value supplied by the parameterized case.
+    :param str expected_key: Mapping key for the expected labor record.
+    """
     response = api_client.get(LIST_URL, {"search": query})
 
     assert response.status_code == status.HTTP_200_OK
@@ -70,6 +95,11 @@ def test_combined_filters_return_only_matching_labor(
     api_client,
     listing_labors,
 ):
+    """Verify search, category, rating, and wage filters combine with AND.
+
+    :param api_client: Unauthenticated REST Framework test client.
+    :param listing_labors: Mapping of deterministic labor records.
+    """
     response = api_client.get(
         LIST_URL,
         {
@@ -100,6 +130,13 @@ def test_sort_options_return_deterministic_order(
     sort,
     expected_keys,
 ):
+    """Verify every supported sort option returns the complete expected order.
+
+    :param api_client: Unauthenticated REST Framework test client.
+    :param listing_labors: Mapping of deterministic labor records.
+    :param str sort: API sorting option supplied by the parameterized case.
+    :param list[str] expected_keys: Labor keys in their expected order.
+    """
     response = api_client.get(LIST_URL, {"sort": sort})
 
     assert response.status_code == status.HTTP_200_OK
@@ -112,6 +149,11 @@ def test_pagination_returns_requested_page_and_navigation_links(
     api_client,
     labor_factory,
 ):
+    """Verify page slicing, total count, and next/previous navigation links.
+
+    :param api_client: Unauthenticated REST Framework test client.
+    :param labor_factory: Factory used to create a multi-page dataset.
+    """
     for index in range(10):
         labor_factory(
             name=f"Worker {index:02d}",
@@ -143,6 +185,12 @@ def test_invalid_listing_parameters_return_field_errors(
     parameters,
     error_field,
 ):
+    """Verify malformed listing parameters return field-specific HTTP 400s.
+
+    :param api_client: Unauthenticated REST Framework test client.
+    :param dict parameters: Invalid query parameters for this test case.
+    :param str error_field: Response field expected to describe the error.
+    """
     response = api_client.get(LIST_URL, parameters)
 
     assert response.status_code == status.HTTP_400_BAD_REQUEST

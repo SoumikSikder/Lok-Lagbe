@@ -42,6 +42,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../labor.html">Labor App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testing.html">Labor Listing Test Suite</a></li>
 </ul>
 
         </div>
@@ -69,7 +70,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for apps.labor.serializers</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework</span><span class="w"> </span><span class="kn">import</span> <span class="n">serializers</span>
+<span></span><span class="sd">"""REST Framework serializers for labor profiles and reviews."""</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework</span><span class="w"> </span><span class="kn">import</span> <span class="n">serializers</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">apps.labor.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Labor</span><span class="p">,</span> <span class="n">Review</span>
 
@@ -77,6 +80,7 @@
 <div class="viewcode-block" id="LaborListSerializer">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.serializers.LaborListSerializer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LaborListSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Serialize the public fields required by labor listing cards."""</span>
 
 <div class="viewcode-block" id="LaborListSerializer.Meta">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.serializers.LaborListSerializer.Meta">[docs]</a>
@@ -104,6 +108,7 @@
 <div class="viewcode-block" id="ReviewSerializer">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.serializers.ReviewSerializer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ReviewSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Serialize reviews and reject duplicate user/labor submissions."""</span>
 
     <span class="n">user_name</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">source</span><span class="o">=</span><span class="s2">"user.get_full_name"</span><span class="p">,</span>
@@ -129,6 +134,14 @@
 <div class="viewcode-block" id="ReviewSerializer.validate">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.serializers.ReviewSerializer.validate">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Reject a second review by the same user for one laborer.</span>
+
+<span class="sd">        :param dict attributes: Deserialized values awaiting validation.</span>
+<span class="sd">        :return: Validated values when no duplicate review exists.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        :raises serializers.ValidationError: If the user already reviewed the</span>
+<span class="sd">            selected laborer.</span>
+<span class="sd">        """</span>
         <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"request"</span><span class="p">)</span>
         <span class="n">labor</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"labor"</span><span class="p">)</span>
 
@@ -152,6 +165,7 @@
 <div class="viewcode-block" id="LaborDetailSerializer">
 <a class="viewcode-back" href="../../../labor.html#apps.labor.serializers.LaborDetailSerializer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LaborDetailSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Serialize a complete labor profile with its nested reviews."""</span>
 
     <span class="n">reviews</span> <span class="o">=</span> <span class="n">ReviewSerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
