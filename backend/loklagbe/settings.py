@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'apps.users',
     'admin.manage_labour_listing',
+    'admin.edit_system_database',
 ]
 
 MIDDLEWARE = [

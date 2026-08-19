@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/admin/', include('admin.manage_labour_listing.urls')),
+    path('api/admin/edit-database/', include('admin.edit_system_database.urls')),
 ]
 
 if settings.DEBUG:

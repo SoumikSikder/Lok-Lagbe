@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sphinx Technical Documentation — admin.edit_system_database</title>
+    <style>
+        :root {
+            --sphinx-sidebar-bg: #2980b9;
+            --sphinx-sidebar-hover: #1f6692;
+            --sphinx-text: #333333;
+            --sphinx-link: #2980b9;
+            --sphinx-code-bg: #f8f9fa;
+            --sphinx-border: #e1e4e5;
+        }
+
+        body {
+            font-family: "SFProText-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--sphinx-text);
+            background-color: #edf0f2;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling (Sphinx ReadTheDocs Theme) */
+        nav.sphinx-sidebar {
+            width: 300px;
+            background-color: #343131;
+            color: #b3b3b3;
+            flex-shrink: 0;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid #1a1a1a;
+        }
+
+        .sidebar-header {
+            background-color: #242222;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .sidebar-header h2 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .sidebar-header span {
+            font-size: 0.8rem;
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        .sidebar-menu li a {
+            display: block;
+            padding: 0.6rem 1.5rem;
+            color: #d9d9d9;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .sidebar-menu li a:hover {
+            background-color: var(--sphinx-sidebar-hover);
+            color: #ffffff;
+        }
+
+        .sidebar-menu li.sub-item a {
+            padding-left: 2.5rem;
+            font-size: 0.83rem;
+            color: #b3b3b3;
+        }
+
+        /* Main Body Content */
+        main.sphinx-content {
+            margin-left: 300px;
+            flex-grow: 1;
+            padding: 2.5rem 3.5rem;
+            background-color: #ffffff;
+            max-width: 1000px;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--sphinx-link);
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            border-bottom: 2px solid var(--sphinx-border);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-top: 2.5rem;
+            border-bottom: 1px solid var(--sphinx-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: #34495e;
+            margin-top: 1.8rem;
+        }
+
+        p, li {
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Sphinx Code Block & Signatures */
+        .py-signature {
+            background-color: #eef6f9;
+            border-left: 4px solid #3498db;
+            padding: 0.8rem 1.2rem;
+            font-family: "Consolas", "Courier New", monospace;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin: 1.2rem 0;
+            border-radius: 0 4px 4px 0;
+            color: #1a252f;
+        }
+
+        .py-signature .sig-name {
+            color: #2980b9;
+        }
+
+        .py-signature .sig-param {
+            color: #e67e22;
+            font-weight: normal;
+        }
+
+        .docstring-block {
+            background-color: var(--sphinx-code-bg);
+            border: 1px solid var(--sphinx-border);
+            padding: 1.2rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .docstring-param {
+            margin-left: 1rem;
+            color: #27ae60;
+            font-family: monospace;
+        }
+
+        /* Admonitions */
+        .admonition {
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            border-left: 4px solid;
+            font-size: 0.9rem;
+        }
+
+        .admonition-title {
+            font-weight: bold;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .admonition-note {
+            background-color: #eef6f9;
+            border-color: #3498db;
+            color: #1b4f72;
+        }
+
+        .admonition-warning {
+            background-color: #fcf8e3;
+            border-color: #f39c12;
+            color: #8a6d3b;
+        }
+
+        /* Tables */
+        table.doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        table.doc-table th, table.doc-table td {
+            border: 1px solid var(--sphinx-border);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        table.doc-table th {
+            background-color: #f2f5f7;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        table.doc-table tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+
+        code {
+            background-color: #f4f6f8;
+            color: #c7254e;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.88em;
+        }
+
+        pre {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 1.2rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .badge-http {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: #ffffff;
+            font-family: monospace;
+        }
+
+        .get { background-color: #27ae60; }
+        .post { background-color: #2980b9; }
+        .put { background-color: #f39c12; }
+        .delete { background-color: #c0392b; }
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--sphinx-border);
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left Sphinx Sidebar -->
+    <nav class="sphinx-sidebar">
+        <div class="sidebar-header">
+            <h2>Lok-Lagbe Backend</h2>
+            <span>Sphinx Docs v1.0.0</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#overview">1. Module Overview</a></li>
+            <li><a href="#architecture">2. Architecture & Request Flow</a></li>
+            <li><a href="#views">3. API Functions (views.py)</a></li>
+            <li class="sub-item"><a href="#fn-helper">_get_model_by_table_name()</a></li>
+            <li class="sub-item"><a href="#fn-tables">list_system_tables()</a></li>
+            <li class="sub-item"><a href="#fn-records">list_table_records()</a></li>
+            <li class="sub-item"><a href="#fn-detail">get_record_detail()</a></li>
+            <li class="sub-item"><a href="#fn-update">update_system_record()</a></li>
+            <li><a href="#urls">4. URL Routing (urls.py)</a></li>
+            <li><a href="#usecase">5. Use-Case Exception Matrix</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="sphinx-content">
+        
+        <div class="breadcrumb">
+            <a href="#">Lok-Lagbe Docs</a> &raquo; <a href="#">Backend Modules</a> &raquo; admin.edit_system_database
+        </div>
+
+        <section id="overview">
+            <h1>Module: <code>admin.edit_system_database</code></h1>
+            <p>
+                The <code>admin.edit_system_database</code> package provides backend API endpoints for System Administrators to inspect system database tables, view records, inspect record details, and dynamically update record fields with full constraint and exception validation.
+            </p>
+
+            <div class="admonition admonition-note">
+                <div class="admonition-title">Strict PEP 8 & Sphinx Standard Compliance</div>
+                This module strictly enforces Python PEP 8 style guidelines (4-space indentation, max 88-char code line limit, max 79-char docstrings line limit, <code>snake_case</code> for functions/variables/methods, <code>PascalCase</code> for classes, first parameter <code>request</code> for view functions) and full Sphinx docstrings.
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>2. System Architecture & Request Flow</h2>
+            <pre>
+[ Administrator Request ]
+       │
+       ▼
+[ URL Router: /api/admin/edit-database/ ]
+       │
+  ┌────┴──────────────────────────────────────────┐
+  │ 1. GET  tables/         ➔ list_system_tables  │
+  │ 2. GET  records/        ➔ list_table_records  │
+  │ 3. GET  record/detail/  ➔ get_record_detail   │
+  │ 4. PUT  record/update/  ➔ update_system_record│
+  └────┬──────────────────────────────────────────┘
+       │
+       ▼
+[ View Function Validation (views.py) ]
+       │
+  ┌────┴──────────────────────────────────────────┐
+  │ 1. Empty mandatory fields check               │
+  │ 2. Selected record existence check (404 check)│
+  │ 3. System constraint violation check (Unique) │
+  │ 4. Server/Database connection error handling │
+  └────┬──────────────────────────────────────────┘
+       │
+       ▼
+[ Target Model ORM (User / LaborListing) ]
+       │
+       ▼
+[ SQLite Database: db.sqlite3 ]
+            </pre>
+        </section>
+
+        <section id="views">
+            <h2>3. API Views Specification — <code>views.py</code></h2>
+            <p><strong>File Location:</strong> <code>backend/admin/edit_system_database/views.py</code></p>
+
+            <h3 id="fn-helper">Helper: <code>_get_model_by_table_name(table_name)</code></h3>
+            <div class="py-signature">
+                def <span class="sig-name">_get_model_by_table_name</span>(<span class="sig-param">table_name</span>)
+            </div>
+            <div class="docstring-block">
+                Helper function to map table name string to Django ORM model class.<br><br>
+                <span class="docstring-param">:parameter table_name:</span> Table identifier string ('users' or 'labor_listings')<br>
+                <span class="docstring-param">:return:</span> Django Model class or None
+            </div>
+
+            <h3 id="fn-tables">1. List System Tables: <code>list_system_tables(request)</code></h3>
+            <div class="py-signature">
+                <span class="badge-http get">GET</span> /api/admin/edit-database/tables/
+            </div>
+            <div class="docstring-block">
+                API view to list available system database tables and record counts.<br><br>
+                <span class="docstring-param">:parameter request:</span> Django HTTP request object<br>
+                <span class="docstring-param">:return:</span> Response containing table metadata and record counts
+            </div>
+
+            <h3 id="fn-records">2. List Table Records: <code>list_table_records(request)</code></h3>
+            <div class="py-signature">
+                <span class="badge-http get">GET</span> /api/admin/edit-database/records/?table={table_name}
+            </div>
+            <div class="docstring-block">
+                API view to list all database records for a selected table.<br><br>
+                <span class="docstring-param">:parameter request:</span> Django HTTP request object containing 'table' query param<br>
+                <span class="docstring-param">:return:</span> Response containing list of record dictionaries
+            </div>
+
+            <h3 id="fn-detail">3. Get Record Detail: <code>get_record_detail(request)</code></h3>
+            <div class="py-signature">
+                <span class="badge-http get">GET</span> /api/admin/edit-database/record/detail/?table={table_name}&amp;id={record_id}
+            </div>
+            <div class="docstring-block">
+                API view to retrieve detailed current information of a selected record.<br><br>
+                <span class="docstring-param">:parameter request:</span> Django HTTP request object with 'table' and 'id' params<br>
+                <span class="docstring-param">:return:</span> Response containing record field values or 404 error
+            </div>
+
+            <h3 id="fn-update">4. Update System Record: <code>update_system_record(request)</code></h3>
+            <div class="py-signature">
+                <span class="badge-http put">PUT</span> /api/admin/edit-database/record/update/
+            </div>
+            <div class="docstring-block">
+                API view to update a selected database record with validation.<br><br>
+                <span class="docstring-param">:parameter request:</span> Django HTTP request object with record payload<br>
+                <span class="docstring-param">:return:</span> Response indicating update status
+            </div>
+        </section>
+
+        <section id="urls">
+            <h2>4. URL Routing Configuration — <code>urls.py</code></h2>
+            <p><strong>File Location:</strong> <code>backend/admin/edit_system_database/urls.py</code></p>
+            <pre><code>from django.urls import path
+from .views import (
+    list_system_tables,
+    list_table_records,
+    get_record_detail,
+    update_system_record,
+)
+
+urlpatterns = [
+    path('tables/', list_system_tables, name='edit_db_tables'),
+    path('records/', list_table_records, name='edit_db_records'),
+    path('record/detail/', get_record_detail, name='edit_db_record_detail'),
+    path('record/update/', update_system_record, name='edit_db_record_update'),
+]</code></pre>
+        </section>
+
+        <section id="usecase">
+            <h2>5. Use-Case Exception Matrix & Error Payloads</h2>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Exception Scenario</th>
+                        <th>HTTP Status Code</th>
+                        <th>JSON Response Payload</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Empty Mandatory Field</strong></td>
+                        <td><code>400 Bad Request</code></td>
+                        <td><pre><code>{
+    "success": false,
+    "message": "Field 'username' is mandatory. Please complete all mandatory fields."
+}</code></pre></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Selected Record Cannot Be Found</strong></td>
+                        <td><code>404 Not Found</code></td>
+                        <td><pre><code>{
+    "success": false,
+    "message": "Selected record cannot be found. Database records refreshed."
+}</code></pre></td>
+                    </tr>
+                    <tr>
+                        <td><strong>System Constraint / Unique Violation</strong></td>
+                        <td><code>400 Bad Request</code></td>
+                        <td><pre><code>{
+    "success": false,
+    "message": "Updated information violates system constraints (such as duplicate unique values). Please provide valid unique information."
+}</code></pre></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Server / DB Connection Failure</strong></td>
+                        <td><code>500 Internal Server Error</code></td>
+                        <td><pre><code>{
+    "success": false,
+    "message": "Server or database connection fails. Please try again."
+}</code></pre></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Successful Record Update</strong></td>
+                        <td><code>200 OK</code></td>
+                        <td><pre><code>{
+    "success": true,
+    "message": "Database record has been updated successfully.",
+    "data": { "id": 1, "username": "admin", "email": "admin@example.com" }
+}</code></pre></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Lok-Lagbe Project — Built with Django REST Framework & Sphinx Technical Documentation Standard.</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

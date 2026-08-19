@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ManageLabourListings from './Manage Labour Listing/ManageLabourListings';
+import EditSystemDatabase from './Edit System Database/EditSystemDatabase';
 
 /**
  * Container component for the Admin UI layout.
@@ -46,22 +47,7 @@ function AdminUI(props) {
 
             <main style={styles.mainContent}>
                 {activeTab === 'manage_labour' && <ManageLabourListings />}
-                {activeTab === 'edit_db' && (
-                    <div style={styles.placeholderBox}>
-                        <h2>Edit System Database</h2>
-                        <p style={{ color: '#6c757d' }}>
-                            The System Database Editor module is ready to be populated.
-                        </p>
-                        <a
-                            href="http://localhost:8000/admin/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={styles.djangoAdminLink}
-                        >
-                            🔗 Open Django Built-in Admin Portal
-                        </a>
-                    </div>
-                )}
+                {activeTab === 'edit_db' && <EditSystemDatabase />}
             </main>
         </div>
     );
@@ -108,25 +94,6 @@ const styles = {
     },
     mainContent: {
         padding: '32px 16px',
-    },
-    placeholderBox: {
-        backgroundColor: '#ffffff',
-        padding: '40px',
-        borderRadius: '8px',
-        textAlign: 'center',
-        maxWidth: '800px',
-        margin: '0 auto',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-    },
-    djangoAdminLink: {
-        display: 'inline-block',
-        marginTop: '16px',
-        backgroundColor: '#0f766e',
-        color: '#ffffff',
-        padding: '12px 24px',
-        borderRadius: '6px',
-        textDecoration: 'none',
-        fontWeight: 'bold',
     },
 };
 

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSDoc Technical Documentation — Frontend: Edit System Database</title>
+    <style>
+        :root {
+            --jsdoc-sidebar-bg: #1e293b;
+            --jsdoc-sidebar-hover: #334155;
+            --jsdoc-text: #1e293b;
+            --jsdoc-link: #2563eb;
+            --jsdoc-code-bg: #f8fafc;
+            --jsdoc-border: #e2e8f0;
+            --jsdoc-tag-param: #2563eb;
+            --jsdoc-tag-returns: #16a34a;
+            --jsdoc-tag-private: #d97706;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--jsdoc-text);
+            background-color: #f1f5f9;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav.jsdoc-sidebar {
+            width: 300px;
+            background-color: var(--jsdoc-sidebar-bg);
+            color: #94a3b8;
+            flex-shrink: 0;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid #0f172a;
+        }
+
+        .sidebar-header {
+            background-color: #0f172a;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .sidebar-header h2 {
+            color: #f8fafc;
+            font-size: 1.1rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .sidebar-header span {
+            font-size: 0.8rem;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        .sidebar-menu li a {
+            display: block;
+            padding: 0.6rem 1.5rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .sidebar-menu li a:hover {
+            background-color: var(--jsdoc-sidebar-hover);
+            color: #ffffff;
+        }
+
+        .sidebar-menu li.sub-item a {
+            padding-left: 2.5rem;
+            font-size: 0.83rem;
+            color: #94a3b8;
+        }
+
+        /* Main Content */
+        main.jsdoc-content {
+            margin-left: 300px;
+            flex-grow: 1;
+            padding: 2.5rem 3.5rem;
+            background-color: #ffffff;
+            max-width: 1000px;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--jsdoc-link);
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #0f172a;
+            border-bottom: 2px solid var(--jsdoc-border);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: #0f172a;
+            margin-top: 2.5rem;
+            border-bottom: 1px solid var(--jsdoc-border);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: #1e293b;
+            margin-top: 1.8rem;
+        }
+
+        p, li {
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* JSDoc Signatures */
+        .js-signature {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 0.8rem 1.2rem;
+            font-family: "Consolas", "Courier New", monospace;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin: 1.2rem 0;
+            border-radius: 0 4px 4px 0;
+            color: #1e3a8a;
+        }
+
+        .js-signature .sig-name {
+            color: #1d4ed8;
+        }
+
+        .js-signature .sig-param {
+            color: #d97706;
+            font-weight: normal;
+        }
+
+        .docblock {
+            background-color: var(--jsdoc-code-bg);
+            border: 1px solid var(--jsdoc-border);
+            padding: 1.2rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag-pill {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-right: 6px;
+            font-family: monospace;
+        }
+
+        .tag-param { background-color: var(--jsdoc-tag-param); }
+        .tag-returns { background-color: var(--jsdoc-tag-returns); }
+        .tag-private { background-color: var(--jsdoc-tag-private); }
+
+        /* Admonition Alert Boxes */
+        .admonition {
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+            border-left: 4px solid;
+            font-size: 0.9rem;
+        }
+
+        .admonition-info {
+            background-color: #f0f9ff;
+            border-color: #0284c7;
+            color: #0369a1;
+        }
+
+        .admonition-warning {
+            background-color: #fffbeb;
+            border-color: #d97706;
+            color: #b45309;
+        }
+
+        /* Tables */
+        table.doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        table.doc-table th, table.doc-table td {
+            border: 1px solid var(--jsdoc-border);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        table.doc-table th {
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-weight: bold;
+        }
+
+        table.doc-table tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+
+        code {
+            background-color: #f1f5f9;
+            color: #ea580c;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 0.88em;
+        }
+
+        pre {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--jsdoc-border);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left JSDoc Sidebar -->
+    <nav class="jsdoc-sidebar">
+        <div class="sidebar-header">
+            <h2>Lok-Lagbe Frontend</h2>
+            <span>JSDoc Docs v1.0.0</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#overview">1. Module Overview</a></li>
+            <li><a href="#hierarchy">2. Component Architecture</a></li>
+            <li><a href="#constants">3. Constants Catalog</a></li>
+            <li><a href="#state">4. React State Specification</a></li>
+            <li><a href="#methods">5. Component Methods (JSDoc)</a></li>
+            <li class="sub-item"><a href="#m-tables">_fetchTables()</a></li>
+            <li class="sub-item"><a href="#m-records">_fetchRecords()</a></li>
+            <li class="sub-item"><a href="#m-alert">_showAlert()</a></li>
+            <li class="sub-item"><a href="#m-select">_handleSelectRecord()</a></li>
+            <li class="sub-item"><a href="#m-change">_handleFieldChange()</a></li>
+            <li class="sub-item"><a href="#m-submit">_handleUpdateSubmit()</a></li>
+            <li><a href="#usecase">6. Use-Case Rules & Exceptions</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="jsdoc-content">
+        
+        <div class="breadcrumb">
+            <a href="#">Lok-Lagbe Docs</a> &raquo; <a href="#">Frontend Modules</a> &raquo; EditSystemDatabase.jsx
+        </div>
+
+        <section id="overview">
+            <h1>Component: <code>EditSystemDatabase</code></h1>
+            <p>
+                The <code>EditSystemDatabase</code> React component provides a simple user interface for System Administrators to inspect database tables, select specific records, view current record values, and submit record edits to the system database.
+            </p>
+
+            <div class="admonition admonition-info">
+                <strong>Coding Standard Compliance:</strong> 
+                Uses <code>camelCase</code> for props, <code>ALL_UPPERCASE</code> for constants, prefixes non-React custom methods with an underscore <code>_</code> (e.g. <code>_handleUpdateSubmit</code>), uses 4-space indentation, and includes full JSDoc comments.
+            </div>
+        </section>
+
+        <section id="hierarchy">
+            <h2>2. Component Architecture</h2>
+            <pre>
+[ App.jsx ] ── (Mounts Root Container)
+     │
+     ▼
+[ AdminUI.jsx ] ── (Admin Navigation Header & Tab Controller)
+     │
+     ├── Tab 1: [ ManageLabourListings.jsx ]
+     │
+     └── Tab 2: [ EditSystemDatabase.jsx ] (Active Component)
+                     ├── Table Selector Dropdown
+                     ├── System Records Grid
+                     ├── Edit Record Form Modal
+                     └── Alert Notification Banner
+            </pre>
+        </section>
+
+        <section id="constants">
+            <h2>3. Constants Catalog</h2>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Constant Name</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>API_BASE</code></td>
+                        <td>string</td>
+                        <td><code>'http://localhost:8000/api/admin/edit-database/'</code></td>
+                        <td>Base REST API endpoint for system database editing.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="state">
+            <h2>4. React State Specification</h2>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>State Variable</th>
+                        <th>Initial Value</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>tables</code></td>
+                        <td><code>[]</code></td>
+                        <td>Array&lt;Object&gt;</td>
+                        <td>Available system tables with record counts.</td>
+                    </tr>
+                    <tr>
+                        <td><code>selectedTable</code></td>
+                        <td><code>'users'</code></td>
+                        <td>string</td>
+                        <td>Currently selected database table key.</td>
+                    </tr>
+                    <tr>
+                        <td><code>records</code></td>
+                        <td><code>[]</code></td>
+                        <td>Array&lt;Object&gt;</td>
+                        <td>Records list for the selected table.</td>
+                    </tr>
+                    <tr>
+                        <td><code>selectedRecord</code></td>
+                        <td><code>null</code></td>
+                        <td>Object | null</td>
+                        <td>Target database record selected for editing.</td>
+                    </tr>
+                    <tr>
+                        <td><code>fieldData</code></td>
+                        <td><code>{}</code></td>
+                        <td>Object</td>
+                        <td>Dynamic field-value mapping for the edit form.</td>
+                    </tr>
+                    <tr>
+                        <td><code>alert</code></td>
+                        <td><code>null</code></td>
+                        <td>Object | null</td>
+                        <td>Banner notification message object <code>{ msg, type }</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="methods">
+            <h2>5. Component Helper Methods (JSDoc Specifications)</h2>
+
+            <div id="m-tables" class="js-signature">
+                async function <span class="sig-name">_fetchTables</span>()
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-returns">Returns: Promise&lt;void&gt;</span><br>
+                Fetches list of available system database tables and record counts from <code>/api/admin/edit-database/tables/</code>.
+            </div>
+
+            <div id="m-records" class="js-signature">
+                async function <span class="sig-name">_fetchRecords</span>(<span class="sig-param">tableName</span>)
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {string} tableName</span><br>
+                Fetches all records for the specified system table from <code>/api/admin/edit-database/records/?table={tableName}</code>.
+            </div>
+
+            <div id="m-alert" class="js-signature">
+                function <span class="sig-name">_showAlert</span>(<span class="sig-param">msg, type = 'success'</span>)
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span><br>
+                <span class="tag-pill tag-param">@param {string} msg</span> Alert message string<br>
+                <span class="tag-pill tag-param">@param {string} type</span> 'success' or 'error'<br>
+                Displays top notification banner and sets automatic 4-second dismiss timer.
+            </div>
+
+            <div id="m-select" class="js-signature">
+                function <span class="sig-name">_handleSelectRecord</span>(<span class="sig-param">item</span>)
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {Object} item</span><br>
+                Selects target record, pre-fills editable field inputs, and opens the edit modal form.
+            </div>
+
+            <div id="m-change" class="js-signature">
+                function <span class="sig-name">_handleFieldChange</span>(<span class="sig-param">key, value</span>)
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {string} key</span> <span class="tag-pill tag-param">@param {string} value</span><br>
+                Updates dynamic field value state as the administrator types in the edit modal.
+            </div>
+
+            <div id="m-submit" class="js-signature">
+                async function <span class="sig-name">_handleUpdateSubmit</span>(<span class="sig-param">e</span>)
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {FormEvent} e</span><br>
+                Validates mandatory field presence, submits updated values via <code>PUT</code> API request, and displays success/error notification banners matching the Use-Case specification.
+            </div>
+        </section>
+
+        <section id="usecase">
+            <h2>6. Use-Case Rules & Exceptions Matrix</h2>
+            <div class="admonition admonition-warning">
+                <h3>Administrator Use Case Exception Handling</h3>
+                <ul>
+                    <li>
+                        <strong>⚠️ Mandatory Field Check:</strong> Leaving required fields empty triggers: <em>"Field '{key}' cannot be empty. Please complete all mandatory fields."</em>
+                    </li>
+                    <li>
+                        <strong>🔍 Record Not Found:</strong> If the selected record no longer exists, the system displays an error prompt and automatically refreshes the table records.
+                    </li>
+                    <li>
+                        <strong>🔒 System Constraint / Unique Duplicate:</strong> Violating unique constraints (e.g. duplicate username or email) displays: <em>"Updated information violates system constraints (such as duplicate unique values). Please provide valid unique information."</em>
+                    </li>
+                    <li>
+                        <strong>⚡ Connection / Server Error:</strong> Connection failure displays: <em>"Server or database connection fails. Please try again."</em>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Lok-Lagbe Project — Built with React & JSDoc Technical Documentation Standard.</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
