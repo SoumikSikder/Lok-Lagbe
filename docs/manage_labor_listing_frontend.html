@@ -266,18 +266,18 @@
         </div>
         <ul class="sidebar-menu">
             <li><a href="#overview">1. Module Overview</a></li>
-            <li><a href="#hierarchy">2. Component Hierarchy</a></li>
+            <li><a href="#hierarchy">2. Component Architecture</a></li>
             <li><a href="#constants">3. Constants Catalog</a></li>
             <li><a href="#state">4. React State Specification</a></li>
             <li><a href="#methods">5. Component Methods (JSDoc)</a></li>
             <li class="sub-item"><a href="#m-fetch">_fetchListings()</a></li>
             <li class="sub-item"><a href="#m-alert">_showAlert()</a></li>
+            <li class="sub-item"><a href="#m-input">_handleInputChange()</a></li>
             <li class="sub-item"><a href="#m-file">_handleFileChange()</a></li>
             <li class="sub-item"><a href="#m-validate">_validateForm()</a></li>
             <li class="sub-item"><a href="#m-submit">_handleSubmit()</a></li>
             <li class="sub-item"><a href="#m-delete">_handleDelete()</a></li>
-            <li><a href="#usecase">6. Use-Case Exceptions & Rules</a></li>
-            <li><a href="#styling">7. Styling System & Layout</a></li>
+            <li><a href="#usecase">6. Use-Case Rules & Exceptions</a></li>
         </ul>
     </nav>
 
@@ -289,9 +289,9 @@
         </div>
 
         <section id="overview">
-            <h1>Component: <code>ManageLabourListings</code></h1>
+            <h1>Component: <code>ManageLabourListings</code> (Simplified UI)</h1>
             <p>
-                The <code>ManageLabourListings</code> React component provides the complete user interface for System Administrators to view, search, create, update, and remove labor listing profiles. It connects directly to the Django REST API backend endpoints.
+                The <code>ManageLabourListings</code> React component provides a clean, simple, lightweight user interface under 250 lines for System Administrators to view, search, create, update, and remove labor listing profiles. It connects directly to the Django REST API backend endpoints.
             </p>
 
             <div class="admonition admonition-info">
@@ -301,20 +301,19 @@
         </section>
 
         <section id="hierarchy">
-            <h2>2. Component Hierarchy & Flow</h2>
+            <h2>2. Component Architecture</h2>
             <pre>
 [ App.jsx ] ── (Mounts Root Container)
      │
      ▼
-[ AdminUI.jsx ] ── (Admin Navbar & Tab Manager)
+[ AdminUI.jsx ] ── (Admin Navigation Header)
      │
-     ├── Tab 1: [ ManageLabourListings.jsx ] (Active Component)
-     │                ├── Search & Filter Toolbar
-     │                ├── Listings Table (Data Grid)
-     │                ├── Add / Edit Modal Form (with Email Lock)
-     │                └── Notification Banner
-     │
-     └── Tab 2: [ EditSystemDatabase.jsx ] (Database Direct Access)
+     └── [ ManageLabourListings.jsx ] (&lt; 250 lines simple React component)
+                ├── Title & Add Button Toolbar
+                ├── Notification Alert Banner
+                ├── Search & Category Filter Bar
+                ├── Listings HTML Table
+                └── Simple Form Modal (with Locked Email field)
             </pre>
         </section>
 
@@ -334,28 +333,16 @@
                         <td><code>API_BASE_URL</code></td>
                         <td>string</td>
                         <td><code>'http://localhost:8000/api/admin/labour-listings/'</code></td>
-                        <td>Django backend REST API endpoint base URL.</td>
+                        <td>Django backend REST API base URL.</td>
                     </tr>
                     <tr>
-                        <td><code>CATEGORY_OPTIONS</code></td>
+                        <td><code>CATEGORIES</code></td>
                         <td>Array&lt;string&gt;</td>
                         <td>Electrician, Plumber, Painter, Carpenter, Cleaner, Mason, Gardener, General Laborer</td>
-                        <td>Pre-defined list of worker professions.</td>
+                        <td>List of laborer profession categories.</td>
                     </tr>
                     <tr>
-                        <td><code>AVAILABILITY_OPTIONS</code></td>
-                        <td>Array&lt;string&gt;</td>
-                        <td>Full Time, Part Time, Weekends, On Call</td>
-                        <td>Available worker work schedules.</td>
-                    </tr>
-                    <tr>
-                        <td><code>STATUS_OPTIONS</code></td>
-                        <td>Array&lt;string&gt;</td>
-                        <td>Active, Pending, Inactive</td>
-                        <td>Profile status options.</td>
-                    </tr>
-                    <tr>
-                        <td><code>ALLOWED_IMAGE_EXTENSIONS</code></td>
+                        <td><code>ALLOWED_EXTENSIONS</code></td>
                         <td>Array&lt;string&gt;</td>
                         <td><code>['.jpg', '.jpeg', '.png', '.webp']</code></td>
                         <td>Allowed profile photo file extensions.</td>
@@ -380,37 +367,31 @@
                         <td><code>listings</code></td>
                         <td><code>[]</code></td>
                         <td>Array&lt;Object&gt;</td>
-                        <td>Listings fetched from backend API.</td>
-                    </tr>
-                    <tr>
-                        <td><code>loading</code></td>
-                        <td><code>false</code></td>
-                        <td>boolean</td>
-                        <td>Loading state during API calls.</td>
+                        <td>Listings data fetched from backend.</td>
                     </tr>
                     <tr>
                         <td><code>searchQuery</code></td>
                         <td><code>''</code></td>
                         <td>string</td>
-                        <td>Search string for filtering name/profession/skills.</td>
+                        <td>Search filter for worker name or category.</td>
                     </tr>
                     <tr>
                         <td><code>categoryFilter</code></td>
                         <td><code>''</code></td>
                         <td>string</td>
-                        <td>Category dropdown filter value.</td>
+                        <td>Selected category dropdown filter.</td>
                     </tr>
                     <tr>
                         <td><code>isModalOpen</code></td>
                         <td><code>false</code></td>
                         <td>boolean</td>
-                        <td>Visibility of Add/Edit modal dialog.</td>
+                        <td>Controls Add/Edit modal visibility.</td>
                     </tr>
                     <tr>
                         <td><code>isEditMode</code></td>
                         <td><code>false</code></td>
                         <td>boolean</td>
-                        <td>True when editing existing profile (locks email field).</td>
+                        <td>True when editing profile (locks email field).</td>
                     </tr>
                     <tr>
                         <td><code>selectedId</code></td>
@@ -419,16 +400,10 @@
                         <td>Target listing ID being edited.</td>
                     </tr>
                     <tr>
-                        <td><code>alertMessage</code></td>
+                        <td><code>alert</code></td>
                         <td><code>null</code></td>
-                        <td>string | null</td>
-                        <td>Text displayed in notification banner.</td>
-                    </tr>
-                    <tr>
-                        <td><code>alertType</code></td>
-                        <td><code>'success'</code></td>
-                        <td>string</td>
-                        <td>Alert theme type ('success' or 'error').</td>
+                        <td>Object | null</td>
+                        <td>Object containing <code>{ msg, type }</code> for alert banner.</td>
                     </tr>
                     <tr>
                         <td><code>formData</code></td>
@@ -442,12 +417,6 @@
                         <td>File | null</td>
                         <td>Selected photo File object.</td>
                     </tr>
-                    <tr>
-                        <td><code>imagePreview</code></td>
-                        <td><code>null</code></td>
-                        <td>string | null</td>
-                        <td>Blob preview URL for chosen photo.</td>
-                    </tr>
                 </tbody>
             </table>
         </section>
@@ -460,26 +429,33 @@
             </div>
             <div class="docblock">
                 <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-returns">Returns: Promise&lt;void&gt;</span><br>
-                Fetches all labor listings from the backend API. Updates <code>listings</code> state or displays an error alert banner if the database request fails.
+                Fetches all labor listings from backend API endpoint <code>/api/admin/labour-listings/</code>.
             </div>
 
             <div id="m-alert" class="js-signature">
-                function <span class="sig-name">_showAlert</span>(<span class="sig-param">message, type = 'success'</span>)
+                function <span class="sig-name">_showAlert</span>(<span class="sig-param">msg, type = 'success'</span>)
             </div>
             <div class="docblock">
                 <span class="tag-pill tag-private">Private Helper</span><br>
-                <span class="tag-pill tag-param">@param {string} message</span> Notification banner text<br>
+                <span class="tag-pill tag-param">@param {string} msg</span> Alert text<br>
                 <span class="tag-pill tag-param">@param {string} type</span> 'success' or 'error'<br>
-                Displays top notification banner and sets an automatic 5-second dismiss timer.
+                Displays top notification banner with an automatic 4-second dismiss timer.
+            </div>
+
+            <div id="m-input" class="js-signature">
+                function <span class="sig-name">_handleInputChange</span>(<span class="sig-param">e</span>)
+            </div>
+            <div class="docblock">
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {Event} e</span><br>
+                Updates controlled form state for input fields, selects, and textareas.
             </div>
 
             <div id="m-file" class="js-signature">
-                function <span class="sig-name">_handleFileChange</span>(<span class="sig-param">event</span>)
+                function <span class="sig-name">_handleFileChange</span>(<span class="sig-param">e</span>)
             </div>
             <div class="docblock">
-                <span class="tag-pill tag-private">Private Helper</span><br>
-                <span class="tag-pill tag-param">@param {Event} event</span> File input change event<br>
-                Validates the file extension against <code>ALLOWED_IMAGE_EXTENSIONS</code> (<code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.webp</code>). Rejects unsupported files with an alert banner.
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {Event} e</span><br>
+                Validates selected image file extension against <code>ALLOWED_EXTENSIONS</code> (<code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.webp</code>). Rejects invalid formats.
             </div>
 
             <div id="m-validate" class="js-signature">
@@ -487,15 +463,15 @@
             </div>
             <div class="docblock">
                 <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-returns">Returns: boolean</span><br>
-                Validates that mandatory fields (<code>name</code>, <code>email</code>, <code>category</code>, <code>phone</code>) are not blank. Returns <code>false</code> and triggers error banner if mandatory fields are missing.
+                Validates that mandatory fields (<code>name</code>, <code>email</code>, <code>phone</code>) are not blank.
             </div>
 
             <div id="m-submit" class="js-signature">
-                async function <span class="sig-name">_handleSubmit</span>(<span class="sig-param">event</span>)
+                async function <span class="sig-name">_handleSubmit</span>(<span class="sig-param">e</span>)
             </div>
             <div class="docblock">
-                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {FormEvent} event</span><br>
-                Constructs <code>FormData</code> multipart payload and invokes <code>POST</code> (Create) or <code>PUT</code> (Update) API request. In Update mode, the <code>email</code> input field is rendered with <code>disabled={true}</code> to enforce the locked email requirement. Preserves form data on failure so administrator can retry without re-typing.
+                <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {FormEvent} e</span><br>
+                Submits multipart form data to API using <code>POST</code> (Create) or <code>PUT</code> (Update). In Edit mode, <code>email</code> input is disabled (<code>disabled={true}</code>) to enforce the locked email rule. Preserves form data on failure for retry.
             </div>
 
             <div id="m-delete" class="js-signature">
@@ -503,41 +479,29 @@
             </div>
             <div class="docblock">
                 <span class="tag-pill tag-private">Private Helper</span> <span class="tag-pill tag-param">@param {number} id</span><br>
-                Prompts a window confirmation modal. Upon confirmation, sends <code>DELETE</code> API request to remove the profile.
+                Prompts standard window confirmation dialog and sends <code>DELETE</code> API request.
             </div>
         </section>
 
         <section id="usecase">
-            <h2>6. Use-Case Rules & Exception Handling</h2>
+            <h2>6. Use-Case Rules & Exceptions</h2>
             <div class="admonition admonition-warning">
-                <h3>System Administrator Rules & Exceptions Matrix</h3>
+                <h3>Use Case Exception Rules Matrix</h3>
                 <ul>
                     <li>
-                        <strong>🔒 Locked Email Rule:</strong> When editing an existing labor listing (<code>isEditMode = true</code>), the email input is disabled (<code>disabled={true}</code>) with lock indicator 🔒. The email field cannot be modified after initial registration.
+                        <strong>🔒 Locked Email Rule:</strong> In Edit mode (<code>isEditMode = true</code>), the email input field is disabled (<code>disabled={true}</code>) with a red <b>(Locked 🔒)</b> label. Email cannot be edited after registration.
                     </li>
                     <li>
-                        <strong>🖼️ Image Format Rejection:</strong> Uploading non-image formats (e.g. <code>.pdf</code>, <code>.txt</code>, <code>.docx</code>) triggers an error alert: <em>"Unsupported profile image format. Please upload a JPG, JPEG, PNG, or WEBP image."</em>
+                        <strong>🖼️ Image Format Check:</strong> Rejects non-supported formats with error message: <em>"Unsupported format! Upload JPG, JPEG, PNG, or WEBP."</em>
                     </li>
                     <li>
-                        <strong>⚠️ Mandatory Field Checks:</strong> Submitting with blank required fields triggers: <em>"Please complete all mandatory fields."</em>
+                        <strong>⚠️ Mandatory Field Checks:</strong> Submitting empty mandatory fields triggers: <em>"Please complete all mandatory fields."</em>
                     </li>
                     <li>
-                        <strong>💾 Error Form Preservation:</strong> If a database or server connection error occurs, the form remains open and entered data is preserved so the administrator can retry without losing their work.
+                        <strong>💾 Data Preservation:</strong> Server errors keep form state preserved so administrator can retry easily.
                     </li>
                 </ul>
             </div>
-        </section>
-
-        <section id="styling">
-            <h2>7. Component Styling System</h2>
-            <p>Styles are defined via structured, encapsulated inline JavaScript style objects:</p>
-            <pre><code>const styles = {
-    container: { fontFamily: 'Segoe UI, sans-serif', padding: '24px', maxWidth: '1200px' },
-    addButton: { backgroundColor: '#007bff', color: '#ffffff', padding: '10px 18px' },
-    statusBadge: { padding: '4px 10px', borderRadius: '12px', fontSize: '12px' },
-    lockedTag: { color: '#dc3545', fontSize: '12px' },
-    modalOverlay: { position: 'fixed', backgroundColor: 'rgba(0,0,0,0.5)' },
-};</code></pre>
         </section>
 
         <footer>
