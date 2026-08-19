@@ -6,6 +6,10 @@ Lok Lagbe Documentation
    :caption: Contents:
 
    users
+   labor
+   booking
+   manage_labour_listing
+   edit_system_database
 
 Indices and tables
 ==================

@@ -42,6 +42,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="users.html">Users App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="labor.html">Labor App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="booking.html">Booking App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manage_labour_listing.html">Manage Labour Listing (Admin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edit_system_database.html">Edit System Database (Admin)</a></li>
 </ul>
 
         </div>
@@ -78,20 +82,106 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.models.User.address">address (apps.users.models.User attribute)</a>
+      <li><a href="booking.html#apps.booking.models.Booking.ACCEPTED">ACCEPTED (apps.booking.models.Booking attribute)</a>
 </li>
+      <li><a href="booking.html#apps.booking.models.Booking.address">address (apps.booking.models.Booking attribute)</a>
+
+      <ul>
+        <li><a href="users.html#apps.users.models.User.address">(apps.users.models.User attribute)</a>
+</li>
+      </ul></li>
+      <li>
+    admin.edit_system_database.views
+
+      <ul>
+        <li><a href="edit_system_database.html#module-admin.edit_system_database.views">module</a>
+</li>
+      </ul></li>
+      <li>
+    admin.manage_labour_listing.models
+
+      <ul>
+        <li><a href="manage_labour_listing.html#module-admin.manage_labour_listing.models">module</a>
+</li>
+      </ul></li>
+      <li>
+    admin.manage_labour_listing.serializers
+
+      <ul>
+        <li><a href="manage_labour_listing.html#module-admin.manage_labour_listing.serializers">module</a>
+</li>
+      </ul></li>
+      <li>
+    admin.manage_labour_listing.views
+
+      <ul>
+        <li><a href="manage_labour_listing.html#module-admin.manage_labour_listing.views">module</a>
+</li>
+      </ul></li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.serializers.LaborListingSerializer.ALLOWED_IMAGE_EXTENSIONS">ALLOWED_IMAGE_EXTENSIONS (admin.manage_labour_listing.serializers.LaborListingSerializer attribute)</a>
+</li>
+      <li>
+    apps.booking.models
+
+      <ul>
+        <li><a href="booking.html#module-apps.booking.models">module</a>
+</li>
+      </ul></li>
+      <li>
+    apps.booking.serializers
+
+      <ul>
+        <li><a href="booking.html#module-apps.booking.serializers">module</a>
+</li>
+      </ul></li>
+      <li>
+    apps.booking.views
+
+      <ul>
+        <li><a href="booking.html#module-apps.booking.views">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    apps.labor.models
+
+      <ul>
+        <li><a href="labor.html#module-apps.labor.models">module</a>
+</li>
+      </ul></li>
+      <li>
+    apps.labor.serializers
+
+      <ul>
+        <li><a href="labor.html#module-apps.labor.serializers">module</a>
+</li>
+      </ul></li>
+      <li>
+    apps.labor.views
+
+      <ul>
+        <li><a href="labor.html#module-apps.labor.views">module</a>
+</li>
+      </ul></li>
       <li>
     apps.users.models
 
@@ -106,8 +196,6 @@
         <li><a href="users.html#module-apps.users.serializers">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     apps.users.services
 
@@ -122,6 +210,12 @@
         <li><a href="users.html#module-apps.users.views">module</a>
 </li>
       </ul></li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.availability">availability (admin.manage_labour_listing.models.LaborListing attribute)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.AVAILABILITY_CHOICES">AVAILABILITY_CHOICES (admin.manage_labour_listing.models.LaborListing attribute)</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Labor.available">available (apps.labor.models.Labor attribute)</a>
+</li>
       <li><a href="users.html#apps.users.models.User.avatar">avatar (apps.users.models.User attribute)</a>
 </li>
       <li><a href="users.html#apps.users.models.User.AVATAR_CHOICES">AVATAR_CHOICES (apps.users.models.User attribute)</a>
@@ -132,7 +226,29 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.models.User.bookings">bookings (apps.users.models.User attribute)</a>
+      <li><a href="booking.html#apps.booking.models.Booking">Booking (class in apps.booking.models)</a>
+</li>
+      <li><a href="booking.html#apps.booking.models.Booking.DoesNotExist">Booking.DoesNotExist</a>
+</li>
+      <li><a href="booking.html#apps.booking.models.Booking.MultipleObjectsReturned">Booking.MultipleObjectsReturned</a>
+</li>
+      <li><a href="booking.html#apps.booking.views.BookingCreateAPIView">BookingCreateAPIView (class in apps.booking.views)</a>
+</li>
+      <li><a href="booking.html#apps.booking.views.BookingDetailAPIView">BookingDetailAPIView (class in apps.booking.views)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="booking.html#apps.booking.views.BookingHistoryAPIView">BookingHistoryAPIView (class in apps.booking.views)</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Labor.bookings">bookings (apps.labor.models.Labor attribute)</a>
+
+      <ul>
+        <li><a href="users.html#apps.users.models.User.bookings">(apps.users.models.User attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="booking.html#apps.booking.serializers.BookingSerializer">BookingSerializer (class in apps.booking.serializers)</a>
+</li>
+      <li><a href="booking.html#apps.booking.serializers.BookingSerializer.Meta">BookingSerializer.Meta (class in apps.booking.serializers)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -140,21 +256,57 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.serializers.RegisterSerializer.create">create() (apps.users.serializers.RegisterSerializer method)</a>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.category">category (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.models.Labor.category">(apps.labor.models.Labor attribute)</a>
 </li>
+      </ul></li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.CATEGORY_CHOICES">CATEGORY_CHOICES (admin.manage_labour_listing.models.LaborListing attribute)</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Review.comment">comment (apps.labor.models.Review attribute)</a>
+</li>
+      <li><a href="booking.html#apps.booking.models.Booking.COMPLETED">COMPLETED (apps.booking.models.Booking attribute)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.views.LaborListingViewSet.create">create() (admin.manage_labour_listing.views.LaborListingViewSet method)</a>
+
+      <ul>
+        <li><a href="users.html#apps.users.serializers.RegisterSerializer.create">(apps.users.serializers.RegisterSerializer method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="users.html#apps.users.services.create_user">create_user() (in module apps.users.services)</a>
 </li>
-      <li><a href="users.html#apps.users.models.User.created_at">created_at (apps.users.models.User attribute)</a>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.created_at">created_at (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="booking.html#apps.booking.models.Booking.created_at">(apps.booking.models.Booking attribute)</a>
 </li>
+        <li><a href="labor.html#apps.labor.models.Favorite.created_at">(apps.labor.models.Favorite attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.models.Labor.created_at">(apps.labor.models.Labor attribute)</a>
+</li>
+        <li><a href="users.html#apps.users.models.User.created_at">(apps.users.models.User attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="labor.html#apps.labor.models.Review.date">date (apps.labor.models.Review attribute)</a>
+</li>
       <li><a href="users.html#apps.users.models.User.date_joined">date_joined (apps.users.models.User attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="labor.html#apps.labor.models.Labor.description">description (apps.labor.models.Labor attribute)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.views.LaborListingViewSet.destroy">destroy() (admin.manage_labour_listing.views.LaborListingViewSet method)</a>
+</li>
+      <li><a href="booking.html#apps.booking.models.Booking.duration">duration (apps.booking.models.Booking attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -162,7 +314,17 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.models.User.email">email (apps.users.models.User attribute)</a>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.email">email (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.models.Labor.email">(apps.labor.models.Labor attribute)</a>
+</li>
+        <li><a href="users.html#apps.users.models.User.email">(apps.users.models.User attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="labor.html#apps.labor.models.Labor.experience">experience (apps.labor.models.Labor attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -170,16 +332,44 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="labor.html#apps.labor.models.Favorite">Favorite (class in apps.labor.models)</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Favorite.DoesNotExist">Favorite.DoesNotExist</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Favorite.MultipleObjectsReturned">Favorite.MultipleObjectsReturned</a>
+</li>
       <li><a href="users.html#apps.users.models.User.favorite_laborers">favorite_laborers (apps.users.models.User attribute)</a>
 </li>
-      <li><a href="users.html#apps.users.serializers.RegisterSerializer.Meta.fields">fields (apps.users.serializers.RegisterSerializer.Meta attribute)</a>
+      <li><a href="labor.html#apps.labor.models.Labor.favorited_by">favorited_by (apps.labor.models.Labor attribute)</a>
+</li>
+      <li><a href="labor.html#apps.labor.views.FavoriteDeleteAPIView">FavoriteDeleteAPIView (class in apps.labor.views)</a>
+</li>
+      <li><a href="labor.html#apps.labor.views.FavoriteListCreateAPIView">FavoriteListCreateAPIView (class in apps.labor.views)</a>
+</li>
+      <li><a href="labor.html#apps.labor.serializers.FavoriteSerializer">FavoriteSerializer (class in apps.labor.serializers)</a>
+</li>
+      <li><a href="labor.html#apps.labor.serializers.FavoriteSerializer.Meta">FavoriteSerializer.Meta (class in apps.labor.serializers)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.serializers.LaborListingSerializer.Meta.fields">fields (admin.manage_labour_listing.serializers.LaborListingSerializer.Meta attribute)</a>
 
       <ul>
+        <li><a href="booking.html#apps.booking.serializers.BookingSerializer.Meta.fields">(apps.booking.serializers.BookingSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.FavoriteSerializer.Meta.fields">(apps.labor.serializers.FavoriteSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.LaborDetailSerializer.Meta.fields">(apps.labor.serializers.LaborDetailSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.LaborListSerializer.Meta.fields">(apps.labor.serializers.LaborListSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.ReviewSerializer.Meta.fields">(apps.labor.serializers.ReviewSerializer.Meta attribute)</a>
+</li>
+        <li><a href="users.html#apps.users.serializers.RegisterSerializer.Meta.fields">(apps.users.serializers.RegisterSerializer.Meta attribute)</a>
+</li>
         <li><a href="users.html#apps.users.serializers.UserSerializer.Meta.fields">(apps.users.serializers.UserSerializer.Meta attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="users.html#apps.users.models.User.first_name">first_name (apps.users.models.User attribute)</a>
 </li>
   </ul></td>
@@ -190,9 +380,35 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="users.html#apps.users.views.ProfileView.get">get() (apps.users.views.ProfileView method)</a>
 </li>
+      <li><a href="booking.html#apps.booking.models.Booking.get_next_by_work_date">get_next_by_work_date() (apps.booking.models.Booking method)</a>
+</li>
+      <li><a href="booking.html#apps.booking.models.Booking.get_previous_by_work_date">get_previous_by_work_date() (apps.booking.models.Booking method)</a>
+</li>
+      <li><a href="booking.html#apps.booking.views.BookingDetailAPIView.get_queryset">get_queryset() (apps.booking.views.BookingDetailAPIView method)</a>
+
+      <ul>
+        <li><a href="booking.html#apps.booking.views.BookingHistoryAPIView.get_queryset">(apps.booking.views.BookingHistoryAPIView method)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.FavoriteDeleteAPIView.get_queryset">(apps.labor.views.FavoriteDeleteAPIView method)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.FavoriteListCreateAPIView.get_queryset">(apps.labor.views.FavoriteListCreateAPIView method)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.LaborListAPIView.get_queryset">(apps.labor.views.LaborListAPIView method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="edit_system_database.html#admin.edit_system_database.views.get_record_detail">get_record_detail() (in module admin.edit_system_database.views)</a>
+</li>
       <li><a href="users.html#apps.users.models.User.groups">groups (apps.users.models.User attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="labor.html#apps.labor.models.Labor.hourly_wage">hourly_wage (apps.labor.models.Labor attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -200,12 +416,24 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.models.User.id">id (apps.users.models.User attribute)</a>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.id">id (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="booking.html#apps.booking.models.Booking.id">(apps.booking.models.Booking attribute)</a>
 </li>
-      <li><a href="users.html#apps.users.models.User.is_active">is_active (apps.users.models.User attribute)</a>
+        <li><a href="labor.html#apps.labor.models.Favorite.id">(apps.labor.models.Favorite attribute)</a>
 </li>
+        <li><a href="labor.html#apps.labor.models.Labor.id">(apps.labor.models.Labor attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.models.Review.id">(apps.labor.models.Review attribute)</a>
+</li>
+        <li><a href="users.html#apps.users.models.User.id">(apps.users.models.User attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="users.html#apps.users.models.User.is_active">is_active (apps.users.models.User attribute)</a>
+</li>
       <li><a href="users.html#apps.users.models.User.is_staff">is_staff (apps.users.models.User attribute)</a>
 </li>
       <li><a href="users.html#apps.users.models.User.is_superuser">is_superuser (apps.users.models.User attribute)</a>
@@ -216,12 +444,68 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="booking.html#apps.booking.models.Booking.labor">labor (apps.booking.models.Booking attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.models.Favorite.labor">(apps.labor.models.Favorite attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.models.Review.labor">(apps.labor.models.Review attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="labor.html#apps.labor.models.Labor">Labor (class in apps.labor.models)</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Labor.DoesNotExist">Labor.DoesNotExist</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Labor.MultipleObjectsReturned">Labor.MultipleObjectsReturned</a>
+</li>
+      <li><a href="booking.html#apps.booking.models.Booking.labor_id">labor_id (apps.booking.models.Booking attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.models.Favorite.labor_id">(apps.labor.models.Favorite attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.models.Review.labor_id">(apps.labor.models.Review attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="labor.html#apps.labor.views.LaborDetailAPIView">LaborDetailAPIView (class in apps.labor.views)</a>
+</li>
+      <li><a href="labor.html#apps.labor.serializers.LaborDetailSerializer">LaborDetailSerializer (class in apps.labor.serializers)</a>
+</li>
+      <li><a href="labor.html#apps.labor.serializers.LaborDetailSerializer.Meta">LaborDetailSerializer.Meta (class in apps.labor.serializers)</a>
+</li>
+      <li><a href="labor.html#apps.labor.views.LaborListAPIView">LaborListAPIView (class in apps.labor.views)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing">LaborListing (class in admin.manage_labour_listing.models)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.DoesNotExist">LaborListing.DoesNotExist</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.MultipleObjectsReturned">LaborListing.MultipleObjectsReturned</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.serializers.LaborListingSerializer">LaborListingSerializer (class in admin.manage_labour_listing.serializers)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.serializers.LaborListingSerializer.Meta">LaborListingSerializer.Meta (class in admin.manage_labour_listing.serializers)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.views.LaborListingViewSet">LaborListingViewSet (class in admin.manage_labour_listing.views)</a>
+</li>
+      <li><a href="labor.html#apps.labor.serializers.LaborListSerializer">LaborListSerializer (class in apps.labor.serializers)</a>
+</li>
+      <li><a href="labor.html#apps.labor.serializers.LaborListSerializer.Meta">LaborListSerializer.Meta (class in apps.labor.serializers)</a>
+</li>
+      <li><a href="labor.html#apps.labor.views.LaborPagination">LaborPagination (class in apps.labor.views)</a>
+</li>
       <li><a href="users.html#apps.users.models.User.last_login">last_login (apps.users.models.User attribute)</a>
 </li>
       <li><a href="users.html#apps.users.models.User.last_name">last_name (apps.users.models.User attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.views.LaborListingViewSet.list">list() (admin.manage_labour_listing.views.LaborListingViewSet method)</a>
+</li>
+      <li><a href="edit_system_database.html#admin.edit_system_database.views.list_system_tables">list_system_tables() (in module admin.edit_system_database.views)</a>
+</li>
+      <li><a href="edit_system_database.html#admin.edit_system_database.views.list_table_records">list_table_records() (in module admin.edit_system_database.views)</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Labor.location">location (apps.labor.models.Labor attribute)</a>
+</li>
       <li><a href="users.html#apps.users.models.User.logentry_set">logentry_set (apps.users.models.User attribute)</a>
 </li>
       <li><a href="users.html#apps.users.serializers.LoginSerializer">LoginSerializer (class in apps.users.serializers)</a>
@@ -234,9 +518,23 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.serializers.RegisterSerializer.Meta.model">model (apps.users.serializers.RegisterSerializer.Meta attribute)</a>
+      <li><a href="labor.html#apps.labor.views.LaborPagination.max_page_size">max_page_size (apps.labor.views.LaborPagination attribute)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.serializers.LaborListingSerializer.Meta.model">model (admin.manage_labour_listing.serializers.LaborListingSerializer.Meta attribute)</a>
 
       <ul>
+        <li><a href="booking.html#apps.booking.serializers.BookingSerializer.Meta.model">(apps.booking.serializers.BookingSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.FavoriteSerializer.Meta.model">(apps.labor.serializers.FavoriteSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.LaborDetailSerializer.Meta.model">(apps.labor.serializers.LaborDetailSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.LaborListSerializer.Meta.model">(apps.labor.serializers.LaborListSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.ReviewSerializer.Meta.model">(apps.labor.serializers.ReviewSerializer.Meta attribute)</a>
+</li>
+        <li><a href="users.html#apps.users.serializers.RegisterSerializer.Meta.model">(apps.users.serializers.RegisterSerializer.Meta attribute)</a>
+</li>
         <li><a href="users.html#apps.users.serializers.UserSerializer.Meta.model">(apps.users.serializers.UserSerializer.Meta attribute)</a>
 </li>
       </ul></li>
@@ -244,6 +542,26 @@
     module
 
       <ul>
+        <li><a href="edit_system_database.html#module-admin.edit_system_database.views">admin.edit_system_database.views</a>
+</li>
+        <li><a href="manage_labour_listing.html#module-admin.manage_labour_listing.models">admin.manage_labour_listing.models</a>
+</li>
+        <li><a href="manage_labour_listing.html#module-admin.manage_labour_listing.serializers">admin.manage_labour_listing.serializers</a>
+</li>
+        <li><a href="manage_labour_listing.html#module-admin.manage_labour_listing.views">admin.manage_labour_listing.views</a>
+</li>
+        <li><a href="booking.html#module-apps.booking.models">apps.booking.models</a>
+</li>
+        <li><a href="booking.html#module-apps.booking.serializers">apps.booking.serializers</a>
+</li>
+        <li><a href="booking.html#module-apps.booking.views">apps.booking.views</a>
+</li>
+        <li><a href="labor.html#module-apps.labor.models">apps.labor.models</a>
+</li>
+        <li><a href="labor.html#module-apps.labor.serializers">apps.labor.serializers</a>
+</li>
+        <li><a href="labor.html#module-apps.labor.views">apps.labor.views</a>
+</li>
         <li><a href="users.html#module-apps.users.models">apps.users.models</a>
 </li>
         <li><a href="users.html#module-apps.users.serializers">apps.users.serializers</a>
@@ -256,14 +574,84 @@
   </ul></td>
 </tr></table>
 
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.name">name (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.models.Labor.name">(apps.labor.models.Labor attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="booking.html#apps.booking.models.Booking.notes">notes (apps.booking.models.Booking attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.objects">objects (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="booking.html#apps.booking.models.Booking.objects">(apps.booking.models.Booking attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.models.Favorite.objects">(apps.labor.models.Favorite attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.models.Labor.objects">(apps.labor.models.Labor attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.models.Review.objects">(apps.labor.models.Review attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="labor.html#apps.labor.views.LaborPagination.page_size">page_size (apps.labor.views.LaborPagination attribute)</a>
+</li>
+      <li><a href="labor.html#apps.labor.views.LaborPagination.page_size_query_param">page_size_query_param (apps.labor.views.LaborPagination attribute)</a>
+</li>
+      <li><a href="labor.html#apps.labor.views.LaborListAPIView.pagination_class">pagination_class (apps.labor.views.LaborListAPIView attribute)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.views.LaborListingViewSet.parser_classes">parser_classes (admin.manage_labour_listing.views.LaborListingViewSet attribute)</a>
+</li>
       <li><a href="users.html#apps.users.models.User.password">password (apps.users.models.User attribute)</a>
 </li>
-      <li><a href="users.html#apps.users.views.LoginView.permission_classes">permission_classes (apps.users.views.LoginView attribute)</a>
+      <li><a href="booking.html#apps.booking.models.Booking.PENDING">PENDING (apps.booking.models.Booking attribute)</a>
+</li>
+      <li><a href="booking.html#apps.booking.views.BookingCreateAPIView.perform_create">perform_create() (apps.booking.views.BookingCreateAPIView method)</a>
 
       <ul>
+        <li><a href="labor.html#apps.labor.views.FavoriteListCreateAPIView.perform_create">(apps.labor.views.FavoriteListCreateAPIView method)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.ReviewCreateAPIView.perform_create">(apps.labor.views.ReviewCreateAPIView method)</a>
+</li>
+      </ul></li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.views.LaborListingViewSet.permission_classes">permission_classes (admin.manage_labour_listing.views.LaborListingViewSet attribute)</a>
+
+      <ul>
+        <li><a href="booking.html#apps.booking.views.BookingCreateAPIView.permission_classes">(apps.booking.views.BookingCreateAPIView attribute)</a>
+</li>
+        <li><a href="booking.html#apps.booking.views.BookingDetailAPIView.permission_classes">(apps.booking.views.BookingDetailAPIView attribute)</a>
+</li>
+        <li><a href="booking.html#apps.booking.views.BookingHistoryAPIView.permission_classes">(apps.booking.views.BookingHistoryAPIView attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.FavoriteDeleteAPIView.permission_classes">(apps.labor.views.FavoriteDeleteAPIView attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.FavoriteListCreateAPIView.permission_classes">(apps.labor.views.FavoriteListCreateAPIView attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.LaborDetailAPIView.permission_classes">(apps.labor.views.LaborDetailAPIView attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.LaborListAPIView.permission_classes">(apps.labor.views.LaborListAPIView attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.ReviewCreateAPIView.permission_classes">(apps.labor.views.ReviewCreateAPIView attribute)</a>
+</li>
+        <li><a href="users.html#apps.users.views.LoginView.permission_classes">(apps.users.views.LoginView attribute)</a>
+</li>
         <li><a href="users.html#apps.users.views.ProfileView.permission_classes">(apps.users.views.ProfileView attribute)</a>
 </li>
         <li><a href="users.html#apps.users.views.RegisterView.permission_classes">(apps.users.views.RegisterView attribute)</a>
@@ -271,7 +659,15 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.phone">phone (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.models.Labor.phone">(apps.labor.models.Labor attribute)</a>
+</li>
+      </ul></li>
       <li><a href="users.html#apps.users.models.User.phone_number">phone_number (apps.users.models.User attribute)</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Labor.photo">photo (apps.labor.models.Labor attribute)</a>
 </li>
       <li><a href="users.html#apps.users.views.LoginView.post">post() (apps.users.views.LoginView method)</a>
 
@@ -279,6 +675,10 @@
         <li><a href="users.html#apps.users.views.RegisterView.post">(apps.users.views.RegisterView method)</a>
 </li>
       </ul></li>
+      <li><a href="labor.html#apps.labor.models.Labor.profession">profession (apps.labor.models.Labor attribute)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.profile_image">profile_image (admin.manage_labour_listing.models.LaborListing attribute)</a>
+</li>
       <li><a href="users.html#apps.users.views.ProfileView">ProfileView (class in apps.users.views)</a>
 </li>
       <li><a href="users.html#apps.users.views.ProfileView.put">put() (apps.users.views.ProfileView method)</a>
@@ -286,37 +686,165 @@
   </ul></td>
 </tr></table>
 
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.views.LaborListingViewSet.queryset">queryset (admin.manage_labour_listing.views.LaborListingViewSet attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.views.LaborDetailAPIView.queryset">(apps.labor.views.LaborDetailAPIView attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.serializers.UserSerializer.Meta.read_only_fields">read_only_fields (apps.users.serializers.UserSerializer.Meta attribute)</a>
+      <li><a href="labor.html#apps.labor.models.Labor.rating">rating (apps.labor.models.Labor attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.models.Review.rating">(apps.labor.models.Review attribute)</a>
 </li>
+      </ul></li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.serializers.LaborListingSerializer.Meta.read_only_fields">read_only_fields (admin.manage_labour_listing.serializers.LaborListingSerializer.Meta attribute)</a>
+
+      <ul>
+        <li><a href="booking.html#apps.booking.serializers.BookingSerializer.Meta.read_only_fields">(apps.booking.serializers.BookingSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.FavoriteSerializer.Meta.read_only_fields">(apps.labor.serializers.FavoriteSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.LaborDetailSerializer.Meta.read_only_fields">(apps.labor.serializers.LaborDetailSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.LaborListSerializer.Meta.read_only_fields">(apps.labor.serializers.LaborListSerializer.Meta attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.serializers.ReviewSerializer.Meta.read_only_fields">(apps.labor.serializers.ReviewSerializer.Meta attribute)</a>
+</li>
+        <li><a href="users.html#apps.users.serializers.UserSerializer.Meta.read_only_fields">(apps.users.serializers.UserSerializer.Meta attribute)</a>
+</li>
+      </ul></li>
       <li><a href="users.html#apps.users.serializers.RegisterSerializer">RegisterSerializer (class in apps.users.serializers)</a>
+</li>
+      <li><a href="users.html#apps.users.serializers.RegisterSerializer.Meta">RegisterSerializer.Meta (class in apps.users.serializers)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.serializers.RegisterSerializer.Meta">RegisterSerializer.Meta (class in apps.users.serializers)</a>
-</li>
       <li><a href="users.html#apps.users.views.RegisterView">RegisterView (class in apps.users.views)</a>
+</li>
+      <li><a href="booking.html#apps.booking.models.Booking.REJECTED">REJECTED (apps.booking.models.Booking attribute)</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Review">Review (class in apps.labor.models)</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Review.DoesNotExist">Review.DoesNotExist</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Review.MultipleObjectsReturned">Review.MultipleObjectsReturned</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Labor.review_count">review_count (apps.labor.models.Labor attribute)</a>
+</li>
+      <li><a href="labor.html#apps.labor.views.ReviewCreateAPIView">ReviewCreateAPIView (class in apps.labor.views)</a>
+</li>
+      <li><a href="labor.html#apps.labor.models.Labor.reviews">reviews (apps.labor.models.Labor attribute)</a>
 </li>
       <li><a href="users.html#apps.users.models.User.reviews_written">reviews_written (apps.users.models.User attribute)</a>
 </li>
+      <li><a href="labor.html#apps.labor.serializers.ReviewSerializer">ReviewSerializer (class in apps.labor.serializers)</a>
+</li>
+      <li><a href="labor.html#apps.labor.serializers.ReviewSerializer.Meta">ReviewSerializer.Meta (class in apps.labor.serializers)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.views.LaborListingViewSet.serializer_class">serializer_class (admin.manage_labour_listing.views.LaborListingViewSet attribute)</a>
+
+      <ul>
+        <li><a href="booking.html#apps.booking.views.BookingCreateAPIView.serializer_class">(apps.booking.views.BookingCreateAPIView attribute)</a>
+</li>
+        <li><a href="booking.html#apps.booking.views.BookingDetailAPIView.serializer_class">(apps.booking.views.BookingDetailAPIView attribute)</a>
+</li>
+        <li><a href="booking.html#apps.booking.views.BookingHistoryAPIView.serializer_class">(apps.booking.views.BookingHistoryAPIView attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.FavoriteDeleteAPIView.serializer_class">(apps.labor.views.FavoriteDeleteAPIView attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.FavoriteListCreateAPIView.serializer_class">(apps.labor.views.FavoriteListCreateAPIView attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.LaborDetailAPIView.serializer_class">(apps.labor.views.LaborDetailAPIView attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.LaborListAPIView.serializer_class">(apps.labor.views.LaborListAPIView attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.views.ReviewCreateAPIView.serializer_class">(apps.labor.views.ReviewCreateAPIView attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.skills">skills (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.models.Labor.skills">(apps.labor.models.Labor attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="labor.html#apps.labor.views.LaborListAPIView.SORT_OPTIONS">SORT_OPTIONS (apps.labor.views.LaborListAPIView attribute)</a>
+</li>
+      <li><a href="booking.html#apps.booking.models.Booking.start_time">start_time (apps.booking.models.Booking attribute)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.status">status (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="booking.html#apps.booking.models.Booking.status">(apps.booking.models.Booking attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.STATUS_CHOICES">STATUS_CHOICES (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="booking.html#apps.booking.models.Booking.STATUS_CHOICES">(apps.booking.models.Booking attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.models.User.updated_at">updated_at (apps.users.models.User attribute)</a>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.serializers.LaborListingSerializer.update">update() (admin.manage_labour_listing.serializers.LaborListingSerializer method)</a>
+
+      <ul>
+        <li><a href="manage_labour_listing.html#admin.manage_labour_listing.views.LaborListingViewSet.update">(admin.manage_labour_listing.views.LaborListingViewSet method)</a>
 </li>
+      </ul></li>
+      <li><a href="edit_system_database.html#admin.edit_system_database.views.update_system_record">update_system_record() (in module admin.edit_system_database.views)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.models.LaborListing.updated_at">updated_at (admin.manage_labour_listing.models.LaborListing attribute)</a>
+
+      <ul>
+        <li><a href="users.html#apps.users.models.User.updated_at">(apps.users.models.User attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="booking.html#apps.booking.models.Booking.user">user (apps.booking.models.Booking attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.models.Favorite.user">(apps.labor.models.Favorite attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.models.Review.user">(apps.labor.models.Review attribute)</a>
+</li>
+      </ul></li>
       <li><a href="users.html#apps.users.models.User">User (class in apps.users.models)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="users.html#apps.users.models.User.DoesNotExist">User.DoesNotExist</a>
 </li>
       <li><a href="users.html#apps.users.models.User.MultipleObjectsReturned">User.MultipleObjectsReturned</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="booking.html#apps.booking.models.Booking.user_id">user_id (apps.booking.models.Booking attribute)</a>
+
+      <ul>
+        <li><a href="labor.html#apps.labor.models.Favorite.user_id">(apps.labor.models.Favorite attribute)</a>
+</li>
+        <li><a href="labor.html#apps.labor.models.Review.user_id">(apps.labor.models.Review attribute)</a>
+</li>
+      </ul></li>
       <li><a href="users.html#apps.users.models.User.user_permissions">user_permissions (apps.users.models.User attribute)</a>
 </li>
       <li><a href="users.html#apps.users.models.User.username">username (apps.users.models.User attribute)</a>
@@ -331,13 +859,35 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.serializers.LoginSerializer.validate">validate() (apps.users.serializers.LoginSerializer method)</a>
+      <li><a href="labor.html#apps.labor.serializers.ReviewSerializer.validate">validate() (apps.labor.serializers.ReviewSerializer method)</a>
+
+      <ul>
+        <li><a href="users.html#apps.users.serializers.LoginSerializer.validate">(apps.users.serializers.LoginSerializer method)</a>
 </li>
+      </ul></li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.serializers.LaborListingSerializer.validate_email">validate_email() (admin.manage_labour_listing.serializers.LaborListingSerializer method)</a>
+
+      <ul>
+        <li><a href="users.html#apps.users.serializers.RegisterSerializer.validate_email">(apps.users.serializers.RegisterSerializer method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="users.html#apps.users.serializers.RegisterSerializer.validate_email">validate_email() (apps.users.serializers.RegisterSerializer method)</a>
+      <li><a href="booking.html#apps.booking.serializers.BookingSerializer.validate_labor">validate_labor() (apps.booking.serializers.BookingSerializer method)</a>
+</li>
+      <li><a href="manage_labour_listing.html#admin.manage_labour_listing.serializers.LaborListingSerializer.validate_profile_image">validate_profile_image() (admin.manage_labour_listing.serializers.LaborListingSerializer method)</a>
 </li>
       <li><a href="users.html#apps.users.serializers.RegisterSerializer.validate_username">validate_username() (apps.users.serializers.RegisterSerializer method)</a>
+</li>
+      <li><a href="booking.html#apps.booking.serializers.BookingSerializer.validate_work_date">validate_work_date() (apps.booking.serializers.BookingSerializer method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="booking.html#apps.booking.models.Booking.work_date">work_date (apps.booking.models.Booking attribute)</a>
 </li>
   </ul></td>
 </tr></table>
