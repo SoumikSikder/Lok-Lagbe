@@ -12,8 +12,8 @@ from django.db.models import Avg, Count
 from django.utils.text import slugify
 from PIL import Image, ImageDraw, ImageFont
 
-from booking.models import Booking
-from labor.models import Labor, Review
+from apps.booking.models import Booking
+from apps.labor.models import Labor, Review
 
 
 LABOR_DATA = [

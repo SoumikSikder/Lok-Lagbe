@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from labor.models import Labor, Review
+from apps.labor.models import Labor, Review
 
 
 class LaborListSerializer(serializers.ModelSerializer):

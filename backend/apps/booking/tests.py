@@ -5,8 +5,8 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
-from booking.models import Booking
-from labor.models import Labor
+from apps.booking.models import Booking
+from apps.labor.models import Labor
 
 
 class BookingApiTests(APITestCase):

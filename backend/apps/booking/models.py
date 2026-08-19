@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
-from labor.models import Labor
+from apps.labor.models import Labor
 
 
 class Booking(models.Model):

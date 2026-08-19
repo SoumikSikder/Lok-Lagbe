@@ -30,7 +30,7 @@ export default defineConfig([
         },
     },
     {
-        files: ["tests/**/*.mjs"],
+        files: ["tests/**/*.{js,mjs}"],
         extends: [js.configs.recommended],
         languageOptions: {
             ecmaVersion: "latest",

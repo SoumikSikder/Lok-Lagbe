@@ -1,6 +1,6 @@
 from django.urls import path
 
-from booking.views import BookingCreateAPIView, BookingDetailAPIView
+from apps.booking.views import BookingCreateAPIView, BookingDetailAPIView
 
 
 app_name = "booking"

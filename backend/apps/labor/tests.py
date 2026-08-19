@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
-from labor.models import Labor, Review
+from apps.labor.models import Labor, Review
 
 
 class LaborApiTests(APITestCase):

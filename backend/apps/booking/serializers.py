@@ -2,7 +2,7 @@ from datetime import date
 
 from rest_framework import serializers
 
-from booking.models import Booking
+from apps.booking.models import Booking
 
 
 class BookingSerializer(serializers.ModelSerializer):

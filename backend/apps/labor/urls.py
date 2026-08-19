@@ -1,6 +1,6 @@
 from django.urls import path
 
-from labor.views import (
+from apps.labor.views import (
     LaborDetailAPIView,
     LaborListAPIView,
     ReviewCreateAPIView,

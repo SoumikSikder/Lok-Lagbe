@@ -4,7 +4,7 @@ Labor App
 Models
 ------
 
-.. automodule:: labor.models
+.. automodule:: apps.labor.models
    :members:
    :undoc-members:
    :show-inheritance:
@@ -13,7 +13,7 @@ Models
 Serializers
 -----------
 
-.. automodule:: labor.serializers
+.. automodule:: apps.labor.serializers
    :members:
    :undoc-members:
    :show-inheritance:
@@ -22,7 +22,7 @@ Serializers
 Views
 -----
 
-.. automodule:: labor.views
+.. automodule:: apps.labor.views
    :members:
    :undoc-members:
    :show-inheritance:

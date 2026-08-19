@@ -1,9 +1,9 @@
 from django.db import transaction
 from rest_framework import generics, permissions, serializers
 
-from booking.models import Booking
-from booking.serializers import BookingSerializer
-from labor.models import Labor
+from apps.booking.models import Booking
+from apps.booking.serializers import BookingSerializer
+from apps.labor.models import Labor
 from loklagbe.mixins import DatabaseErrorMixin
 
 

@@ -20,8 +20,8 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "corsheaders",
     "rest_framework",
-    "labor",
-    "booking",
+    "apps.labor.apps.LaborConfig",
+    "apps.booking.apps.BookingConfig",
 ]
 
 MIDDLEWARE = [

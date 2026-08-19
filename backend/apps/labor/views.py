@@ -5,8 +5,8 @@ from django.db.models import Avg, Count, Q
 from rest_framework import generics, permissions, serializers
 from rest_framework.pagination import PageNumberPagination
 
-from labor.models import Labor, Review
-from labor.serializers import (
+from apps.labor.models import Labor, Review
+from apps.labor.serializers import (
     LaborDetailSerializer,
     LaborListSerializer,
     ReviewSerializer,

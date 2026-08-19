@@ -1,35 +1,17 @@
 import assert from "node:assert/strict";
-import { after, before, test } from "node:test";
+import { test } from "vitest";
 
 import React from "react";
 import { renderToString } from "react-dom/server";
 import { MemoryRouter } from "react-router";
-import { createServer } from "vite";
-
-
-let viteServer;
-
-
-before(async () => {
-    viteServer = await createServer({
-        server: { middlewareMode: true },
-        appType: "custom",
-        logLevel: "silent",
-    });
-});
-
-
-after(async () => {
-    await viteServer.close();
-});
 
 
 test("hire and review validation reject invalid values", async () => {
-    const { _validateHireForm } = await viteServer.ssrLoadModule(
-        "/src/hooks/useHireForm.js",
+    const { _validateHireForm } = await import(
+        "../src/hooks/useHireForm.js"
     );
-    const { _validateReviewForm } = await viteServer.ssrLoadModule(
-        "/src/hooks/useReviewForm.js",
+    const { _validateReviewForm } = await import(
+        "../src/hooks/useReviewForm.js"
     );
 
     const hireErrors = _validateHireForm({
@@ -65,11 +47,11 @@ test("hire and review validation reject invalid values", async () => {
 
 
 test("Django field errors map to their frontend fields", async () => {
-    const { _extractFieldErrors } = await viteServer.ssrLoadModule(
-        "/src/hooks/useHireForm.js",
+    const { _extractFieldErrors } = await import(
+        "../src/hooks/useHireForm.js"
     );
-    const { _extractReviewFieldErrors } = await viteServer.ssrLoadModule(
-        "/src/hooks/useReviewForm.js",
+    const { _extractReviewFieldErrors } = await import(
+        "../src/hooks/useReviewForm.js"
     );
 
     assert.deepEqual(
@@ -90,8 +72,8 @@ test("Django field errors map to their frontend fields", async () => {
 
 
 test("labor query parameters omit empty values", async () => {
-    const { _cleanParameters } = await viteServer.ssrLoadModule(
-        "/src/services/laborService.js",
+    const { _cleanParameters } = await import(
+        "../src/services/laborService.js"
     );
 
     assert.deepEqual(
@@ -113,8 +95,8 @@ test("labor query parameters omit empty values", async () => {
 
 
 test("labor cards expose details and valid hiring actions", async () => {
-    const { default: LaborCard } = await viteServer.ssrLoadModule(
-        "/src/components/LaborCard.jsx",
+    const { default: LaborCard } = await import(
+        "../src/components/LaborCard.jsx"
     );
     const labor = {
         id: 7,
@@ -145,8 +127,8 @@ test("labor cards expose details and valid hiring actions", async () => {
 
 
 test("numbered pagination exposes current and adjacent pages", async () => {
-    const { default: Pagination } = await viteServer.ssrLoadModule(
-        "/src/components/Pagination.jsx",
+    const { default: Pagination } = await import(
+        "../src/components/Pagination.jsx"
     );
     const html = renderToString(
         React.createElement(Pagination, {
@@ -166,8 +148,8 @@ test("numbered pagination exposes current and adjacent pages", async () => {
 
 
 test("booking confirmation renders the persisted booking", async () => {
-    const { default: BookingConfirmation } = await viteServer.ssrLoadModule(
-        "/src/components/BookingConfirmation.jsx",
+    const { default: BookingConfirmation } = await import(
+        "../src/components/BookingConfirmation.jsx"
     );
     const booking = {
         id: 42,
@@ -196,15 +178,14 @@ test("booking confirmation renders the persisted booking", async () => {
 
 
 test("payment simulation supports every required method", async () => {
-    const { PAYMENT_METHODS, _calculateBookingTotal } =
-        await viteServer.ssrLoadModule(
-            "/src/services/paymentSimulation.js",
-        );
-    const { default: PaymentMethodForm } = await viteServer.ssrLoadModule(
-        "/src/components/PaymentMethodForm.jsx",
+    const { PAYMENT_METHODS, _calculateBookingTotal } = await import(
+        "../src/services/paymentSimulation.js"
     );
-    const { default: PaymentSuccess } = await viteServer.ssrLoadModule(
-        "/src/components/PaymentSuccess.jsx",
+    const { default: PaymentMethodForm } = await import(
+        "../src/components/PaymentMethodForm.jsx"
+    );
+    const { default: PaymentSuccess } = await import(
+        "../src/components/PaymentSuccess.jsx"
     );
     const booking = {
         id: 42,
@@ -240,7 +221,7 @@ test("payment simulation supports every required method", async () => {
 
 
 test("application routes render their initial loading states", async () => {
-    const { default: App } = await viteServer.ssrLoadModule("/src/App.jsx");
+    const { default: App } = await import("../src/App.jsx");
 
     const laborHtml = renderToString(
         React.createElement(

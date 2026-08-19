@@ -4,8 +4,8 @@ from django.urls import include, path
 
 
 urlpatterns = [
-    path("api/", include("labor.urls")),
-    path("api/", include("booking.urls")),
+    path("api/", include("apps.labor.urls")),
+    path("api/", include("apps.booking.urls")),
 ]
 
 if settings.DEBUG:
