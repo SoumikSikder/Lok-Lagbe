@@ -1,16 +1,153 @@
-# React + Vite
+# LokLagbe Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+LokLagbe frontend is a React-based web application developed using React.js and Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+It provides user authentication, profile management, and dashboard features. The frontend communicates with the Django REST backend using APIs.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Technology Used
 
-## Expanding the ESLint configuration
+- React.js
+- Vite
+- Tailwind CSS
+- React Router
+- Vitest
+- React Testing Library
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Features
+
+- User login
+- JWT authentication
+- Protected profile page
+- Profile information display
+- Update phone number
+- Update address
+- Change avatar
+- Responsive dashboard UI
+
+---
+
+## Project Structure
+
+```
+frontend
+
+├── src
+│
+├── components
+│   ├── LoginForm.jsx
+│   ├── ProfileForm.jsx
+│   ├── ProfileHeader.jsx
+│   ├── ProfileStats.jsx
+│   └── Navbar.jsx
+│
+├── pages
+│   ├── Login.jsx
+│   └── ManageProfile.jsx
+│
+├── services
+│   └── api.js
+│
+├── utils
+│   └── auth.js
+│
+└── tests
+    ├── LoginForm.test.jsx
+    └── ProfileForm.test.jsx
+```
+
+---
+
+## Installation
+
+Go to frontend folder:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+## Run Application
+
+Start development server:
+
+```bash
+npm run dev
+```
+
+Frontend will run at:
+
+```
+http://localhost:5173/
+```
+
+---
+
+## Testing
+
+Run unit tests:
+
+```bash
+npm run test
+```
+
+Generate coverage report:
+
+```bash
+npm run test:coverage
+```
+
+Test Result:
+
+```
+Test Files: 2 passed
+Tests: 7 passed
+```
+
+---
+
+## Main Components
+
+### LoginForm
+
+Handles user login and authentication.
+
+### ProfileForm
+
+Handles viewing and updating user profile information.
+
+### ManageProfile
+
+Displays the user profile dashboard.
+
+### ProtectedRoute
+
+Restricts access to authenticated users.
+
+---
+
+## Future Improvements
+
+- Labor search feature
+- Worker profile system
+- Rating and review system
+- Booking system
+- Payment integration
+
+---
+
+## Contributors
+
+LokLagbe Development Team
