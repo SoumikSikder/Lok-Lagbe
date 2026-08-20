@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/ManageProfilePage.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/ManageProfilePage.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useEffect, useState } from "react";
+
+import ProfileForm from "../components/ProfileForm.jsx";
+import ProfileHeader from "../components/ProfileHeader.jsx";
+import ProfileStats from "../components/ProfileStats.jsx";
+import { _getProfile } from "../services/authService.js";
+
+/**
+ * Load and present the signed-in user's profile dashboard.
+ *
+ * The page chrome comes from AppShell, so this renders content only.
+ *
+ * @component
+ * @returns {JSX.Element} The profile dashboard.
+ */
+function ManageProfilePage() {
+    const [profile, setProfile] = useState(null);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        let isActive = true;
+
+        const loadProfile = async () => {
+            try {
+                const response = await _getProfile();
+                if (isActive) {
+                    setProfile(response);
+                }
+            } catch (loadError) {
+                if (isActive) {
+                    setError(
+                        loadError.message || "Unable to load your profile.",
+                    );
+                }
+            }
+        };
+
+        loadProfile();
+
+        return () => {
+            isActive = false;
+        };
+    }, []);
+
+    if (error) {
+        return (
+            &lt;div className="page flex items-center justify-center">
+                &lt;p className="text-danger">{error}&lt;/p>
+            &lt;/div>
+        );
+    }
+
+    if (!profile) {
+        return (
+            &lt;div className="page flex items-center justify-center">
+                &lt;h1 className="text-xl text-text-primary">
+                    Loading profile...
+                &lt;/h1>
+            &lt;/div>
+        );
+    }
+
+    return (
+        &lt;div className="page">
+            &lt;div className="section w-full max-w-3xl mx-auto">
+                &lt;ProfileHeader profile={profile} />
+                &lt;ProfileStats profile={profile} />
+                &lt;ProfileForm profile={profile} onUpdate={setProfile} />
+            &lt;/div>
+        &lt;/div>
+    );
+}
+
+export default ManageProfilePage;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ALLOWED_EXTENSIONS">ALLOWED_EXTENSIONS</a></li><li><a href="global.html#API_BASE">API_BASE</a></li><li><a href="global.html#API_BASE_URL">API_BASE_URL</a></li><li><a href="global.html#AVATAR_COLORS">AVATAR_COLORS</a></li><li><a href="global.html#AVATAR_OPTIONS">AVATAR_OPTIONS</a></li><li><a href="global.html#AdminUI">AdminUI</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppShell">AppShell</a></li><li><a href="global.html#Avatar">Avatar</a></li><li><a href="global.html#BookingConfirmation">BookingConfirmation</a></li><li><a href="global.html#BookingSuccessPage">BookingSuccessPage</a></li><li><a href="global.html#CATEGORIES">CATEGORIES</a></li><li><a href="global.html#CATEGORY_PRICING">CATEGORY_PRICING</a></li><li><a href="global.html#COMMON_QUESTIONS">COMMON_QUESTIONS</a></li><li><a href="global.html#EditSystemDatabase">EditSystemDatabase</a></li><li><a href="global.html#EmptyState">EmptyState</a></li><li><a href="global.html#ErrorState">ErrorState</a></li><li><a href="global.html#FavoriteButton">FavoriteButton</a></li><li><a href="global.html#FavoritesPage">FavoritesPage</a></li><li><a href="global.html#FormFieldError">FormFieldError</a></li><li><a href="global.html#HIRING_STEPS">HIRING_STEPS</a></li><li><a href="global.html#HireForm">HireForm</a></li><li><a href="global.html#HireHistoryPage">HireHistoryPage</a></li><li><a href="global.html#HireLaborPage">HireLaborPage</a></li><li><a href="global.html#HireLaborSummary">HireLaborSummary</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HowItWorksPage">HowItWorksPage</a></li><li><a href="global.html#JOB_CATEGORIES">JOB_CATEGORIES</a></li><li><a href="global.html#LaborCard">LaborCard</a></li><li><a href="global.html#LaborDetailsContent">LaborDetailsContent</a></li><li><a href="global.html#LaborDetailsPage">LaborDetailsPage</a></li><li><a href="global.html#LaborFilters">LaborFilters</a></li><li><a href="global.html#LaborListPage">LaborListPage</a></li><li><a href="global.html#LaborPhoto">LaborPhoto</a></li><li><a href="global.html#LoadingSpinner">LoadingSpinner</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#ManageLabourListings">ManageLabourListings</a></li><li><a href="global.html#ManageProfilePage">ManageProfilePage</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#PAYMENT_METHODS">PAYMENT_METHODS</a></li><li><a href="global.html#PLATFORM_STATS">PLATFORM_STATS</a></li><li><a href="global.html#PRICING_RULES">PRICING_RULES</a></li><li><a href="global.html#PagePlaceholder">PagePlaceholder</a></li><li><a href="global.html#Pagination">Pagination</a></li><li><a href="global.html#PaymentMethodForm">PaymentMethodForm</a></li><li><a href="global.html#PaymentPage">PaymentPage</a></li><li><a href="global.html#PaymentSuccess">PaymentSuccess</a></li><li><a href="global.html#PaymentSummary">PaymentSummary</a></li><li><a href="global.html#PricingPage">PricingPage</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#ProfileHeader">ProfileHeader</a></li><li><a href="global.html#ProfileStats">ProfileStats</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RatingDisplay">RatingDisplay</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#ReviewForm">ReviewForm</a></li><li><a href="global.html#ReviewList">ReviewList</a></li><li><a href="global.html#SearchBar">SearchBar</a></li><li><a href="global.html#_formatDate">_formatDate</a></li><li><a href="global.html#_formatTime">_formatTime</a></li><li><a href="global.html#_getInitials">_getInitials</a></li><li><a href="global.html#_getNavLinkClassName">_getNavLinkClassName</a></li><li><a href="global.html#_getProfile">_getProfile</a></li><li><a href="global.html#_getStatusBadge">_getStatusBadge</a></li><li><a href="global.html#_loginUser">_loginUser</a></li><li><a href="global.html#_registerUser">_registerUser</a></li><li><a href="global.html#_updateProfile">_updateProfile</a></li><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#deleteFavorite">deleteFavorite</a></li><li><a href="global.html#getBookingHistory">getBookingHistory</a></li><li><a href="global.html#getFavorites">getFavorites</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#saveToken">saveToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Aug 19 2026 20:49:55 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Labour Listing (Admin) &mdash; Lok Lagbe 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Edit System Database (Admin)" href="edit_system_database.html" />
+    <link rel="prev" title="Booking App" href="booking.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Lok Lagbe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="users.html">Users App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="labor.html">Labor App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="booking.html">Booking App</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Manage Labour Listing (Admin)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-admin.manage_labour_listing.models">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing"><code class="docutils literal notranslate"><span class="pre">LaborListing</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.AVAILABILITY_CHOICES"><code class="docutils literal notranslate"><span class="pre">LaborListing.AVAILABILITY_CHOICES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.CATEGORY_CHOICES"><code class="docutils literal notranslate"><span class="pre">LaborListing.CATEGORY_CHOICES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">LaborListing.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">LaborListing.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.STATUS_CHOICES"><code class="docutils literal notranslate"><span class="pre">LaborListing.STATUS_CHOICES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.availability"><code class="docutils literal notranslate"><span class="pre">LaborListing.availability</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.category"><code class="docutils literal notranslate"><span class="pre">LaborListing.category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.created_at"><code class="docutils literal notranslate"><span class="pre">LaborListing.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.email"><code class="docutils literal notranslate"><span class="pre">LaborListing.email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.id"><code class="docutils literal notranslate"><span class="pre">LaborListing.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.name"><code class="docutils literal notranslate"><span class="pre">LaborListing.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.objects"><code class="docutils literal notranslate"><span class="pre">LaborListing.objects</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.phone"><code class="docutils literal notranslate"><span class="pre">LaborListing.phone</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.profile_image"><code class="docutils literal notranslate"><span class="pre">LaborListing.profile_image</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.skills"><code class="docutils literal notranslate"><span class="pre">LaborListing.skills</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.status"><code class="docutils literal notranslate"><span class="pre">LaborListing.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing.updated_at"><code class="docutils literal notranslate"><span class="pre">LaborListing.updated_at</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-admin.manage_labour_listing.serializers">Serializers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#admin.manage_labour_listing.serializers.LaborListingSerializer"><code class="docutils literal notranslate"><span class="pre">LaborListingSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.ALLOWED_IMAGE_EXTENSIONS"><code class="docutils literal notranslate"><span class="pre">LaborListingSerializer.ALLOWED_IMAGE_EXTENSIONS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.Meta"><code class="docutils literal notranslate"><span class="pre">LaborListingSerializer.Meta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.update"><code class="docutils literal notranslate"><span class="pre">LaborListingSerializer.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.validate_email"><code class="docutils literal notranslate"><span class="pre">LaborListingSerializer.validate_email()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.validate_profile_image"><code class="docutils literal notranslate"><span class="pre">LaborListingSerializer.validate_profile_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-admin.manage_labour_listing.views">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#admin.manage_labour_listing.views.LaborListingViewSet"><code class="docutils literal notranslate"><span class="pre">LaborListingViewSet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.views.LaborListingViewSet.create"><code class="docutils literal notranslate"><span class="pre">LaborListingViewSet.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.views.LaborListingViewSet.destroy"><code class="docutils literal notranslate"><span class="pre">LaborListingViewSet.destroy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.views.LaborListingViewSet.list"><code class="docutils literal notranslate"><span class="pre">LaborListingViewSet.list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.views.LaborListingViewSet.parser_classes"><code class="docutils literal notranslate"><span class="pre">LaborListingViewSet.parser_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.views.LaborListingViewSet.permission_classes"><code class="docutils literal notranslate"><span class="pre">LaborListingViewSet.permission_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.views.LaborListingViewSet.queryset"><code class="docutils literal notranslate"><span class="pre">LaborListingViewSet.queryset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.views.LaborListingViewSet.serializer_class"><code class="docutils literal notranslate"><span class="pre">LaborListingViewSet.serializer_class</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#admin.manage_labour_listing.views.LaborListingViewSet.update"><code class="docutils literal notranslate"><span class="pre">LaborListingViewSet.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="edit_system_database.html">Edit System Database (Admin)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Lok Lagbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Manage Labour Listing (Admin)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/manage_labour_listing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="manage-labour-listing-admin">
+<h1>Manage Labour Listing (Admin)<a class="headerlink" href="#manage-labour-listing-admin" title="Link to this heading"></a></h1>
+<section id="module-admin.manage_labour_listing.models">
+<span id="models"></span><h2>Models<a class="headerlink" href="#module-admin.manage_labour_listing.models" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">admin.manage_labour_listing.models.</span></span><span class="sig-name descname"><span class="pre">LaborListing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin/manage_labour_listing/models.html#LaborListing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>Model representing a labor listing profile in the system.</p>
+<p>Stores contact information, skill sets, availability status,
+and profile pictures of registered laborers.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.AVAILABILITY_CHOICES">
+<span class="sig-name descname"><span class="pre">AVAILABILITY_CHOICES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Full</span> <span class="pre">Time',</span> <span class="pre">'Full</span> <span class="pre">Time'),</span> <span class="pre">('Part</span> <span class="pre">Time',</span> <span class="pre">'Part</span> <span class="pre">Time'),</span> <span class="pre">('Weekends',</span> <span class="pre">'Weekends'),</span> <span class="pre">('On</span> <span class="pre">Call',</span> <span class="pre">'On</span> <span class="pre">Call')]</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.AVAILABILITY_CHOICES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.CATEGORY_CHOICES">
+<span class="sig-name descname"><span class="pre">CATEGORY_CHOICES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Electrician',</span> <span class="pre">'Electrician'),</span> <span class="pre">('Plumber',</span> <span class="pre">'Plumber'),</span> <span class="pre">('Painter',</span> <span class="pre">'Painter'),</span> <span class="pre">('Carpenter',</span> <span class="pre">'Carpenter'),</span> <span class="pre">('Cleaner',</span> <span class="pre">'Cleaner'),</span> <span class="pre">('Mason',</span> <span class="pre">'Mason'),</span> <span class="pre">('Gardener',</span> <span class="pre">'Gardener'),</span> <span class="pre">('General</span> <span class="pre">Laborer',</span> <span class="pre">'General</span> <span class="pre">Laborer')]</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.CATEGORY_CHOICES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.DoesNotExist">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.MultipleObjectsReturned">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.STATUS_CHOICES">
+<span class="sig-name descname"><span class="pre">STATUS_CHOICES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('Active',</span> <span class="pre">'Active'),</span> <span class="pre">('Pending',</span> <span class="pre">'Pending'),</span> <span class="pre">('Inactive',</span> <span class="pre">'Inactive')]</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.STATUS_CHOICES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.availability">
+<span class="sig-name descname"><span class="pre">availability</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.availability" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.category">
+<span class="sig-name descname"><span class="pre">category</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.category" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.created_at" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.email">
+<span class="sig-name descname"><span class="pre">email</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.email" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.name" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.phone">
+<span class="sig-name descname"><span class="pre">phone</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.phone" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.profile_image">
+<span class="sig-name descname"><span class="pre">profile_image</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.profile_image" title="Link to this definition"></a></dt>
+<dd><p>Just like the FileDescriptor, but for ImageFields. The only difference is
+assigning the width/height to the width_field/height_field, if appropriate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.skills">
+<span class="sig-name descname"><span class="pre">skills</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.skills" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.status">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.status" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.models.LaborListing.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><a class="headerlink" href="#admin.manage_labour_listing.models.LaborListing.updated_at" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-admin.manage_labour_listing.serializers">
+<span id="serializers"></span><h2>Serializers<a class="headerlink" href="#module-admin.manage_labour_listing.serializers" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.serializers.LaborListingSerializer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">admin.manage_labour_listing.serializers.</span></span><span class="sig-name descname"><span class="pre">LaborListingSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin/manage_labour_listing/serializers.html#LaborListingSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.serializers.LaborListingSerializer" title="Link to this definition"></a></dt>
+<dd><p>Serializer for the LaborListing model.</p>
+<p>Handles validation for mandatory fields, profile image format,
+and enforces the rule that email cannot be modified after registration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.serializers.LaborListingSerializer.ALLOWED_IMAGE_EXTENSIONS">
+<span class="sig-name descname"><span class="pre">ALLOWED_IMAGE_EXTENSIONS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['.jpg',</span> <span class="pre">'.jpeg',</span> <span class="pre">'.png',</span> <span class="pre">'.webp']</span></span><a class="headerlink" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.ALLOWED_IMAGE_EXTENSIONS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.serializers.LaborListingSerializer.Meta">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/admin/manage_labour_listing/serializers.html#LaborListingSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.serializers.LaborListingSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'name',</span> <span class="pre">'email',</span> <span class="pre">'category',</span> <span class="pre">'skills',</span> <span class="pre">'availability',</span> <span class="pre">'status',</span> <span class="pre">'phone',</span> <span class="pre">'profile_image',</span> <span class="pre">'created_at',</span> <span class="pre">'updated_at']</span></span><a class="headerlink" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.serializers.LaborListingSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#admin.manage_labour_listing.models.LaborListing" title="admin.manage_labour_listing.models.LaborListing"><code class="xref py py-class docutils literal notranslate"><span class="pre">LaborListing</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.serializers.LaborListingSerializer.Meta.read_only_fields">
+<span class="sig-name descname"><span class="pre">read_only_fields</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'created_at',</span> <span class="pre">'updated_at']</span></span><a class="headerlink" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.Meta.read_only_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.serializers.LaborListingSerializer.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validated_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin/manage_labour_listing/serializers.html#LaborListingSerializer.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.update" title="Link to this definition"></a></dt>
+<dd><p>Updates an existing LaborListing instance.</p>
+<p>Enforces the exception rule that email cannot be edited after creation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instance</strong> – Existing LaborListing object</p></li>
+<li><p><strong>validated_data</strong> – Dictionary of validated field values</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated LaborListing instance</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serializers.ValidationError</strong> – If email change is attempted</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.serializers.LaborListingSerializer.validate_email">
+<span class="sig-name descname"><span class="pre">validate_email</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin/manage_labour_listing/serializers.html#LaborListingSerializer.validate_email"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.validate_email" title="Link to this definition"></a></dt>
+<dd><p>Validates that mandatory email is provided and not duplicated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – Email string</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Validated email string</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serializers.ValidationError</strong> – If email is empty</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.serializers.LaborListingSerializer.validate_profile_image">
+<span class="sig-name descname"><span class="pre">validate_profile_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin/manage_labour_listing/serializers.html#LaborListingSerializer.validate_profile_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.serializers.LaborListingSerializer.validate_profile_image" title="Link to this definition"></a></dt>
+<dd><p>Validates the file extension of the uploaded profile image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – The uploaded file object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Validated file object</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>serializers.ValidationError</strong> – If format is unsupported</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-admin.manage_labour_listing.views">
+<span id="views"></span><h2>Views<a class="headerlink" href="#module-admin.manage_labour_listing.views" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.views.LaborListingViewSet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">admin.manage_labour_listing.views.</span></span><span class="sig-name descname"><span class="pre">LaborListingViewSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin/manage_labour_listing/views.html#LaborListingViewSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.views.LaborListingViewSet" title="Link to this definition"></a></dt>
+<dd><p>API ViewSet for managing labor listings.</p>
+<p>Provides CRUD endpoints (list, retrieve, create, update, delete)
+for system administrators to manage labor profiles.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.views.LaborListingViewSet.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin/manage_labour_listing/views.html#LaborListingViewSet.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.views.LaborListingViewSet.create" title="Link to this definition"></a></dt>
+<dd><p>Creates a new labor listing profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Django HTTP request object containing labor data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response indicating creation success or validation error</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.views.LaborListingViewSet.destroy">
+<span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin/manage_labour_listing/views.html#LaborListingViewSet.destroy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.views.LaborListingViewSet.destroy" title="Link to this definition"></a></dt>
+<dd><p>Removes a labor listing profile from the system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Django HTTP request object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response confirming removal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.views.LaborListingViewSet.list">
+<span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin/manage_labour_listing/views.html#LaborListingViewSet.list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.views.LaborListingViewSet.list" title="Link to this definition"></a></dt>
+<dd><p>Retrieves a list of all labor listing profiles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Django HTTP request object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response containing list of labor profiles</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.views.LaborListingViewSet.parser_classes">
+<span class="sig-name descname"><span class="pre">parser_classes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.parsers.MultiPartParser'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'rest_framework.parsers.FormParser'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'rest_framework.parsers.JSONParser'&gt;]</span></span><a class="headerlink" href="#admin.manage_labour_listing.views.LaborListingViewSet.parser_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.views.LaborListingViewSet.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.AllowAny'&gt;]</span></span><a class="headerlink" href="#admin.manage_labour_listing.views.LaborListingViewSet.permission_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.views.LaborListingViewSet.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;QuerySet</span> <span class="pre">[]&gt;</span></span><a class="headerlink" href="#admin.manage_labour_listing.views.LaborListingViewSet.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.views.LaborListingViewSet.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#admin.manage_labour_listing.views.LaborListingViewSet.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#admin.manage_labour_listing.serializers.LaborListingSerializer" title="admin.manage_labour_listing.serializers.LaborListingSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">LaborListingSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin.manage_labour_listing.views.LaborListingViewSet.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin/manage_labour_listing/views.html#LaborListingViewSet.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#admin.manage_labour_listing.views.LaborListingViewSet.update" title="Link to this definition"></a></dt>
+<dd><p>Updates an existing labor listing profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Django HTTP request object containing updated data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response indicating update status</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="booking.html" class="btn btn-neutral float-left" title="Booking App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="edit_system_database.html" class="btn btn-neutral float-right" title="Edit System Database (Admin)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Group 2.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

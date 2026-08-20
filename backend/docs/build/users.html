@@ -1,0 +1,664 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Users App &mdash; Lok Lagbe 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Labor App" href="labor.html" />
+    <link rel="prev" title="Lok Lagbe Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Lok Lagbe
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Users App</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-apps.users.models">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps.users.models.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.AVATAR_CHOICES"><code class="docutils literal notranslate"><span class="pre">User.AVATAR_CHOICES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">User.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">User.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.address"><code class="docutils literal notranslate"><span class="pre">User.address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.avatar"><code class="docutils literal notranslate"><span class="pre">User.avatar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.bookings"><code class="docutils literal notranslate"><span class="pre">User.bookings</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.created_at"><code class="docutils literal notranslate"><span class="pre">User.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.date_joined"><code class="docutils literal notranslate"><span class="pre">User.date_joined</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.email"><code class="docutils literal notranslate"><span class="pre">User.email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.favorite_laborers"><code class="docutils literal notranslate"><span class="pre">User.favorite_laborers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.first_name"><code class="docutils literal notranslate"><span class="pre">User.first_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.groups"><code class="docutils literal notranslate"><span class="pre">User.groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.id"><code class="docutils literal notranslate"><span class="pre">User.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.is_active"><code class="docutils literal notranslate"><span class="pre">User.is_active</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.is_staff"><code class="docutils literal notranslate"><span class="pre">User.is_staff</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.is_superuser"><code class="docutils literal notranslate"><span class="pre">User.is_superuser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.last_login"><code class="docutils literal notranslate"><span class="pre">User.last_login</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.last_name"><code class="docutils literal notranslate"><span class="pre">User.last_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.logentry_set"><code class="docutils literal notranslate"><span class="pre">User.logentry_set</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.password"><code class="docutils literal notranslate"><span class="pre">User.password</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.phone_number"><code class="docutils literal notranslate"><span class="pre">User.phone_number</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.reviews_written"><code class="docutils literal notranslate"><span class="pre">User.reviews_written</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.updated_at"><code class="docutils literal notranslate"><span class="pre">User.updated_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.user_permissions"><code class="docutils literal notranslate"><span class="pre">User.user_permissions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.models.User.username"><code class="docutils literal notranslate"><span class="pre">User.username</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-apps.users.services">Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps.users.services.create_user"><code class="docutils literal notranslate"><span class="pre">create_user()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-apps.users.serializers">Serializers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps.users.serializers.LoginSerializer"><code class="docutils literal notranslate"><span class="pre">LoginSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.serializers.LoginSerializer.validate"><code class="docutils literal notranslate"><span class="pre">LoginSerializer.validate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#apps.users.serializers.RegisterSerializer"><code class="docutils literal notranslate"><span class="pre">RegisterSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.serializers.RegisterSerializer.Meta"><code class="docutils literal notranslate"><span class="pre">RegisterSerializer.Meta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.serializers.RegisterSerializer.create"><code class="docutils literal notranslate"><span class="pre">RegisterSerializer.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.serializers.RegisterSerializer.validate_email"><code class="docutils literal notranslate"><span class="pre">RegisterSerializer.validate_email()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.serializers.RegisterSerializer.validate_username"><code class="docutils literal notranslate"><span class="pre">RegisterSerializer.validate_username()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#apps.users.serializers.UserSerializer"><code class="docutils literal notranslate"><span class="pre">UserSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.serializers.UserSerializer.Meta"><code class="docutils literal notranslate"><span class="pre">UserSerializer.Meta</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-apps.users.views">Views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apps.users.views.LoginView"><code class="docutils literal notranslate"><span class="pre">LoginView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.views.LoginView.permission_classes"><code class="docutils literal notranslate"><span class="pre">LoginView.permission_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.views.LoginView.post"><code class="docutils literal notranslate"><span class="pre">LoginView.post()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#apps.users.views.ProfileView"><code class="docutils literal notranslate"><span class="pre">ProfileView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.views.ProfileView.get"><code class="docutils literal notranslate"><span class="pre">ProfileView.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.views.ProfileView.permission_classes"><code class="docutils literal notranslate"><span class="pre">ProfileView.permission_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.views.ProfileView.put"><code class="docutils literal notranslate"><span class="pre">ProfileView.put()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#apps.users.views.RegisterView"><code class="docutils literal notranslate"><span class="pre">RegisterView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.views.RegisterView.permission_classes"><code class="docutils literal notranslate"><span class="pre">RegisterView.permission_classes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apps.users.views.RegisterView.post"><code class="docutils literal notranslate"><span class="pre">RegisterView.post()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="labor.html">Labor App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="booking.html">Booking App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manage_labour_listing.html">Manage Labour Listing (Admin)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="edit_system_database.html">Edit System Database (Admin)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Lok Lagbe</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Users App</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/users.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="users-app">
+<h1>Users App<a class="headerlink" href="#users-app" title="Link to this heading"></a></h1>
+<section id="module-apps.users.models">
+<span id="models"></span><h2>Models<a class="headerlink" href="#module-apps.users.models" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.users.models.User">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.users.models.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/models.html#User"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.models.User" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractUser</span></code></p>
+<p>Custom user model extending Django’s built in AbstractUser.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>phone_number (str): The user’s phone number.
+address (str): The user’s home address.
+avatar (int): The user’s selected avatar between 1 and 5.
+created_at (datetime): Timestamp when the account was created.
+updated_at (datetime): Timestamp when the account was last updated.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.AVATAR_CHOICES">
+<span class="sig-name descname"><span class="pre">AVATAR_CHOICES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[(1,</span> <span class="pre">'Avatar</span> <span class="pre">1'),</span> <span class="pre">(2,</span> <span class="pre">'Avatar</span> <span class="pre">2'),</span> <span class="pre">(3,</span> <span class="pre">'Avatar</span> <span class="pre">3'),</span> <span class="pre">(4,</span> <span class="pre">'Avatar</span> <span class="pre">4'),</span> <span class="pre">(5,</span> <span class="pre">'Avatar</span> <span class="pre">5')]</span></span><a class="headerlink" href="#apps.users.models.User.AVATAR_CHOICES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="apps.users.models.User.DoesNotExist">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#apps.users.models.User.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="apps.users.models.User.MultipleObjectsReturned">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#apps.users.models.User.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.address">
+<span class="sig-name descname"><span class="pre">address</span></span><a class="headerlink" href="#apps.users.models.User.address" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.avatar">
+<span class="sig-name descname"><span class="pre">avatar</span></span><a class="headerlink" href="#apps.users.models.User.avatar" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.bookings">
+<span class="sig-name descname"><span class="pre">bookings</span></span><a class="headerlink" href="#apps.users.models.User.bookings" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#apps.users.models.User.created_at" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.date_joined">
+<span class="sig-name descname"><span class="pre">date_joined</span></span><a class="headerlink" href="#apps.users.models.User.date_joined" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.email">
+<span class="sig-name descname"><span class="pre">email</span></span><a class="headerlink" href="#apps.users.models.User.email" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.favorite_laborers">
+<span class="sig-name descname"><span class="pre">favorite_laborers</span></span><a class="headerlink" href="#apps.users.models.User.favorite_laborers" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.first_name">
+<span class="sig-name descname"><span class="pre">first_name</span></span><a class="headerlink" href="#apps.users.models.User.first_name" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><a class="headerlink" href="#apps.users.models.User.groups" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#apps.users.models.User.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.is_active">
+<span class="sig-name descname"><span class="pre">is_active</span></span><a class="headerlink" href="#apps.users.models.User.is_active" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.is_staff">
+<span class="sig-name descname"><span class="pre">is_staff</span></span><a class="headerlink" href="#apps.users.models.User.is_staff" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.is_superuser">
+<span class="sig-name descname"><span class="pre">is_superuser</span></span><a class="headerlink" href="#apps.users.models.User.is_superuser" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.last_login">
+<span class="sig-name descname"><span class="pre">last_login</span></span><a class="headerlink" href="#apps.users.models.User.last_login" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.last_name">
+<span class="sig-name descname"><span class="pre">last_name</span></span><a class="headerlink" href="#apps.users.models.User.last_name" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.logentry_set">
+<span class="sig-name descname"><span class="pre">logentry_set</span></span><a class="headerlink" href="#apps.users.models.User.logentry_set" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.password">
+<span class="sig-name descname"><span class="pre">password</span></span><a class="headerlink" href="#apps.users.models.User.password" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.phone_number">
+<span class="sig-name descname"><span class="pre">phone_number</span></span><a class="headerlink" href="#apps.users.models.User.phone_number" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.reviews_written">
+<span class="sig-name descname"><span class="pre">reviews_written</span></span><a class="headerlink" href="#apps.users.models.User.reviews_written" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><a class="headerlink" href="#apps.users.models.User.updated_at" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.user_permissions">
+<span class="sig-name descname"><span class="pre">user_permissions</span></span><a class="headerlink" href="#apps.users.models.User.user_permissions" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.models.User.username">
+<span class="sig-name descname"><span class="pre">username</span></span><a class="headerlink" href="#apps.users.models.User.username" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-apps.users.services">
+<span id="services"></span><h2>Services<a class="headerlink" href="#module-apps.users.services" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="apps.users.services.create_user">
+<span class="sig-prename descclassname"><span class="pre">apps.users.services.</span></span><span class="sig-name descname"><span class="pre">create_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phone_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avatar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/services.html#create_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.services.create_user" title="Link to this definition"></a></dt>
+<dd><p>Creates a new user account and saves it to the database.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>username (str): The user’s chosen username.
+email (str): The user’s email address.
+password (str): The user’s password. Gets hashed automatically.
+phone_number (str, optional): The user’s phone number. Defaults to None.
+address (str, optional): The user’s home address. Defaults to None.
+avatar (int, optional): The user’s selected avatar between 1 and 5. Defaults to 1.</p>
+</dd>
+<dt>Returns:</dt><dd><p>User: The newly created user object.</p>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: If the username or email already exists in the database.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-apps.users.serializers">
+<span id="serializers"></span><h2>Serializers<a class="headerlink" href="#module-apps.users.serializers" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.users.serializers.LoginSerializer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.users.serializers.</span></span><span class="sig-name descname"><span class="pre">LoginSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/serializers.html#LoginSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.serializers.LoginSerializer" title="Link to this definition"></a></dt>
+<dd><p>Serializer for validating user login credentials.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.users.serializers.LoginSerializer.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/serializers.html#LoginSerializer.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.serializers.LoginSerializer.validate" title="Link to this definition"></a></dt>
+<dd><p>Authenticate user credentials.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data (dict): Login information.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Validated login data.</p>
+</dd>
+<dt>Raises:</dt><dd><p>serializers.ValidationError: If login credentials are invalid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.users.serializers.RegisterSerializer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.users.serializers.</span></span><span class="sig-name descname"><span class="pre">RegisterSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/serializers.html#RegisterSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.serializers.RegisterSerializer" title="Link to this definition"></a></dt>
+<dd><p>Serializer for handling user registration data.</p>
+<p>Validates incoming registration data and creates a new user
+using the create_user service function.</p>
+<dl class="simple">
+<dt>Fields:</dt><dd><p>username (str): The user’s chosen username.
+email (str): The user’s email address.
+password (str): The user’s password. Write only, never returned in response.
+phone_number (str): The user’s phone number. Optional.
+address (str): The user’s home address. Optional.
+avatar (int): The user’s selected avatar between 1 and 5.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.users.serializers.RegisterSerializer.Meta">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/apps/users/serializers.html#RegisterSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.serializers.RegisterSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.serializers.RegisterSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['username',</span> <span class="pre">'email',</span> <span class="pre">'password',</span> <span class="pre">'phone_number',</span> <span class="pre">'address',</span> <span class="pre">'avatar']</span></span><a class="headerlink" href="#apps.users.serializers.RegisterSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.serializers.RegisterSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#apps.users.serializers.RegisterSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#apps.users.models.User" title="apps.users.models.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.users.serializers.RegisterSerializer.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">validated_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/serializers.html#RegisterSerializer.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.serializers.RegisterSerializer.create" title="Link to this definition"></a></dt>
+<dd><p>Creates a new user using the validated data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>validated_data (dict): The validated registration data.</p>
+</dd>
+<dt>Returns:</dt><dd><p>User: The newly created user object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.users.serializers.RegisterSerializer.validate_email">
+<span class="sig-name descname"><span class="pre">validate_email</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/serializers.html#RegisterSerializer.validate_email"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.serializers.RegisterSerializer.validate_email" title="Link to this definition"></a></dt>
+<dd><p>Checks that the email address is not already registered.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>value (str): The email address to validate.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: The validated email address.</p>
+</dd>
+<dt>Raises:</dt><dd><p>serializers.ValidationError: If the email is already in use.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.users.serializers.RegisterSerializer.validate_username">
+<span class="sig-name descname"><span class="pre">validate_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/serializers.html#RegisterSerializer.validate_username"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.serializers.RegisterSerializer.validate_username" title="Link to this definition"></a></dt>
+<dd><p>Checks that the username is not already taken.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>value (str): The username to validate.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: The validated username.</p>
+</dd>
+<dt>Raises:</dt><dd><p>serializers.ValidationError: If the username is already taken.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.users.serializers.UserSerializer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.users.serializers.</span></span><span class="sig-name descname"><span class="pre">UserSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/serializers.html#UserSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.serializers.UserSerializer" title="Link to this definition"></a></dt>
+<dd><p>Serializer for displaying and updating user profile information.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.users.serializers.UserSerializer.Meta">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/apps/users/serializers.html#UserSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.serializers.UserSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Defines the model and fields for user data.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.serializers.UserSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'username',</span> <span class="pre">'email',</span> <span class="pre">'first_name',</span> <span class="pre">'last_name',</span> <span class="pre">'phone_number',</span> <span class="pre">'address',</span> <span class="pre">'avatar']</span></span><a class="headerlink" href="#apps.users.serializers.UserSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.serializers.UserSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#apps.users.serializers.UserSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#apps.users.models.User" title="apps.users.models.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.serializers.UserSerializer.Meta.read_only_fields">
+<span class="sig-name descname"><span class="pre">read_only_fields</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'username']</span></span><a class="headerlink" href="#apps.users.serializers.UserSerializer.Meta.read_only_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-apps.users.views">
+<span id="views"></span><h2>Views<a class="headerlink" href="#module-apps.users.views" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.users.views.LoginView">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.users.views.</span></span><span class="sig-name descname"><span class="pre">LoginView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/views.html#LoginView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.views.LoginView" title="Link to this definition"></a></dt>
+<dd><p>Handles user login and JWT token generation.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.views.LoginView.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.AllowAny'&gt;]</span></span><a class="headerlink" href="#apps.users.views.LoginView.permission_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.users.views.LoginView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/views.html#LoginView.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.views.LoginView.post" title="Link to this definition"></a></dt>
+<dd><p>Authenticate user and return JWT tokens.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request: HTTP request containing username and password.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response containing access and refresh tokens.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.users.views.ProfileView">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.users.views.</span></span><span class="sig-name descname"><span class="pre">ProfileView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/views.html#ProfileView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.views.ProfileView" title="Link to this definition"></a></dt>
+<dd><p>Handles viewing and updating user profile information.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.users.views.ProfileView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/views.html#ProfileView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.views.ProfileView.get" title="Link to this definition"></a></dt>
+<dd><p>Retrieve logged-in user’s profile data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request: HTTP request.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response containing user profile information.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.views.ProfileView.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.IsAuthenticated'&gt;]</span></span><a class="headerlink" href="#apps.users.views.ProfileView.permission_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.users.views.ProfileView.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/views.html#ProfileView.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.views.ProfileView.put" title="Link to this definition"></a></dt>
+<dd><p>Update logged-in user’s profile information.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request: HTTP request containing updated data.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response containing updated profile data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="apps.users.views.RegisterView">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">apps.users.views.</span></span><span class="sig-name descname"><span class="pre">RegisterView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/views.html#RegisterView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.views.RegisterView" title="Link to this definition"></a></dt>
+<dd><p>API view for handling user registration.</p>
+<p>Accepts POST requests with user registration data,
+validates it and creates a new user account.</p>
+<dl class="simple">
+<dt>Methods:</dt><dd><p>post: Handles the registration request.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="apps.users.views.RegisterView.permission_classes">
+<span class="sig-name descname"><span class="pre">permission_classes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'rest_framework.permissions.AllowAny'&gt;]</span></span><a class="headerlink" href="#apps.users.views.RegisterView.permission_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="apps.users.views.RegisterView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/apps/users/views.html#RegisterView.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#apps.users.views.RegisterView.post" title="Link to this definition"></a></dt>
+<dd><p>Handles POST request for user registration.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request (Request): The incoming HTTP request containing
+the registration data in the request body.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Response: A success message with 201 status if registration
+is successful, or validation errors with 400 status if not.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Lok Lagbe Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="labor.html" class="btn btn-neutral float-right" title="Labor App" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Group 2.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

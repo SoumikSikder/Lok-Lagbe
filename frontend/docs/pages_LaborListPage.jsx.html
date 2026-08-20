@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/LaborListPage.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/LaborListPage.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router";
+
+import EmptyState from "../components/EmptyState.jsx";
+import ErrorState from "../components/ErrorState.jsx";
+import LaborCard from "../components/LaborCard.jsx";
+import LaborFilters from "../components/LaborFilters.jsx";
+import LoadingSpinner from "../components/LoadingSpinner.jsx";
+import Pagination from "../components/Pagination.jsx";
+import SearchBar from "../components/SearchBar.jsx";
+import useLabors from "../hooks/useLabors.js";
+
+
+const DEFAULT_SORT = "highest_rated";
+const PAGE_SIZE = 8;
+
+
+/**
+ * Render the searchable, filterable, and paginated labor marketplace.
+ *
+ * @returns {JSX.Element} Complete labor list and request states.
+ */
+function LaborListPage() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const search = searchParams.get("search") || "";
+    const category = searchParams.get("category") || "";
+    const rating = searchParams.get("rating") || "";
+    const minimumWage = searchParams.get("min_wage") || "";
+    const maximumWage = searchParams.get("max_wage") || "";
+    const sort = searchParams.get("sort") || DEFAULT_SORT;
+    const pageValue = Number(searchParams.get("page") || 1);
+    const currentPage = Number.isInteger(pageValue) &amp;&amp; pageValue > 0
+        ? pageValue
+        : 1;
+    const hasAppliedFilters = Boolean(
+        category
+        || rating
+        || minimumWage
+        || maximumWage
+        || sort !== DEFAULT_SORT,
+    );
+    const [areFiltersOpen, setAreFiltersOpen] = useState(hasAppliedFilters);
+
+    const laborParameters = useMemo(
+        () => ({
+            search,
+            category,
+            rating,
+            min_wage: minimumWage,
+            max_wage: maximumWage,
+            sort,
+            page_size: PAGE_SIZE,
+        }),
+        [search, category, rating, minimumWage, maximumWage, sort],
+    );
+
+    const {
+        labors,
+        totalCount,
+        hasNextPage,
+        hasPreviousPage,
+        isLoading,
+        error,
+        retry,
+    } = useLabors(laborParameters, currentPage);
+
+    const pageCount = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
+    const hasActiveSearchOrFilters = Boolean(search || hasAppliedFilters);
+
+    function _setParameter(name, value, parameters) {
+        if (value) {
+            parameters.set(name, value);
+        } else {
+            parameters.delete(name);
+        }
+    }
+
+    function _resetPage(parameters) {
+        parameters.delete("page");
+    }
+
+    function _handleSearch(nextSearch) {
+        const nextParameters = new URLSearchParams(searchParams);
+        nextParameters.set("search", nextSearch);
+        _resetPage(nextParameters);
+        setSearchParams(nextParameters);
+    }
+
+    function _handleClearSearch() {
+        const nextParameters = new URLSearchParams(searchParams);
+        nextParameters.delete("search");
+        _resetPage(nextParameters);
+        setSearchParams(nextParameters);
+    }
+
+    function _handleApplyFilters(nextFilters) {
+        const nextParameters = new URLSearchParams(searchParams);
+        _setParameter("category", nextFilters.category, nextParameters);
+        _setParameter("rating", nextFilters.rating, nextParameters);
+        _setParameter("min_wage", nextFilters.min_wage, nextParameters);
+        _setParameter("max_wage", nextFilters.max_wage, nextParameters);
+        _setParameter(
+            "sort",
+            nextFilters.sort === DEFAULT_SORT ? "" : nextFilters.sort,
+            nextParameters,
+        );
+        _resetPage(nextParameters);
+        setSearchParams(nextParameters);
+    }
+
+    function _handleResetFilters() {
+        const nextParameters = new URLSearchParams(searchParams);
+        ["category", "rating", "min_wage", "max_wage", "sort"].forEach(
+            (name) => nextParameters.delete(name),
+        );
+        _resetPage(nextParameters);
+        setSearchParams(nextParameters);
+    }
+
+    function _handleResetAll() {
+        setSearchParams({});
+        setAreFiltersOpen(false);
+    }
+
+    function _handlePageChange(page) {
+        if (page &lt; 1 || page > pageCount || page === currentPage) {
+            return;
+        }
+
+        const nextParameters = new URLSearchParams(searchParams);
+        _setParameter("page", page === 1 ? "" : String(page), nextParameters);
+        setSearchParams(nextParameters);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    return (
+        &lt;section
+            className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8"
+            aria-labelledby="labor-list-title"
+        >
+            &lt;div className="border-b border-slate-200 pb-6">
+                &lt;p className="text-sm font-semibold uppercase tracking-wider text-brand-600">
+                    Labor marketplace
+                &lt;/p>
+                &lt;h1
+                    id="labor-list-title"
+                    className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+                >
+                    Find the right person for the job
+                &lt;/h1>
+                &lt;p className="mt-3 text-slate-600">
+                    Browse experienced workers available across Bangladesh.
+                &lt;/p>
+            &lt;/div>
+
+            &lt;div className="py-7">
+                &lt;div className="flex flex-col gap-3 lg:flex-row">
+                    &lt;div className="min-w-0 flex-1">
+                        &lt;SearchBar
+                            key={`search-${search}`}
+                            initialValue={search}
+                            onSearch={_handleSearch}
+                            onClear={_handleClearSearch}
+                        />
+                    &lt;/div>
+                    &lt;button
+                        type="button"
+                        onClick={() => setAreFiltersOpen((isOpen) => !isOpen)}
+                        aria-expanded={areFiltersOpen}
+                        aria-controls="labor-filter-panel"
+                        className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-4 text-sm font-bold text-slate-800 transition hover:border-brand-400 hover:bg-brand-50 hover:text-brand-700"
+                    >
+                        &lt;svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            className="size-5"
+                            aria-hidden="true"
+                        >
+                            &lt;path d="M4 5h16l-6 7v5l-4 2v-7L4 5Z" />
+                        &lt;/svg>
+                        Filters
+                        {hasAppliedFilters &amp;&amp; (
+                            &lt;span className="size-2 rounded-full bg-brand-600" />
+                        )}
+                    &lt;/button>
+                &lt;/div>
+
+                {areFiltersOpen &amp;&amp; (
+                    &lt;div id="labor-filter-panel" className="mt-5">
+                        &lt;LaborFilters
+                            key={`filters-${category}-${rating}-${minimumWage}-${maximumWage}-${sort}`}
+                            initialValues={laborParameters}
+                            onApply={_handleApplyFilters}
+                            onReset={_handleResetFilters}
+                        />
+                    &lt;/div>
+                )}
+            &lt;/div>
+
+            &lt;div className="border-t border-slate-200 pt-6">
+                {isLoading &amp;&amp; (
+                    &lt;LoadingSpinner label="Loading labor listings" />
+                )}
+
+                {!isLoading &amp;&amp; error &amp;&amp; (
+                    &lt;ErrorState message={error.message} onRetry={retry} />
+                )}
+
+                {!isLoading &amp;&amp; !error &amp;&amp; labors.length === 0 &amp;&amp; (
+                    &lt;EmptyState
+                        onReset={
+                            hasActiveSearchOrFilters
+                                ? _handleResetAll
+                                : undefined
+                        }
+                    />
+                )}
+
+                {!isLoading &amp;&amp; !error &amp;&amp; labors.length > 0 &amp;&amp; (
+                    &lt;>
+                        &lt;div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+                            &lt;p
+                                className="text-lg font-bold text-slate-900"
+                                aria-live="polite"
+                            >
+                                {totalCount} {totalCount === 1
+                                    ? "laborer"
+                                    : "laborers"} available
+                            &lt;/p>
+                            &lt;p className="text-sm text-slate-500">
+                                Page {currentPage} of {pageCount}
+                            &lt;/p>
+                        &lt;/div>
+
+                        &lt;ul className="space-y-4">
+                            {labors.map((labor) => (
+                                &lt;li key={labor.id}>
+                                    &lt;LaborCard labor={labor} />
+                                &lt;/li>
+                            ))}
+                        &lt;/ul>
+
+                        &lt;Pagination
+                            currentPage={currentPage}
+                            pageCount={pageCount}
+                            hasNextPage={hasNextPage}
+                            hasPreviousPage={hasPreviousPage}
+                            onPageChange={_handlePageChange}
+                        />
+                    &lt;/>
+                )}
+            &lt;/div>
+        &lt;/section>
+    );
+}
+
+
+export default LaborListPage;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ALLOWED_EXTENSIONS">ALLOWED_EXTENSIONS</a></li><li><a href="global.html#API_BASE">API_BASE</a></li><li><a href="global.html#API_BASE_URL">API_BASE_URL</a></li><li><a href="global.html#AVATAR_COLORS">AVATAR_COLORS</a></li><li><a href="global.html#AVATAR_OPTIONS">AVATAR_OPTIONS</a></li><li><a href="global.html#AdminUI">AdminUI</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppShell">AppShell</a></li><li><a href="global.html#Avatar">Avatar</a></li><li><a href="global.html#BookingConfirmation">BookingConfirmation</a></li><li><a href="global.html#BookingSuccessPage">BookingSuccessPage</a></li><li><a href="global.html#CATEGORIES">CATEGORIES</a></li><li><a href="global.html#CATEGORY_PRICING">CATEGORY_PRICING</a></li><li><a href="global.html#COMMON_QUESTIONS">COMMON_QUESTIONS</a></li><li><a href="global.html#EditSystemDatabase">EditSystemDatabase</a></li><li><a href="global.html#EmptyState">EmptyState</a></li><li><a href="global.html#ErrorState">ErrorState</a></li><li><a href="global.html#FavoriteButton">FavoriteButton</a></li><li><a href="global.html#FavoritesPage">FavoritesPage</a></li><li><a href="global.html#FormFieldError">FormFieldError</a></li><li><a href="global.html#HIRING_STEPS">HIRING_STEPS</a></li><li><a href="global.html#HireForm">HireForm</a></li><li><a href="global.html#HireHistoryPage">HireHistoryPage</a></li><li><a href="global.html#HireLaborPage">HireLaborPage</a></li><li><a href="global.html#HireLaborSummary">HireLaborSummary</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HowItWorksPage">HowItWorksPage</a></li><li><a href="global.html#JOB_CATEGORIES">JOB_CATEGORIES</a></li><li><a href="global.html#LaborCard">LaborCard</a></li><li><a href="global.html#LaborDetailsContent">LaborDetailsContent</a></li><li><a href="global.html#LaborDetailsPage">LaborDetailsPage</a></li><li><a href="global.html#LaborFilters">LaborFilters</a></li><li><a href="global.html#LaborListPage">LaborListPage</a></li><li><a href="global.html#LaborPhoto">LaborPhoto</a></li><li><a href="global.html#LoadingSpinner">LoadingSpinner</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#ManageLabourListings">ManageLabourListings</a></li><li><a href="global.html#ManageProfilePage">ManageProfilePage</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#PAYMENT_METHODS">PAYMENT_METHODS</a></li><li><a href="global.html#PLATFORM_STATS">PLATFORM_STATS</a></li><li><a href="global.html#PRICING_RULES">PRICING_RULES</a></li><li><a href="global.html#PagePlaceholder">PagePlaceholder</a></li><li><a href="global.html#Pagination">Pagination</a></li><li><a href="global.html#PaymentMethodForm">PaymentMethodForm</a></li><li><a href="global.html#PaymentPage">PaymentPage</a></li><li><a href="global.html#PaymentSuccess">PaymentSuccess</a></li><li><a href="global.html#PaymentSummary">PaymentSummary</a></li><li><a href="global.html#PricingPage">PricingPage</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#ProfileHeader">ProfileHeader</a></li><li><a href="global.html#ProfileStats">ProfileStats</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RatingDisplay">RatingDisplay</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#ReviewForm">ReviewForm</a></li><li><a href="global.html#ReviewList">ReviewList</a></li><li><a href="global.html#SearchBar">SearchBar</a></li><li><a href="global.html#_formatDate">_formatDate</a></li><li><a href="global.html#_formatTime">_formatTime</a></li><li><a href="global.html#_getInitials">_getInitials</a></li><li><a href="global.html#_getNavLinkClassName">_getNavLinkClassName</a></li><li><a href="global.html#_getProfile">_getProfile</a></li><li><a href="global.html#_getStatusBadge">_getStatusBadge</a></li><li><a href="global.html#_loginUser">_loginUser</a></li><li><a href="global.html#_registerUser">_registerUser</a></li><li><a href="global.html#_updateProfile">_updateProfile</a></li><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#deleteFavorite">deleteFavorite</a></li><li><a href="global.html#getBookingHistory">getBookingHistory</a></li><li><a href="global.html#getFavorites">getFavorites</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#saveToken">saveToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Aug 19 2026 20:49:55 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

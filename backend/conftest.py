@@ -10,5 +10,9 @@ def api_client():
     Returns:
         APIClient: DRF test client instance.
     """
+<<<<<<< HEAD
     return APIClient()
 
+=======
+    return APIClient()
+>>>>>>> build

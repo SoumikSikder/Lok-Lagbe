@@ -22,6 +22,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'apps.users',
+<<<<<<< HEAD
+=======
+    'apps.labor',
+    'apps.booking',
+    'admin.manage_labour_listing',
+    'admin.edit_system_database',
+>>>>>>> build
 ]
 
 MIDDLEWARE = [
@@ -70,6 +77,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
@@ -86,7 +94,9 @@ SIMPLE_JWT = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]
+CORS_ALLOW_CREDENTIALS = True
 
 LANGUAGE_CODE = 'en-us'
 
@@ -100,4 +110,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+<<<<<<< HEAD
 AUTH_USER_MODEL = 'users.User'
+=======
+AUTH_USER_MODEL = 'users.User'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+>>>>>>> build

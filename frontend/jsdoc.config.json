@@ -1,0 +1,13 @@
+{
+    "source": {
+        "include": ["src"],
+        "includePattern": ".+\\.jsx?$",
+        "excludePattern": "(node_modules|tests)"
+    },
+    "opts": {
+        "destination": "./docs",
+        "recurse": true
+    },
+    "plugins": ["plugins/markdown"],
+    "readme": "README.md"
+}

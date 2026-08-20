@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/HowItWorksPage.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/HowItWorksPage.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useNavigate } from "react-router-dom";
+
+/**
+ * Ordered list of steps explaining how the platform works.
+ * @constant {Array&lt;object>}
+ */
+const HIRING_STEPS = [
+    {
+        id: 1,
+        title: "Create an account",
+        description:
+            "Sign up with your name, email and password. Pick one of five profile avatars and add your phone number and address so laborers know where the job is.",
+    },
+    {
+        id: 2,
+        title: "Pick a job category",
+        description:
+            "Browse the homepage and choose what you need done. Electrician, plumber, painter, carpenter, AC technician or general labor for moving and lifting work.",
+    },
+    {
+        id: 3,
+        title: "Compare available laborers",
+        description:
+            "Every laborer listing shows their name, listed skills, fixed hiring price and average star rating from people who have actually hired them before.",
+    },
+    {
+        id: 4,
+        title: "Confirm the hire",
+        description:
+            "Review the laborer name, job type and total price on the confirmation screen. Nothing is charged until you confirm, and the price you see is the price you pay.",
+    },
+    {
+        id: 5,
+        title: "Pay securely",
+        description:
+            "Pay through the gateway using bKash, Nagad, Rocket or a debit or credit card. You can add an optional tip before confirming the payment.",
+    },
+    {
+        id: 6,
+        title: "Rate and review",
+        description:
+            "Once the job is paid for you can leave a star rating out of five and written feedback. Your review helps the next person hire with confidence.",
+    },
+];
+
+/**
+ * Short answers to common questions about the platform.
+ * @constant {Array&lt;object>}
+ */
+const COMMON_QUESTIONS = [
+    {
+        id: 1,
+        question: "Do I need an account to browse?",
+        answer:
+            "No. Anyone can view the homepage and job categories. You only need an account to confirm a hire, pay or leave a review.",
+    },
+    {
+        id: 2,
+        question: "Can I review a laborer I did not hire?",
+        answer:
+            "No. Reviews are tied to a completed and paid hiring transaction, so every rating on the platform comes from a real job.",
+    },
+    {
+        id: 3,
+        question: "Are the prices fixed or hourly?",
+        answer:
+            "Prices are fixed per job and shown upfront on the laborer listing. No hidden charges are added after you confirm.",
+    },
+    {
+        id: 4,
+        question: "How do I find a past hire again?",
+        answer:
+            "Your hiring history page lists every past transaction with the laborer name, job category, date, amount paid and the rating you left.",
+    },
+];
+
+/**
+ * How It Works page component that explains the hiring process
+ * end to end and answers common questions about the platform.
+ * @component
+ * @returns {JSX.Element} The how it works page layout.
+ */
+function HowItWorksPage() {
+
+    const navigate = useNavigate();
+
+    /**
+     * Navigates the user to the registration page.
+     * @returns {void}
+     */
+    const _handleGetStarted = () => {
+        navigate("/register");
+    };
+
+    /**
+     * Navigates the user back to the homepage.
+     * @returns {void}
+     */
+    const _handleGoHome = () => {
+        navigate("/");
+    };
+
+    return (
+        &lt;div className="min-h-screen bg-bg">
+
+            {/* Navbar */}
+            &lt;nav className="navbar">
+                &lt;div
+                    onClick={_handleGoHome}
+                    className="text-lg font-medium text-text-primary cursor-pointer"
+                >
+                    Lok &lt;span className="text-accent">Lagbe&lt;/span>
+                &lt;/div>
+                &lt;div className="flex items-center gap-4">
+                    &lt;a
+                        href="/pricing"
+                        className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+                    >
+                        Pricing
+                    &lt;/a>
+                    &lt;a
+                        href="/login"
+                        className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+                    >
+                        Log in
+                    &lt;/a>
+                    &lt;button
+                        onClick={_handleGetStarted}
+                        className="btn-primary"
+                    >
+                        Get started
+                    &lt;/button>
+                &lt;/div>
+            &lt;/nav>
+
+            {/* Page heading */}
+            &lt;div className="section pt-24">
+                &lt;p className="text-text-muted text-sm mb-1">
+                    How it works
+                &lt;/p>
+                &lt;h1 className="text-3xl font-medium text-text-primary mb-4">
+                    Hiring in six steps.
+                &lt;/h1>
+                &lt;p className="text-text-secondary text-base max-w-lg">
+                    Lok Lagbe connects households and businesses in Bangladesh
+                    with skilled and unskilled laborers. Here is exactly what
+                    happens from signing up to leaving a review.
+                &lt;/p>
+            &lt;/div>
+
+            {/* Steps */}
+            &lt;div className="section">
+                &lt;div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {HIRING_STEPS.map((step) => (
+                        &lt;div
+                            key={step.id}
+                            className="card border border-border"
+                        >
+                            &lt;div className="avatar mb-4">
+                                {step.id}
+                            &lt;/div>
+                            &lt;h2 className="text-text-primary font-medium text-base mb-2">
+                                {step.title}
+                            &lt;/h2>
+                            &lt;p className="text-text-secondary text-sm">
+                                {step.description}
+                            &lt;/p>
+                        &lt;/div>
+                    ))}
+                &lt;/div>
+            &lt;/div>
+
+            {/* Common questions */}
+            &lt;div className="section">
+                &lt;p className="text-text-muted text-sm mb-1">
+                    Before you start
+                &lt;/p>
+                &lt;h2 className="text-xl font-medium text-text-primary mb-6">
+                    Common questions
+                &lt;/h2>
+                &lt;div className="grid grid-cols-1 gap-3">
+                    {COMMON_QUESTIONS.map((item) => (
+                        &lt;div
+                            key={item.id}
+                            className="card-elevated border border-border"
+                        >
+                            &lt;h3 className="text-text-primary font-medium text-sm mb-2">
+                                {item.question}
+                            &lt;/h3>
+                            &lt;p className="text-text-secondary text-sm">
+                                {item.answer}
+                            &lt;/p>
+                        &lt;/div>
+                    ))}
+                &lt;/div>
+            &lt;/div>
+
+            {/* Call to action */}
+            &lt;div className="section text-center">
+                &lt;h2 className="text-xl font-medium text-text-primary mb-3">
+                    Ready to hire?
+                &lt;/h2>
+                &lt;p className="text-text-secondary text-sm mb-6">
+                    Create an account and find the right laborer in minutes.
+                &lt;/p>
+                &lt;button
+                    onClick={_handleGetStarted}
+                    className="btn-primary"
+                >
+                    Create an account
+                &lt;/button>
+            &lt;/div>
+
+            {/* Footer */}
+            &lt;div className="border-t border-border mt-10 px-8 py-5 flex justify-between items-center">
+                &lt;span className="text-text-muted text-sm">
+                    Lok Lagbe &amp;copy; 2026
+                &lt;/span>
+                &lt;span className="text-text-muted text-sm">
+                    Made in Bangladesh
+                &lt;/span>
+            &lt;/div>
+
+        &lt;/div>
+    );
+}
+
+export default HowItWorksPage;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ALLOWED_EXTENSIONS">ALLOWED_EXTENSIONS</a></li><li><a href="global.html#API_BASE">API_BASE</a></li><li><a href="global.html#API_BASE_URL">API_BASE_URL</a></li><li><a href="global.html#AVATAR_COLORS">AVATAR_COLORS</a></li><li><a href="global.html#AVATAR_OPTIONS">AVATAR_OPTIONS</a></li><li><a href="global.html#AdminUI">AdminUI</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppShell">AppShell</a></li><li><a href="global.html#Avatar">Avatar</a></li><li><a href="global.html#BookingConfirmation">BookingConfirmation</a></li><li><a href="global.html#BookingSuccessPage">BookingSuccessPage</a></li><li><a href="global.html#CATEGORIES">CATEGORIES</a></li><li><a href="global.html#CATEGORY_PRICING">CATEGORY_PRICING</a></li><li><a href="global.html#COMMON_QUESTIONS">COMMON_QUESTIONS</a></li><li><a href="global.html#EditSystemDatabase">EditSystemDatabase</a></li><li><a href="global.html#EmptyState">EmptyState</a></li><li><a href="global.html#ErrorState">ErrorState</a></li><li><a href="global.html#FavoriteButton">FavoriteButton</a></li><li><a href="global.html#FavoritesPage">FavoritesPage</a></li><li><a href="global.html#FormFieldError">FormFieldError</a></li><li><a href="global.html#HIRING_STEPS">HIRING_STEPS</a></li><li><a href="global.html#HireForm">HireForm</a></li><li><a href="global.html#HireHistoryPage">HireHistoryPage</a></li><li><a href="global.html#HireLaborPage">HireLaborPage</a></li><li><a href="global.html#HireLaborSummary">HireLaborSummary</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HowItWorksPage">HowItWorksPage</a></li><li><a href="global.html#JOB_CATEGORIES">JOB_CATEGORIES</a></li><li><a href="global.html#LaborCard">LaborCard</a></li><li><a href="global.html#LaborDetailsContent">LaborDetailsContent</a></li><li><a href="global.html#LaborDetailsPage">LaborDetailsPage</a></li><li><a href="global.html#LaborFilters">LaborFilters</a></li><li><a href="global.html#LaborListPage">LaborListPage</a></li><li><a href="global.html#LaborPhoto">LaborPhoto</a></li><li><a href="global.html#LoadingSpinner">LoadingSpinner</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#ManageLabourListings">ManageLabourListings</a></li><li><a href="global.html#ManageProfilePage">ManageProfilePage</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#PAYMENT_METHODS">PAYMENT_METHODS</a></li><li><a href="global.html#PLATFORM_STATS">PLATFORM_STATS</a></li><li><a href="global.html#PRICING_RULES">PRICING_RULES</a></li><li><a href="global.html#PagePlaceholder">PagePlaceholder</a></li><li><a href="global.html#Pagination">Pagination</a></li><li><a href="global.html#PaymentMethodForm">PaymentMethodForm</a></li><li><a href="global.html#PaymentPage">PaymentPage</a></li><li><a href="global.html#PaymentSuccess">PaymentSuccess</a></li><li><a href="global.html#PaymentSummary">PaymentSummary</a></li><li><a href="global.html#PricingPage">PricingPage</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#ProfileHeader">ProfileHeader</a></li><li><a href="global.html#ProfileStats">ProfileStats</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RatingDisplay">RatingDisplay</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#ReviewForm">ReviewForm</a></li><li><a href="global.html#ReviewList">ReviewList</a></li><li><a href="global.html#SearchBar">SearchBar</a></li><li><a href="global.html#_formatDate">_formatDate</a></li><li><a href="global.html#_formatTime">_formatTime</a></li><li><a href="global.html#_getInitials">_getInitials</a></li><li><a href="global.html#_getNavLinkClassName">_getNavLinkClassName</a></li><li><a href="global.html#_getProfile">_getProfile</a></li><li><a href="global.html#_getStatusBadge">_getStatusBadge</a></li><li><a href="global.html#_loginUser">_loginUser</a></li><li><a href="global.html#_registerUser">_registerUser</a></li><li><a href="global.html#_updateProfile">_updateProfile</a></li><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#deleteFavorite">deleteFavorite</a></li><li><a href="global.html#getBookingHistory">getBookingHistory</a></li><li><a href="global.html#getFavorites">getFavorites</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#saveToken">saveToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Aug 19 2026 20:49:55 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/PaymentMethodForm.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/PaymentMethodForm.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState } from "react";
+
+import { PAYMENT_METHODS } from "../services/paymentSimulation.js";
+
+
+/**
+ * Select and confirm one simulated payment method.
+ *
+ * @param {object} props Component properties.
+ * @param {Function} props.onConfirm Callback receiving the selected method.
+ * @returns {JSX.Element} Accessible payment-method selection form.
+ */
+function PaymentMethodForm({ onConfirm }) {
+    const [selectedMethod, setSelectedMethod] = useState("");
+    const [error, setError] = useState("");
+    const [isProcessing, setIsProcessing] = useState(false);
+
+    async function _handleSubmit(event) {
+        event.preventDefault();
+
+        if (!selectedMethod) {
+            setError("Select a payment method before continuing.");
+            return;
+        }
+
+        setError("");
+        setIsProcessing(true);
+
+        try {
+            const method = PAYMENT_METHODS.find(
+                (paymentMethod) => paymentMethod.id === selectedMethod,
+            );
+            await onConfirm(method);
+        } finally {
+            setIsProcessing(false);
+        }
+    }
+
+    function _handleChange(event) {
+        setSelectedMethod(event.target.value);
+        setError("");
+    }
+
+    return (
+        &lt;form
+            className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8"
+            onSubmit={_handleSubmit}
+            noValidate
+        >
+            &lt;fieldset>
+                &lt;legend className="text-3xl font-bold tracking-tight text-slate-900">
+                    Choose a payment method
+                &lt;/legend>
+                &lt;p className="mt-3 leading-7 text-slate-600">
+                    Select one option to simulate payment confirmation.
+                &lt;/p>
+
+                &lt;div className="mt-8 grid gap-4 sm:grid-cols-2">
+                    {PAYMENT_METHODS.map((method) => (
+                        &lt;label
+                            key={method.id}
+                            className={`flex cursor-pointer items-start gap-4 rounded-2xl border p-4 transition hover:-translate-y-0.5 hover:shadow-md ${
+                                selectedMethod === method.id
+                                    ? "border-brand-500 bg-brand-50 ring-2 ring-brand-100"
+                                    : "border-slate-200 bg-white"
+                            }`}
+                        >
+                            &lt;input
+                                type="radio"
+                                name="payment_method"
+                                value={method.id}
+                                checked={selectedMethod === method.id}
+                                onChange={_handleChange}
+                                required
+                                aria-invalid={Boolean(error)}
+                                aria-describedby={
+                                    error ? "payment-method-error" : undefined
+                                }
+                                className="mt-1 size-4 accent-brand-600"
+                            />
+                            &lt;span
+                                className={`flex size-11 shrink-0 items-center justify-center rounded-xl text-sm font-bold ${method.color}`}
+                                aria-hidden="true"
+                            >
+                                {method.symbol}
+                            &lt;/span>
+                            &lt;span>
+                                &lt;span className="block font-bold text-slate-900">
+                                    {method.name}
+                                &lt;/span>
+                                &lt;span className="mt-1 block text-sm leading-5 text-slate-500">
+                                    {method.description}
+                                &lt;/span>
+                            &lt;/span>
+                        &lt;/label>
+                    ))}
+                &lt;/div>
+            &lt;/fieldset>
+
+            {error &amp;&amp; (
+                &lt;p
+                    id="payment-method-error"
+                    className="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700"
+                    role="alert"
+                >
+                    {error}
+                &lt;/p>
+            )}
+
+            &lt;button
+                type="submit"
+                disabled={isProcessing}
+                className="mt-8 w-full rounded-xl bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 disabled:cursor-not-allowed disabled:bg-brand-300"
+            >
+                {isProcessing ? "Confirming payment..." : "Confirm payment"}
+            &lt;/button>
+        &lt;/form>
+    );
+}
+
+
+export default PaymentMethodForm;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ALLOWED_EXTENSIONS">ALLOWED_EXTENSIONS</a></li><li><a href="global.html#API_BASE">API_BASE</a></li><li><a href="global.html#API_BASE_URL">API_BASE_URL</a></li><li><a href="global.html#AVATAR_COLORS">AVATAR_COLORS</a></li><li><a href="global.html#AVATAR_OPTIONS">AVATAR_OPTIONS</a></li><li><a href="global.html#AdminUI">AdminUI</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppShell">AppShell</a></li><li><a href="global.html#Avatar">Avatar</a></li><li><a href="global.html#BookingConfirmation">BookingConfirmation</a></li><li><a href="global.html#BookingSuccessPage">BookingSuccessPage</a></li><li><a href="global.html#CATEGORIES">CATEGORIES</a></li><li><a href="global.html#CATEGORY_PRICING">CATEGORY_PRICING</a></li><li><a href="global.html#COMMON_QUESTIONS">COMMON_QUESTIONS</a></li><li><a href="global.html#EditSystemDatabase">EditSystemDatabase</a></li><li><a href="global.html#EmptyState">EmptyState</a></li><li><a href="global.html#ErrorState">ErrorState</a></li><li><a href="global.html#FavoriteButton">FavoriteButton</a></li><li><a href="global.html#FavoritesPage">FavoritesPage</a></li><li><a href="global.html#FormFieldError">FormFieldError</a></li><li><a href="global.html#HIRING_STEPS">HIRING_STEPS</a></li><li><a href="global.html#HireForm">HireForm</a></li><li><a href="global.html#HireHistoryPage">HireHistoryPage</a></li><li><a href="global.html#HireLaborPage">HireLaborPage</a></li><li><a href="global.html#HireLaborSummary">HireLaborSummary</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HowItWorksPage">HowItWorksPage</a></li><li><a href="global.html#JOB_CATEGORIES">JOB_CATEGORIES</a></li><li><a href="global.html#LaborCard">LaborCard</a></li><li><a href="global.html#LaborDetailsContent">LaborDetailsContent</a></li><li><a href="global.html#LaborDetailsPage">LaborDetailsPage</a></li><li><a href="global.html#LaborFilters">LaborFilters</a></li><li><a href="global.html#LaborListPage">LaborListPage</a></li><li><a href="global.html#LaborPhoto">LaborPhoto</a></li><li><a href="global.html#LoadingSpinner">LoadingSpinner</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#ManageLabourListings">ManageLabourListings</a></li><li><a href="global.html#ManageProfilePage">ManageProfilePage</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#PAYMENT_METHODS">PAYMENT_METHODS</a></li><li><a href="global.html#PLATFORM_STATS">PLATFORM_STATS</a></li><li><a href="global.html#PRICING_RULES">PRICING_RULES</a></li><li><a href="global.html#PagePlaceholder">PagePlaceholder</a></li><li><a href="global.html#Pagination">Pagination</a></li><li><a href="global.html#PaymentMethodForm">PaymentMethodForm</a></li><li><a href="global.html#PaymentPage">PaymentPage</a></li><li><a href="global.html#PaymentSuccess">PaymentSuccess</a></li><li><a href="global.html#PaymentSummary">PaymentSummary</a></li><li><a href="global.html#PricingPage">PricingPage</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#ProfileHeader">ProfileHeader</a></li><li><a href="global.html#ProfileStats">ProfileStats</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RatingDisplay">RatingDisplay</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#ReviewForm">ReviewForm</a></li><li><a href="global.html#ReviewList">ReviewList</a></li><li><a href="global.html#SearchBar">SearchBar</a></li><li><a href="global.html#_formatDate">_formatDate</a></li><li><a href="global.html#_formatTime">_formatTime</a></li><li><a href="global.html#_getInitials">_getInitials</a></li><li><a href="global.html#_getNavLinkClassName">_getNavLinkClassName</a></li><li><a href="global.html#_getProfile">_getProfile</a></li><li><a href="global.html#_getStatusBadge">_getStatusBadge</a></li><li><a href="global.html#_loginUser">_loginUser</a></li><li><a href="global.html#_registerUser">_registerUser</a></li><li><a href="global.html#_updateProfile">_updateProfile</a></li><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#deleteFavorite">deleteFavorite</a></li><li><a href="global.html#getBookingHistory">getBookingHistory</a></li><li><a href="global.html#getFavorites">getFavorites</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#saveToken">saveToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Aug 19 2026 20:49:55 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

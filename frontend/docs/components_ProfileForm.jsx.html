@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/ProfileForm.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/ProfileForm.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState } from "react";
+
+import { _updateProfile } from "../services/authService.js";
+import Avatar from "./Avatar.jsx";
+
+const AVATAR_OPTIONS = [1, 2, 3, 4, 5];
+
+/**
+ * Display and update the signed-in user's editable profile fields.
+ *
+ * @param {object} props Component properties.
+ * @param {object} props.profile The user's current profile fields.
+ * @param {Function} props.onUpdate Called with the updated profile on success.
+ * @returns {JSX.Element} The profile form card.
+ */
+function ProfileForm({ profile, onUpdate }) {
+    const [phoneNumber, setPhoneNumber] = useState(profile.phone_number || "");
+    const [address, setAddress] = useState(profile.address || "");
+    const [avatar, setAvatar] = useState(profile.avatar || 1);
+
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    /**
+     * Submit the edited fields to the profile endpoint.
+     *
+     * @param {Event} event Form submit event.
+     * @returns {Promise&lt;void>}
+     */
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        setLoading(true);
+        setMessage("");
+        setError("");
+
+        try {
+            const response = await _updateProfile({
+                phone_number: phoneNumber,
+                address: address,
+                avatar: avatar,
+            });
+
+            if (response.message) {
+                setMessage("Profile updated successfully");
+                onUpdate(response.data);
+            } else {
+                setError("Profile update failed");
+            }
+        } catch (submitError) {
+            setError(submitError.message || "Something went wrong");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        &lt;div className="card p-8 w-full border border-border">
+            &lt;h2 className="text-2xl font-bold text-center mb-6 text-text-primary">
+                Manage Profile
+            &lt;/h2>
+
+            &lt;div className="flex justify-center mb-6">
+                &lt;Avatar avatar={avatar} />
+            &lt;/div>
+
+            &lt;div className="mb-6 space-y-3">
+                &lt;div>
+                    &lt;span className="font-semibold text-text-secondary">
+                        Username:
+                    &lt;/span>
+                    &lt;span className="ml-2 text-text-primary">
+                        {profile.username}
+                    &lt;/span>
+                &lt;/div>
+
+                &lt;div>
+                    &lt;span className="font-semibold text-text-secondary">
+                        Email:
+                    &lt;/span>
+                    &lt;span className="ml-2 text-text-primary">
+                        {profile.email}
+                    &lt;/span>
+                &lt;/div>
+            &lt;/div>
+
+            &lt;form onSubmit={handleSubmit}>
+                &lt;label className="field-label" htmlFor="profile-avatar">
+                    Select Avatar
+                &lt;/label>
+                &lt;select
+                    id="profile-avatar"
+                    value={avatar}
+                    onChange={(event) => setAvatar(Number(event.target.value))}
+                    className="field-input mb-5"
+                >
+                    {AVATAR_OPTIONS.map((option) => (
+                        &lt;option key={option} value={option}>
+                            Avatar {option}
+                        &lt;/option>
+                    ))}
+                &lt;/select>
+
+                &lt;label className="field-label" htmlFor="profile-phone">
+                    Phone Number
+                &lt;/label>
+                &lt;input
+                    id="profile-phone"
+                    type="text"
+                    value={phoneNumber}
+                    onChange={(event) => setPhoneNumber(event.target.value)}
+                    placeholder="Enter phone number"
+                    className="field-input mb-5"
+                />
+
+                &lt;label className="field-label" htmlFor="profile-address">
+                    Address
+                &lt;/label>
+                &lt;textarea
+                    id="profile-address"
+                    value={address}
+                    onChange={(event) => setAddress(event.target.value)}
+                    placeholder="Enter address"
+                    rows="3"
+                    className="field-input mb-5"
+                />
+
+                &lt;button
+                    type="submit"
+                    disabled={loading}
+                    className="btn-primary w-full disabled:opacity-50"
+                >
+                    {loading ? "Updating..." : "Update Profile"}
+                &lt;/button>
+            &lt;/form>
+
+            {message &amp;&amp; (
+                &lt;p className="text-accent text-center mt-4">{message}&lt;/p>
+            )}
+
+            {error &amp;&amp; &lt;p className="text-danger text-center mt-4">{error}&lt;/p>}
+        &lt;/div>
+    );
+}
+
+export default ProfileForm;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ALLOWED_EXTENSIONS">ALLOWED_EXTENSIONS</a></li><li><a href="global.html#API_BASE">API_BASE</a></li><li><a href="global.html#API_BASE_URL">API_BASE_URL</a></li><li><a href="global.html#AVATAR_COLORS">AVATAR_COLORS</a></li><li><a href="global.html#AVATAR_OPTIONS">AVATAR_OPTIONS</a></li><li><a href="global.html#AdminUI">AdminUI</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppShell">AppShell</a></li><li><a href="global.html#Avatar">Avatar</a></li><li><a href="global.html#BookingConfirmation">BookingConfirmation</a></li><li><a href="global.html#BookingSuccessPage">BookingSuccessPage</a></li><li><a href="global.html#CATEGORIES">CATEGORIES</a></li><li><a href="global.html#CATEGORY_PRICING">CATEGORY_PRICING</a></li><li><a href="global.html#COMMON_QUESTIONS">COMMON_QUESTIONS</a></li><li><a href="global.html#EditSystemDatabase">EditSystemDatabase</a></li><li><a href="global.html#EmptyState">EmptyState</a></li><li><a href="global.html#ErrorState">ErrorState</a></li><li><a href="global.html#FavoriteButton">FavoriteButton</a></li><li><a href="global.html#FavoritesPage">FavoritesPage</a></li><li><a href="global.html#FormFieldError">FormFieldError</a></li><li><a href="global.html#HIRING_STEPS">HIRING_STEPS</a></li><li><a href="global.html#HireForm">HireForm</a></li><li><a href="global.html#HireHistoryPage">HireHistoryPage</a></li><li><a href="global.html#HireLaborPage">HireLaborPage</a></li><li><a href="global.html#HireLaborSummary">HireLaborSummary</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HowItWorksPage">HowItWorksPage</a></li><li><a href="global.html#JOB_CATEGORIES">JOB_CATEGORIES</a></li><li><a href="global.html#LaborCard">LaborCard</a></li><li><a href="global.html#LaborDetailsContent">LaborDetailsContent</a></li><li><a href="global.html#LaborDetailsPage">LaborDetailsPage</a></li><li><a href="global.html#LaborFilters">LaborFilters</a></li><li><a href="global.html#LaborListPage">LaborListPage</a></li><li><a href="global.html#LaborPhoto">LaborPhoto</a></li><li><a href="global.html#LoadingSpinner">LoadingSpinner</a></li><li><a href="global.html#LoginForm">LoginForm</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#ManageLabourListings">ManageLabourListings</a></li><li><a href="global.html#ManageProfilePage">ManageProfilePage</a></li><li><a href="global.html#NotFoundPage">NotFoundPage</a></li><li><a href="global.html#PAYMENT_METHODS">PAYMENT_METHODS</a></li><li><a href="global.html#PLATFORM_STATS">PLATFORM_STATS</a></li><li><a href="global.html#PRICING_RULES">PRICING_RULES</a></li><li><a href="global.html#PagePlaceholder">PagePlaceholder</a></li><li><a href="global.html#Pagination">Pagination</a></li><li><a href="global.html#PaymentMethodForm">PaymentMethodForm</a></li><li><a href="global.html#PaymentPage">PaymentPage</a></li><li><a href="global.html#PaymentSuccess">PaymentSuccess</a></li><li><a href="global.html#PaymentSummary">PaymentSummary</a></li><li><a href="global.html#PricingPage">PricingPage</a></li><li><a href="global.html#ProfileForm">ProfileForm</a></li><li><a href="global.html#ProfileHeader">ProfileHeader</a></li><li><a href="global.html#ProfileStats">ProfileStats</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RatingDisplay">RatingDisplay</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#ReviewForm">ReviewForm</a></li><li><a href="global.html#ReviewList">ReviewList</a></li><li><a href="global.html#SearchBar">SearchBar</a></li><li><a href="global.html#_formatDate">_formatDate</a></li><li><a href="global.html#_formatTime">_formatTime</a></li><li><a href="global.html#_getInitials">_getInitials</a></li><li><a href="global.html#_getNavLinkClassName">_getNavLinkClassName</a></li><li><a href="global.html#_getProfile">_getProfile</a></li><li><a href="global.html#_getStatusBadge">_getStatusBadge</a></li><li><a href="global.html#_loginUser">_loginUser</a></li><li><a href="global.html#_registerUser">_registerUser</a></li><li><a href="global.html#_updateProfile">_updateProfile</a></li><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#deleteFavorite">deleteFavorite</a></li><li><a href="global.html#getBookingHistory">getBookingHistory</a></li><li><a href="global.html#getFavorites">getFavorites</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#removeToken">removeToken</a></li><li><a href="global.html#saveToken">saveToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Wed Aug 19 2026 20:49:55 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
